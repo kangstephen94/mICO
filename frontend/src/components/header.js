@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 
 export const Header = () => {
     const { textStyle } = styles;
-    return <Text style={textStyle}>Upcoming ICOs</Text>;
+    return <Text style={textStyle}>Upcoming ICOS</Text>;
 };
 
 const styles = {

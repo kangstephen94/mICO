@@ -1,9 +1,13 @@
 import React from 'react';
-import { Text, AppRegistry } from 'react-native';
+import { AppRegistry, View } from 'react-native';
 import { Header } from './src/components/header';
+import Ico from './src/components/ico';
 
 const App = () => (
-        <Header />
+        <View>
+            <Header />
+            <Ico />
+        </View>
     );
 
 AppRegistry.registerComponent('mICO', () => App);
