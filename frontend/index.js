@@ -1,12 +1,12 @@
 import React from 'react';
 import { AppRegistry, View } from 'react-native';
 import { Header } from './src/components/header';
-import Ico from './src/components/ico';
+import IcoList from './src/components/IndexPage/IcoList';
 
 const App = () => (
         <View>
             <Header />
-            <Ico />
+            <IcoList />
         </View>
     );
 

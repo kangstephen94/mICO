@@ -12,11 +12,12 @@ export const Header = () => {
 
 const styles = {
     headerStyle: {
-      backgroundColor: '#ccc',
+      backgroundColor: '#26283f',
       justifyContent: 'center',
       alignItems: 'center',
-      height: 60,
-      paddingTop: 15,
+      height: 80,
+      paddingTop: 35,
+
       shadowColor: 'black',
       shadowOffset: {
         width: 0,
@@ -27,6 +28,7 @@ const styles = {
       position: 'relative'
     },
     textStyle: {
-        fontSize: 20
+        fontSize: 20,
+        color: 'white'
     }
 };
