@@ -17,7 +17,6 @@ const IcoListItem = (props) => {
           
         </View>
       </SubSection>
-
     </Section>
   );
 };

@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import { View, Text, ListView } from 'react-native';
+import { View, Text, ListView, ScrollView } from 'react-native';
 import IcoListItem from './IcoListItem';
 import Spinner from '../common/Spinner';
+import Footer from '../Footer';
 
 class IcoList extends React.Component {
 
@@ -32,10 +33,17 @@ class IcoList extends React.Component {
       return <Spinner size="small" />;
     }
     return (
+      <View style={{flex: 1}}>
+      <ScrollView>
       <ListView 
         dataSource={this.state.dataSource}
         renderRow={this.renderRow}
       />
+      </ScrollView>
+        <View >
+          <Footer />
+        </View>
+      </View>
     );
   }
 }
