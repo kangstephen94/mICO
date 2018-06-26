@@ -12,8 +12,7 @@ const RouterComponent = () => {
       <Scene key="root">
         <Scene key="login" component={LoginForm} title="Login" />
         <Scene key="icoList" component={IcoList} title="Upcoming ICOs" initial={true}/>
-      </Scene>
-      
+      </Scene> 
     </Router>
   );
 };

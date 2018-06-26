@@ -34,13 +34,13 @@ class IcoList extends React.Component {
     }
     return (
       <View style={{flex: 1}}>
-      <ScrollView>
-      <ListView 
-        dataSource={this.state.dataSource}
-        renderRow={this.renderRow}
-      />
-      </ScrollView>
-        <View >
+        <ScrollView>
+          <ListView 
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRow}
+          />
+        </ScrollView> */}
+        <View> 
           <Footer />
         </View>
       </View>

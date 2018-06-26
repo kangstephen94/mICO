@@ -13,9 +13,6 @@ const IcoListItem = (props) => {
           <Text>{item.name}</Text>
           <Image style={imageStyle} source={{ uri: item.image }} />
         </View>
-        <View>
-          
-        </View>
       </SubSection>
     </Section>
   );

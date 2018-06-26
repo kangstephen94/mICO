@@ -25,7 +25,7 @@ class LoginForm extends Component {
 const styles = {
   containerStyle: {
     alignItems: 'center',
-    justifyContenr: 'center',
+    justifyContent: 'center',
     height: 40,
     marginTop: 50
   }
