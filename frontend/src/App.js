@@ -5,6 +5,7 @@ import Router from './Router';
 import Header from './components/header';
 
 const App = () => {
+  // const store = createStore()
   return (
     <Provider>
       <Router />
