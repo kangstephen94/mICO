@@ -5,10 +5,12 @@ import {
   StyleSheet,
   Platform,
   Text,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SafariView from 'react-native-safari-view';
+import Footer from '../Footer';
 
 export default class App extends Component {
 
@@ -69,6 +71,7 @@ export default class App extends Component {
     const { user } = this.state;
     return (
       <View style={styles.container}>
+        <ScrollView>
         {user
           ? // Show user info if already logged in
           <View style={styles.content}>
@@ -121,6 +124,10 @@ export default class App extends Component {
           </View>
         }
         {/* Login buttons */}
+        </ScrollView>
+        <View>
+          <Footer />
+        </View>
       </View>
     );
   }
