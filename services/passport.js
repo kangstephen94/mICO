@@ -65,7 +65,7 @@ passport.use(new LinkedInStrategy({
     callbackURL: '/auth/linkedin/callback',
     proxy: true
 },
-    (accessToken, refreshToken, profile, done) {
+    (accessToken, refreshToken, profile, done) => {
         User.findOne({ linkedinID: profile.id })
             .then((existingUser) => {
                 if (existingUser) {
