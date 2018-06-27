@@ -8,7 +8,13 @@ module.exports = (app) => {
     );
 
     app.get('/auth/google/callback',
-        passport.authenticate('google', {failureRedirect: '/auth/google'}),
+        passport.authenticate('google', {failureRedirect: '/auth/facebook'}),
+        (req, res) => res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user)));
+
+    app.get('/auth/facebook', passport.authenticate('facebook'));
+
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {failureRedirect: '/auth/facebook'}),
         (req, res) => res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user)));
 
     app.get('/api/logout', (req, res) => {
