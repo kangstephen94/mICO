@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { View, Text, ListView, ScrollView } from 'react-native';
+import { View, Text, FlatList, ScrollView } from 'react-native';
 import IcoListItem from './IcoListItem';
 import Spinner from '../common/Spinner';
 import Footer from '../Footer';
@@ -13,18 +13,15 @@ class IcoList extends React.Component {
   componentDidMount() {
     axios.get('https://api.icowatchlist.com/public/v1/live')
       .then(response => {
-        const ds = new ListView.DataSource({
-          rowHasChanged: (r1, r2) => r1 !== r2
-        });
         this.setState({
-          dataSource: ds.cloneWithRows(response.data.ico.live),
+          dataSource: response.data.ico.live,
           isLoading: false
         });
         console.log(this.state.dataSource);
       });
   }
 
-  renderRow(item) {
+  renderItem({item}) {
     return <IcoListItem item={item} />;
   }
 
@@ -35,9 +32,9 @@ class IcoList extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView>
-          <ListView 
-            dataSource={this.state.dataSource}
-            renderRow={this.renderRow}
+          <FlatList 
+            data={this.state.dataSource}
+            renderItem={this.renderItem}
           />
         </ScrollView> */}
         <View> 

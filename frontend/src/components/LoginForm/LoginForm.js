@@ -84,33 +84,39 @@ export default class App extends Component {
               to see your favorite ICOs
               </Text>
             <View style={styles.buttons}>
-              <Icon.Button
-                style={styles.button}
-                name="facebook"
-                backgroundColor="#3b5998"
-                onPress={this.loginWithFacebook}
-                {...iconStyles}
-              >
-                Login with Facebook
-          </Icon.Button>
-              <Icon.Button
-                style={styles.button}
-                name="google"
-                backgroundColor="#DD4B39"
-                onPress={this.loginWithGoogle}
-                {...iconStyles}
-              >
-                Login with Google
-          </Icon.Button>
-              <Icon.Button
-                style={styles.button}
-                name="linkedin"
-                backgroundColor="#0077B5"
-                onPress={this.loginWithLinkedIn}
-                {...iconStyles}
-              >
-                Login with LinkedIn
-          </Icon.Button>
+              <View style={styles.buttonWrapper}>
+                <Icon.Button
+                  style={styles.button}
+                  name="facebook"
+                  backgroundColor="#3b5998"
+                  onPress={this.loginWithFacebook}
+                  {...iconStyles}
+                >
+                  Login with Facebook
+                </Icon.Button>
+              </View>
+              <View style={styles.buttonWrapper}>
+                <Icon.Button
+                  style={styles.button}
+                  name="google"
+                  backgroundColor="#DD4B39"
+                  onPress={this.loginWithGoogle}
+                  {...iconStyles}
+                >
+                  Login with Google
+              </Icon.Button>
+              </View>
+              <View style={styles.buttonWrapper}>
+                <Icon.Button
+                  style={styles.button}
+                  name="linkedin"
+                  backgroundColor="#0077B5"
+                  onPress={this.loginWithLinkedIn}
+                  {...iconStyles}
+                >
+                  Login with LinkedIn
+                </Icon.Button>
+              </View>
             </View>
           </View>
         }
@@ -136,6 +142,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 30
   },
   avatar: {
     margin: 20,
@@ -158,9 +165,11 @@ const styles = StyleSheet.create({
   buttons: {
     flex: 1,
     flexDirection: 'column',
-    marginBottom: 10
+    marginTop: 30,
+    // justifyContent: 'space-around'
   },
-  button: {
+  buttonWrapper: {
+    marginBottom: 15
   }
 });
 
