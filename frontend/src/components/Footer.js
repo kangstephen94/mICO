@@ -28,11 +28,11 @@ class Footer extends Component {
       highlightedIcon, 
       nonHighlightedIcon } = styles;
     
-    const upIconClass = Actions.currentScene === "icoList" ? highlightedIcon : nonHighlightedIcon;
-    const upTextClass = Actions.currentScene === "icoList" ? highlightedText : nonHighlightedText;
+    const upIconClass = Actions.currentScene === 'icoList' ? highlightedIcon : nonHighlightedIcon;
+    const upTextClass = Actions.currentScene === 'icoList' ? highlightedText : nonHighlightedText;
     
-    const favIconClass = Actions.currentScene === "login" ? highlightedIcon : nonHighlightedIcon;
-    const favTextClass = Actions.currentScene === "login" ? highlightedText : nonHighlightedText;
+    const favIconClass = Actions.currentScene === 'login' ? highlightedIcon : nonHighlightedIcon;
+    const favTextClass = Actions.currentScene === 'login' ? highlightedText : nonHighlightedText;
 
     return (
       <View style={footerStyle}>
