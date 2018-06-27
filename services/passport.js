@@ -1,6 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
+const LinkedInStrategy = require('passport-linkedin').Strategy;
 const mongoose = require('mongoose');
 
 const keys = require('../config/keys');
@@ -53,6 +54,25 @@ passport.use(new FacebookStrategy(
                 } else {
                     new User({ facebookID: profile.id }).save()
                     .then(user => done(null, user));
+                }
+            });
+    }
+));
+
+passport.use(new LinkedInStrategy({
+    clientID: keys.linkedinClientID,
+    clientSecret: keys.linkedinClientSecret,
+    callbackURL: '/auth/linkedin/callback',
+    proxy: true
+},
+    (accessToken, refreshToken, profile, done) {
+        User.findOne({ linkedinID: profile.id })
+            .then((existingUser) => {
+                if (existingUser) {
+                    done(null, existingUser);
+                } else {
+                    new User({ linkedinID: profile.id }).save()
+                        .then(user => done(null, user));
                 }
             });
     }
