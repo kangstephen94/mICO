@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-export const Header = () => {
+const Header = (props) => {
     const { textStyle, headerStyle } = styles;
     return (
       <View style={headerStyle}>
-        <Text style={textStyle}>Upcoming ICOs</Text>;
+        <Text style={textStyle}>{props.title}</Text>;
       </View>
     );
 };
@@ -15,7 +15,7 @@ const styles = {
       backgroundColor: '#26283f',
       justifyContent: 'center',
       alignItems: 'center',
-      height: 80,
+      height: 87,
       paddingTop: 35,
 
       shadowColor: 'black',
@@ -32,3 +32,5 @@ const styles = {
         color: 'white'
     }
 };
+
+export default Header;

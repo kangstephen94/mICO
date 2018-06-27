@@ -10,16 +10,37 @@ class Footer extends Component {
     Actions.login();
   }
 
+  handleUpcoming() {
+    console.log(Actions.state.routes);
+    const length = Actions.state.routes.length;
+    if (Actions.state.routes[length - 2].routeName === 'icoList') {
+      Actions.pop();
+    } else {
+      Actions.icoList();
+    }
+  }
+
   render() {
-    const { textStyle, footerStyle, highlightedIcon, nonHighlightedIcon } = styles;
+    const { textStyle, 
+      footerStyle, 
+      highlightedText, 
+      nonHighlightedText,
+      highlightedIcon, 
+      nonHighlightedIcon } = styles;
+    
     const upIconClass = Actions.currentScene === "icoList" ? highlightedIcon : nonHighlightedIcon;
+    const upTextClass = Actions.currentScene === "icoList" ? highlightedText : nonHighlightedText;
+    
+    const favIconClass = Actions.currentScene === "login" ? highlightedIcon : nonHighlightedIcon;
+    const favTextClass = Actions.currentScene === "login" ? highlightedText : nonHighlightedText;
+
     return (
       <View style={footerStyle}>
-        <TouchableOpacity style={{flexDirection: 'column', alignItems: 'center'}}>
+        <TouchableOpacity onPress={this.handleUpcoming.bind(this)}  style={{flexDirection: 'column', alignItems: 'center'}}>
           <Text style={upIconClass}>
             <FontAwesome>{Icons.calendarO}</FontAwesome>
           </Text>
-          <Text style={{marginTop: -5, fontSize: 10, color: '#007aff'}}>Upcoming</Text>
+          <Text style={upTextClass}>Upcoming</Text>
         </TouchableOpacity>
       
         <TouchableOpacity style={{flexDirection: 'column', alignItems: 'center'}}>
@@ -37,10 +58,10 @@ class Footer extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this.handleFavorites.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>
-          <Text style={{margin: 10, fontSize: 25}}>
+          <Text style={favIconClass}>
             <FontAwesome>{Icons.star}</FontAwesome>
           </Text>
-          <Text style={{marginTop: -5, fontSize: 10}}>Favorite</Text>
+          <Text style={favTextClass}>Favorite</Text>
         </TouchableOpacity>
       </View>
     );
@@ -70,6 +91,16 @@ const styles = {
     margin: 10,
     fontSize: 25,
     color: '#007aff'
+  },
+  nonHighlightedText: {
+    marginTop: -5,
+    fontSize: 10,
+    color: 'black'
+  },
+  highlightedText: {
+    color: '#007aff',
+    marginTop: -5,
+    fontSize: 10,
   }
 
 };
