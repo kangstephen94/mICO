@@ -60,12 +60,12 @@ passport.use(new FacebookStrategy(
 ));
 
 passport.use(new LinkedInStrategy({
-    clientID: keys.linkedinClientID,
-    clientSecret: keys.linkedinClientSecret,
+    consumerKey: keys.linkedinClientID,
+    consumerSecret: keys.linkedinClientSecret,
     callbackURL: '/auth/linkedin/callback',
     proxy: true
 },
-    (accessToken, refreshToken, profile, done) => {
+    (token, tokenSecret, profile, done) => {
         User.findOne({ linkedinID: profile.id })
             .then((existingUser) => {
                 if (existingUser) {
