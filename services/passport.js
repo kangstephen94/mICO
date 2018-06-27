@@ -27,12 +27,12 @@ passport.use(new GoogleStrategy(
         proxy: true
     },
     (accessToken, refreshToken, profile, done) => {
-        User.findOne({ googleID: profile.id })
+        User.findOne({ profileID: profile.id })
             .then((existingUser) => {
                 if (existingUser) {
                     done(null, existingUser);
                 } else {
-                    new User({ googleID: profile.id }).save()
+                    new User({ profileID: profile.id }).save()
                     .then(user => done(null, user));
                 }
             });
@@ -47,12 +47,12 @@ passport.use(new FacebookStrategy(
         proxy: true
     },
     (accessToken, refreshToken, profile, done) => {
-        User.findOne({ facebookID: profile.id })
+        User.findOne({ profileID: profile.id })
             .then((existingUser) => {
                 if (existingUser) {
                     done(null, existingUser);
                 } else {
-                    new User({ facebookID: profile.id }).save()
+                    new User({ profileID: profile.id }).save()
                     .then(user => done(null, user));
                 }
             });
@@ -66,12 +66,12 @@ passport.use(new LinkedInStrategy({
     proxy: true
 },
     (token, tokenSecret, profile, done) => {
-        User.findOne({ linkedinID: profile.id })
+        User.findOne({ profileID: profile.id })
             .then((existingUser) => {
                 if (existingUser) {
                     done(null, existingUser);
                 } else {
-                    new User({ linkedinID: profile.id }).save()
+                    new User({ profileID: profile.id, favorites: [] }).save()
                         .then(user => done(null, user));
                 }
             });
