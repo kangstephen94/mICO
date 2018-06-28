@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, ScrollView } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Footer from '../Footer';
+import EventsIndex from '../EventsPage/EventsIndex';
 
 export default class MyMap extends React.Component {
     state = {
@@ -213,9 +214,7 @@ export default class MyMap extends React.Component {
 
     render() {
         return (
-          <View style={styles.container}>
-              {/* <Image source={require('./map-marker.png')} /> */}
-              
+
                 <MapView 
                   provider={PROVIDER_GOOGLE}
                   style={styles.map} 
@@ -230,11 +229,6 @@ export default class MyMap extends React.Component {
                       title="App Academy" coordinate={this.state} />
                     <Callout />
                 </MapView>
-              
-              <View style={{width: '100%'}}>
-                <Footer />
-              </View>
-          </View>
         );
     }
 }
@@ -255,6 +249,31 @@ const styles = {
     map: {
         width: '100%',
         height: 300,
-        flex: 1
+        flex: 3
     }
 };
+
+
+// <View style={styles.container}>
+// {/* <Image source={require('./map-marker.png')} /> */}
+
+//   <MapView 
+//     provider={PROVIDER_GOOGLE}
+//     style={styles.map} 
+//     initialRegion={this.state}
+//     customMapStyle={this.mapStyle}
+//     // showsUserLocation={true}
+//     // followsUserLocation={true}
+//     // showsMyLocationButton={true}
+//   >
+//       <Marker 
+//         image={require('../../../assets/images/map-marker-2.png')}
+//         title="App Academy" coordinate={this.state} />
+//       <Callout />
+//   </MapView>
+
+// <View style={{flex: 1}}>
+//   <EventsIndex />
+// </View>
+
+// </View>

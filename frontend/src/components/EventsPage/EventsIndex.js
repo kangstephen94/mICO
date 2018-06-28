@@ -55,9 +55,7 @@ export default class EventsIndex extends Component {
     var BContent = <Button onPress={() => this.setState({isOpen: false})} style={[styles.btn, styles.btnModal]} title={"X"}></Button>;
     return (
       <View style={styles.wrapper}>
-        <View style={styles.map}>
-          <Map />
-        </View>
+      <Map />
         <TouchableOpacity onPress={() => this.refs.modal1.open()} style={styles.btn}></TouchableOpacity>
         <Modal
           style={[styles.modal, styles.modal1]}
@@ -75,7 +73,7 @@ export default class EventsIndex extends Component {
               renderItem={({item}) => <EventIndexItem />}>
           </FlatList>
         </Modal>
-      </View>
+    </View>
     );
   }
 
@@ -91,13 +89,13 @@ const styles = StyleSheet.create({
   },
 
   map: {
-    flex: 3
+    flex: 1
   },
 
   modal: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1
+    // flex: 1
   },
 
   modal1: {
@@ -119,12 +117,12 @@ const styles = StyleSheet.create({
   },
 
   btn: {
-    margin: 10,
-    backgroundColor: "#3B5998",
-    color: "white",
+    backgroundColor: "#ff92e0",
     height: 5,
-    width: 50,
-    borderRadius: 5
+    width: 80,
+    borderRadius: 10,
+    padding: 2,
+    margin: 5
   },
 
   btnModal: {
@@ -142,3 +140,29 @@ const styles = StyleSheet.create({
   }
 
 });
+
+
+{/* <View style={styles.wrapper}>
+<View style={styles.map} >
+  <Map style={styles.map}/>
+</View>
+<View style={{flex: 1}}>
+<TouchableOpacity onPress={() => this.refs.modal1.open()} style={styles.btn}></TouchableOpacity>
+    <Modal
+      style={[styles.modal, styles.modal1]}
+      ref={"modal1"}
+      transparent={true}
+      swipeToClose={this.state.swipeToClose}
+      onClosed={this.onClose}
+      onOpened={this.onOpen}
+      onClosingState={this.onClosingState}
+      animationType='slide'          
+      >
+        <Text style={styles.text}>Events</Text>
+        <FlatList style={{width: screen.width, paddingLeft: 20}}
+          data={[{key: 'a'}, {key: 'b'}]}
+          renderItem={({item}) => <EventIndexItem />}>
+      </FlatList>
+    </Modal>
+  </View>
+</View> */}
