@@ -22,7 +22,7 @@ class IcoList extends React.Component {
   }
 
   renderItem({item}) {
-    return <IcoListItem item={item} />;
+    return <IcoListItem key={item.name} item={item} />;
   }
 
   render() {
