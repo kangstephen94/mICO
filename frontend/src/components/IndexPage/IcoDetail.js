@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Image , Linking, TouchableHighlight} from 'react-native';
+import { View, Text, Image , Linking, TouchableHighlight, TouchableOpacity} from 'react-native';
 import Section from '../common/Section';
 import SubSection from '../common/SubSection';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
+import axios from 'axios';
 
 
 
@@ -31,6 +32,19 @@ export default class IcoDetail extends Component {
     this.setState({
       counter: this.state.counter - 1
     });
+  }
+
+  handleFavorite() {
+    const {item} = this.props;
+    axios.post('/favorites', {
+      item
+    }).then( function(response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
   }
 
   render() {
@@ -62,9 +76,11 @@ export default class IcoDetail extends Component {
           </View>
         </View>
         <View style={inlineView}>
-          <Text style={{margin: 10, fontSize: 25}}>
-            <FontAwesome>{Icons.starO}</FontAwesome>
-          </Text>
+          <TouchableOpacity onPress={this.handleFavorite.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>
+            <Text style={{margin: 10, fontSize: 25}}>
+              <FontAwesome>{Icons.starO}</FontAwesome>
+            </Text>
+          </TouchableOpacity>
           <Text style={{margin: 10, fontSize: 25}}>
             <FontAwesome>{Icons.share}</FontAwesome>
           </Text>
