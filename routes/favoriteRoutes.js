@@ -11,6 +11,9 @@ module.exports = (app) => {
 
     app.post('/favorites2', 
     (req, res) => {
-        console.log(req.body);
+        console.log(req), (err, result) => {
+            res.send(result);
+            console.log(result);
+        }
     });
 };
