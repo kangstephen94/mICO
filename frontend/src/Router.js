@@ -20,7 +20,7 @@ const RouterComponent = () => {
           <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="icoDetail" component={IcoDetail} title="ICO" />
           <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="events" component={MyMap} title="Events" initial={true} />
           
-          <Scene key="events" component={EventsIndex} title="Events" initial={true} />
+          <Scene key="events" component={EventsIndex} title="Events" />
         </Scene> 
       </Router>
       <Footer />
