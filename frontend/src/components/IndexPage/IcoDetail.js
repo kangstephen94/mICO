@@ -29,7 +29,7 @@ export default class IcoDetail extends Component {
       const { item } = this.props;
       console.log(item);
       axios({
-        url: 'http://glacial-earth-84730.herokuapp.com/favorites/add',
+        url: 'http://localhost:5000/favorites/add',
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': '*',

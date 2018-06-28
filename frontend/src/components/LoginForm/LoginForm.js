@@ -47,10 +47,10 @@ export default class App extends Component {
     }
   };
 
-  loginWithFacebook = () => this.openURL('https://glacial-earth-84730.herokuapp.com/auth/facebook');
+  loginWithFacebook = () => this.openURL('http://localhost:5000/auth/facebook');
   // Handle Login with Google button tap
-  loginWithGoogle = () => this.openURL('https://glacial-earth-84730.herokuapp.com/auth/google');
-  loginWithLinkedIn = () => this.openURL('https://glacial-earth-84730.herokuapp.com/auth/linkedin');
+  loginWithGoogle = () => this.openURL('http://localhost:5000/auth/google');
+  loginWithLinkedIn = () => this.openURL('http://localhost:5000/auth/linkedin');
 
   // Open URL in a browser
   openURL = (url) => {

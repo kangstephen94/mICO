@@ -11,13 +11,12 @@ class Footer extends Component {
   }
 
   handleUpcoming() {
-    console.log(Actions.state.routes);
-    const length = Actions.state.routes.length;
-    if (Actions.state.routes[length - 2].routeName === 'icoList') {
-      Actions.pop();
-    } else {
+    // const length = Actions.state.routes.length;
+    // if (Actions.state.routes[length - 2].routeName === 'icoList') {
+    //   Actions.pop();
+    // } else {
       Actions.icoList();
-    }
+    // }
   }
 
   render() {

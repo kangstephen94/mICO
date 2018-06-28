@@ -9,7 +9,9 @@ module.exports = (app) => {
 
     app.get('/auth/google/callback',
         passport.authenticate('google', {failureRedirect: '/auth/facebook'}),
-        (req, res) => res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user)));
+        (req, res) => {
+            res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user));
+        });
 
     app.get('/auth/facebook', passport.authenticate('facebook'));
 
