@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Image , Linking, TouchableHighlight} from 'react-native';
+import { View, Text, Image, Linking, TouchableHighlight, TouchableOpacity } from 'react-native';
 import Section from '../common/Section';
 import SubSection from '../common/SubSection';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
-
-
-
+import axios from 'axios';
 
 export default class IcoDetail extends Component {
   constructor(props) {
@@ -17,16 +15,35 @@ export default class IcoDetail extends Component {
 
     this.tick = this.tick.bind(this);
   }
-
+  
   componentDidMount() {
     let timer = setInterval(this.tick, 1000);
     this.setState({timer});
   }
-
+  
   componentWillUnmount() {
     clearInterval(this.state.timer);
   }
-
+  
+    handleFavorite() {
+      const { item } = this.props;
+      console.log(item);
+      axios({
+        url: 'https://glacial-earth-84730.herokuapp.com/favorites/add',
+        method: 'POST',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE',
+          'Access-Control-Allow-Headers': 'Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type',
+        },
+        data: item
+      }).then(function (response) {
+        console.log(response);
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   tick() {
     this.setState({
       counter: this.state.counter - 1
@@ -62,9 +79,11 @@ export default class IcoDetail extends Component {
           </View>
         </View>
         <View style={inlineView}>
-          <Text style={{margin: 10, fontSize: 25}}>
-            <FontAwesome>{Icons.starO}</FontAwesome>
-          </Text>
+          <TouchableOpacity onPress={this.handleFavorite.bind(this)} style={{ flexDirection: 'column', alignItems: 'center' }}>
+            <Text style={{ margin: 10, fontSize: 25 }}>
+              <FontAwesome>{Icons.starO}</FontAwesome>
+            </Text>
+          </TouchableOpacity>
           <Text style={{margin: 10, fontSize: 25}}>
             <FontAwesome>{Icons.share}</FontAwesome>
           </Text>
