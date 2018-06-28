@@ -125,9 +125,9 @@ export default class App extends Component {
         }
         {/* Login buttons */}
         </ScrollView>
-        <View>
+        {/* <View>
           <Footer />
-        </View>
+        </View> */}
       </View>
     );
   }
