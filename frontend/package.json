@@ -12,7 +12,11 @@
     "react-native": "0.55.4",
     "react-native-elements": "^0.19.1",
     "react-native-fontawesome": "^5.7.0",
+<<<<<<< HEAD
     "react-native-modalbox": "^1.5.0",
+=======
+    "react-native-maps": "^0.21.0",
+>>>>>>> 368214c00d454cd9439ab2f1ec5bca46bb712c53
     "react-native-router-flux": "^4.0.0-beta.31",
     "react-native-safari-view": "^2.1.0",
     "react-native-vector-icons": "^4.6.0",
