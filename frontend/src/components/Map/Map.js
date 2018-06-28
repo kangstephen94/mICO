@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, TouchableOpacity  } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Actions } from 'react-native-router-flux';
 import Footer from '../Footer';
+
 
 export default class MyMap extends React.Component {
     state = {
@@ -9,6 +11,10 @@ export default class MyMap extends React.Component {
         longitude: -122.401376,
         latitudeDelta: 0.002,
         longitudeDelta: 0.002
+    }
+    marker = {
+      latitude: 37.794657, 
+      longitude: -122.422326
     }
     mapStyle = [
       {
@@ -226,9 +232,25 @@ export default class MyMap extends React.Component {
                   // showsMyLocationButton={true}
                 >
                     <Marker 
+                      // style={{position: 'relative'}}
                       image={require('../../../assets/images/map-marker-2.png')}
-                      title="App Academy" coordinate={this.state} />
-                    <Callout />
+                      title="App Academy" coordinate={this.state}>
+                      <Text style={styles.markerText}>1</Text> 
+                      <Callout onPress={() => Actions.login()}>
+                        <View style={{width: 200, height: 100}}>
+                          {/* <TouchableOpacity > */}
+                            <Text>App Academy</Text>
+                          {/* </TouchableOpacity> */}
+                        </View>
+                      </Callout>
+                    </Marker>
+                    <Marker 
+                      // style={{position: 'relative'}}
+                      image={require('../../../assets/images/map-marker-2.png')}
+                      title="My House" coordinate={this.marker}>
+                    <Text style={styles.markerText}>5</Text> 
+                    </Marker>
+                    
                 </MapView>
               
               <View style={{width: '100%'}}>
@@ -256,5 +278,13 @@ const styles = {
         width: '100%',
         height: 300,
         flex: 1
+    },
+    markerText: {
+      position: 'absolute',
+      left: 20,
+      top: 7,
+      fontSize: 15,
+      color: 'white',
+      fontWeight: 'bold'
     }
 };
