@@ -26,12 +26,6 @@ class Footer extends Component {
   }
 
   handleUpcoming() {
-<<<<<<< HEAD
-    // const length = Actions.state.routes.length;
-    // if (Actions.state.routes[length - 2].routeName === 'icoList') {
-    //   Actions.pop();
-    // } else {
-=======
     console.log(Actions.state.routes);
     const length = Actions.state.routes.length;
     if (!Actions.state.routes[length - 2]) {
@@ -41,9 +35,8 @@ class Footer extends Component {
     if (Actions.state.routes[length - 2].routeName === 'icoList') {
       Actions.pop();
     } else {
->>>>>>> da1d08f2c7a01ea44a66a1eefcb4ce83f6a0d7be
       Actions.icoList();
-    // }
+    }
   }
 
   render() {

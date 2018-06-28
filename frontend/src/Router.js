@@ -12,15 +12,6 @@ import MyMap from './components/Map/Map';
 
 const RouterComponent = () => {
   return (
-<<<<<<< HEAD
-    <Router>
-      <Scene key="root">
-        <Scene navBar={() => <Header title="Favorites" />} key="login" component={LoginForm} title="Favorites" initial={true}/>
-        <Scene navBar={() => <Header title="Upcoming Icos" />} key="icoList" component={IcoList} title="Upcoming ICOs"/>
-        <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="icoDetail" component={IcoDetail} title="ICO" />
-      </Scene> 
-    </Router>
-=======
     <View style={{flex: 1}}>
       <Router>
         <Scene key="root">
@@ -34,7 +25,6 @@ const RouterComponent = () => {
       </Router>
       <Footer />
     </View>
->>>>>>> da1d08f2c7a01ea44a66a1eefcb4ce83f6a0d7be
   );
 };
 

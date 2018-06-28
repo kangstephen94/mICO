@@ -11,6 +11,7 @@ module.exports = (app) => {
 
     app.post('/favorites/add', 
     (req, res) => {
+        console.log('hit my route');
         User.findOneAndUpdate({ profileID: req.user.profileID }, { $push: { favorites: req.body } });
     });
 };
