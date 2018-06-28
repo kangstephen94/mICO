@@ -22,7 +22,7 @@ class IcoList extends React.Component {
   }
 
   renderItem({item}) {
-    return <IcoListItem item={item} />;
+    return <IcoListItem key={item.name} item={item} />;
   }
 
   render() {
@@ -37,9 +37,9 @@ class IcoList extends React.Component {
             renderItem={this.renderItem}
           />
         </ScrollView> 
-        <View> 
+        {/* <View> 
           <Footer />
-        </View>
+        </View> */}
       </View>
     );
   }

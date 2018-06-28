@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { View, Text, Image, Linking, TouchableHighlight, TouchableOpacity } from 'react-native';
+=======
+import { View, Text, Image , Linking, TouchableHighlight, TouchableOpacity} from 'react-native';
+>>>>>>> da1d08f2c7a01ea44a66a1eefcb4ce83f6a0d7be
 import Section from '../common/Section';
 import SubSection from '../common/SubSection';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import axios from 'axios';
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> da1d08f2c7a01ea44a66a1eefcb4ce83f6a0d7be
 
 export default class IcoDetail extends Component {
   constructor(props) {
@@ -50,6 +60,26 @@ export default class IcoDetail extends Component {
     });
   }
 
+
+  handleFavorite() {
+    const {item} = this.props;
+    console.log(item);
+    axios({
+      method: 'post',
+      baseURL: 'http://localhost:5000',
+      url: '/favorites',
+      data: {
+        item
+      }
+    }).then( function(response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  
+
   render() {
     const {item} = this.props;
     const timer = new Date(null);
@@ -79,8 +109,13 @@ export default class IcoDetail extends Component {
           </View>
         </View>
         <View style={inlineView}>
+<<<<<<< HEAD
           <TouchableOpacity onPress={this.handleFavorite.bind(this)} style={{ flexDirection: 'column', alignItems: 'center' }}>
             <Text style={{ margin: 10, fontSize: 25 }}>
+=======
+          <TouchableOpacity onPress={this.handleFavorite.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>
+            <Text style={{margin: 10, fontSize: 25}}>
+>>>>>>> da1d08f2c7a01ea44a66a1eefcb4ce83f6a0d7be
               <FontAwesome>{Icons.starO}</FontAwesome>
             </Text>
           </TouchableOpacity>

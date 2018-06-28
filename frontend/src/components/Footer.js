@@ -6,21 +6,49 @@ import Button from './common/Button';
 
 class Footer extends Component {
 
+  handleEvents() {
+    // console.log(Actions.state.routes);
+    // const length = Actions.state.routes.length;
+    // if (!Actions.state.routes[length - 2]) {
+    //   Actions.events();
+    //   return;
+    // }
+    // if (Actions.state.routes[length - 2].routeName === 'events') {
+    //   Actions.pop();
+    // } else {
+      // debugger;
+      Actions.events();
+    // }
+  }
+
   handleFavorites() {
     Actions.login();
   }
 
   handleUpcoming() {
+<<<<<<< HEAD
     // const length = Actions.state.routes.length;
     // if (Actions.state.routes[length - 2].routeName === 'icoList') {
     //   Actions.pop();
     // } else {
+=======
+    console.log(Actions.state.routes);
+    const length = Actions.state.routes.length;
+    if (!Actions.state.routes[length - 2]) {
+      Actions.icoList();
+      return;
+    }
+    if (Actions.state.routes[length - 2].routeName === 'icoList') {
+      Actions.pop();
+    } else {
+>>>>>>> da1d08f2c7a01ea44a66a1eefcb4ce83f6a0d7be
       Actions.icoList();
     // }
   }
 
   render() {
-    const { textStyle, 
+    const { 
+      textStyle, 
       footerStyle, 
       highlightedText, 
       nonHighlightedText,
@@ -32,6 +60,10 @@ class Footer extends Component {
     
     const favIconClass = Actions.currentScene === 'login' ? highlightedIcon : nonHighlightedIcon;
     const favTextClass = Actions.currentScene === 'login' ? highlightedText : nonHighlightedText;
+
+     const eventIconClass = Actions.currentScene === 'events' ? highlightedIcon : nonHighlightedIcon;
+     const eventTextClass = Actions.currentScene === 'events' ? highlightedText : nonHighlightedText;
+
 
     return (
       <View style={footerStyle}>
@@ -49,11 +81,11 @@ class Footer extends Component {
           <Text style={{marginTop: -5, fontSize: 10}}>Ongoing</Text>
         </TouchableOpacity>
       
-        <TouchableOpacity style={{flexDirection: 'column', alignItems: 'center'}}>
-          <Text style={{margin: 10, fontSize: 25}}>
+        <TouchableOpacity onPress={this.handleEvents.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>
+          <Text style={eventIconClass}>
             <FontAwesome>{Icons.calendarCheckO}</FontAwesome>
           </Text>
-          <Text style={{marginTop: -5, fontSize: 10}}>Events</Text>
+          <Text style={eventTextClass}>Events</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this.handleFavorites.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>

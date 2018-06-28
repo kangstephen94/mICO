@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
 
 const Header = (props) => {
     const { textStyle, headerStyle } = styles;
     return (
       <View style={headerStyle}>
+        <StatusBar barStyle="light-content"/>
         <Text style={textStyle}>{props.title}</Text>;
       </View>
     );
@@ -12,7 +13,7 @@ const Header = (props) => {
 
 const styles = {
     headerStyle: {
-      backgroundColor: '#26283f',
+      backgroundColor: '#1D2437',
       justifyContent: 'center',
       alignItems: 'center',
       height: 87,
