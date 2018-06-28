@@ -40,7 +40,8 @@ class Footer extends Component {
   }
 
   render() {
-    const { textStyle, 
+    const { 
+      textStyle, 
       footerStyle, 
       highlightedText, 
       nonHighlightedText,

@@ -237,7 +237,7 @@ export default class MyMap extends React.Component {
                       title="App Academy" coordinate={this.state}>
                       <Text style={styles.markerText}>1</Text> 
                       <Callout onPress={() => Actions.login()}>
-                        <View style={{width: 200, height: 100}}>
+                        <View style={{width: 100, height: 50}}>
                           {/* <TouchableOpacity > */}
                             <Text>App Academy</Text>
                           {/* </TouchableOpacity> */}
