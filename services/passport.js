@@ -32,7 +32,7 @@ passport.use(new GoogleStrategy(
                 if (existingUser) {
                     done(null, existingUser);
                 } else {
-                    new User({ profileID: profile.id }).save()
+                    new User({ profileID: profile.id, favorites: [] }).save()
                     .then(user => done(null, user));
                 }
             });
@@ -52,7 +52,7 @@ passport.use(new FacebookStrategy(
                 if (existingUser) {
                     done(null, existingUser);
                 } else {
-                    new User({ profileID: profile.id }).save()
+                    new User({ profileID: profile.id, favorites: [] }).save()
                     .then(user => done(null, user));
                 }
             });
