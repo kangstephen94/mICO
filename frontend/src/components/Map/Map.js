@@ -226,7 +226,7 @@ export default class MyMap extends React.Component {
                   // showsMyLocationButton={true}
                 >
                     <Marker 
-                      image={require('./map-marker-2.png')}
+                      image={require('../../../assets/images/map-marker-2.png')}
                       title="App Academy" coordinate={this.state} />
                     <Callout />
                 </MapView>
