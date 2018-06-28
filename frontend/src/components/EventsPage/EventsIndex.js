@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Modal from 'react-native-modalbox';
 import EventIndexItem from './EventIndexItem';
+import Footer from '../Footer';
 import {
   AppRegistry,
   Text,
@@ -12,7 +13,9 @@ import {
   Button,
   Slider,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  TabBarIOS,
+  TabBarIOSItem
 } from 'react-native';
 
 var screen = Dimensions.get('window');
@@ -49,7 +52,6 @@ export default class EventsIndex extends Component {
 
   render() {
     var BContent = <Button onPress={() => this.setState({isOpen: false})} style={[styles.btn, styles.btnModal]} title={"X"}></Button>;
-
     return (
       <View style={styles.wrapper}>
         <View style={styles.map}>

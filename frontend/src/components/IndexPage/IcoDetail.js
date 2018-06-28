@@ -38,16 +38,21 @@ export default class IcoDetail extends Component {
   handleFavorite() {
     const {item} = this.props;
     console.log(item);
-    axios.post('/favorites2', {
-      data: item
+    axios({
+      method: 'post',
+      baseURL: 'http://localhost:5000',
+      url: '/favorites',
+      data: {
+        item
+      }
     }).then( function(response) {
       console.log(response);
     })
     .catch(function (error) {
       console.log(error);
     });
-
   }
+  
 
   render() {
     const {item} = this.props;

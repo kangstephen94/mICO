@@ -10,13 +10,17 @@ import Footer from './components/Footer';
 
 const RouterComponent = () => {
   return (
-    <Router>
-      <Scene key="root">
-        <Scene navBar={()=> <Header title="Favorites" />} key="login" component={LoginForm} title="Favorites" />
-        <Scene navBar={() => <Header title="Upcoming Icos" />} key="icoList" component={IcoList} title="Upcoming ICOs" initial={true}/>
-        <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="icoDetail" component={IcoDetail} title="ICO" />
-      </Scene> 
-    </Router>
+    <View style={{flex: 1}}>
+      <Router>
+        <Scene key="root">
+          <Scene navBar={()=> <Header title="Favorites" />} key="login" component={LoginForm} title="Favorites" />
+          <Scene navBar={() => <Header title="Upcoming Icos" />} key="icoList" component={IcoList} title="Upcoming ICOs" />
+          <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="icoDetail" component={IcoDetail} title="ICO" />
+          <Scene key="events" component={EventsIndex} title="Events" initial={true} />
+        </Scene> 
+      </Router>
+      <Footer />
+    </View>
   );
 };
 

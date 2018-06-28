@@ -34,6 +34,9 @@ class Footer extends Component {
     const favIconClass = Actions.currentScene === 'login' ? highlightedIcon : nonHighlightedIcon;
     const favTextClass = Actions.currentScene === 'login' ? highlightedText : nonHighlightedText;
 
+    const eventIconClass = Actions.currentScene === 'event' ? highlightedIcon : nonHighlightedIcon;
+    const eventTextClass = Actions.currentScene === 'event' ? highlightedText : nonHighlightedText;
+
     return (
       <View style={footerStyle}>
         <TouchableOpacity onPress={this.handleUpcoming.bind(this)}  style={{flexDirection: 'column', alignItems: 'center'}}>
@@ -51,10 +54,10 @@ class Footer extends Component {
         </TouchableOpacity>
       
         <TouchableOpacity style={{flexDirection: 'column', alignItems: 'center'}}>
-          <Text style={{margin: 10, fontSize: 25}}>
+          <Text style={eventIconClass}>
             <FontAwesome>{Icons.calendarCheckO}</FontAwesome>
           </Text>
-          <Text style={{marginTop: -5, fontSize: 10}}>Events</Text>
+          <Text style={eventTextClass}>Events</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this.handleFavorites.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>
