@@ -6,14 +6,17 @@ import IcoList from './components/IndexPage/IcoList';
 import IcoDetail from './components/IndexPage/IcoDetail';
 import Header from './components/header';
 import Footer from './components/Footer';
+import MyMap from './components/Map/Map';
+
 
 const RouterComponent = () => {
   return (
     <Router>
       <Scene key="root">
         <Scene navBar={()=> <Header title="Favorites" />} key="login" component={LoginForm} title="Favorites" />
-        <Scene navBar={() => <Header title="Upcoming Icos" />} key="icoList" component={IcoList} title="Upcoming ICOs" initial={true}/>
+        <Scene navBar={() => <Header title="Upcoming Icos" />} key="icoList" component={IcoList} title="Upcoming ICOs" />
         <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="icoDetail" component={IcoDetail} title="ICO" />
+        <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="icoDetail" component={MyMap} title="Map" initial={true} />
       </Scene> 
     </Router>
   );
