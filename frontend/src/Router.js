@@ -13,9 +13,9 @@ const RouterComponent = () => {
     <Router navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}}>
       <Scene key="root">
         <Scene key="login" component={LoginForm} title="Favorites" />
-        <Scene key="icoList" component={IcoList} title="Upcoming ICOs"/>
+        <Scene key="icoList" component={IcoList} title="Upcoming ICOs" initial={true}/>
         <Scene key="icoDetail" component={IcoDetail} title="ICO" />
-        <Scene key="events" component={EventsIndex} title="Events" initial={true}/>
+        <Scene key="events" component={EventsIndex} title="Events"/>
       </Scene> 
     </Router>
   );
