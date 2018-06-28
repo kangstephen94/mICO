@@ -9,10 +9,8 @@ module.exports = (app) => {
         });
     });
 
-    app.get('/favorites2', 
+    app.post('/favorites2', 
     (req, res) => {
-        console.log(req.data);
-        const query = { profileID: req.user.profileID };
-        User.findOneAndUpdate(query, { $push: { favorites: req.data } });
+        console.log(req.body);
     });
 };
