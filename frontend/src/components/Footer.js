@@ -7,7 +7,7 @@ import Button from './common/Button';
 class Footer extends Component {
 
   state = {
-    currentScene: ['events']
+    currentScene: ['login']
   };
 
   handleEvents() {
