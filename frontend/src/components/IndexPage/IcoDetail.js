@@ -3,8 +3,7 @@ import { WebView, ScrollView, View, Text, Image , Linking, TouchableHighlight, T
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import Spinner from '../common/Spinner';
 import axios from 'axios';
-
-
+// import { Action } from 'react-native-router-flux';
 
 
 export default class IcoDetail extends Component {
@@ -39,13 +38,13 @@ export default class IcoDetail extends Component {
   
   componentWillUnmount() {
     clearInterval(this.state.timer);
+    console.log("Detail unmounted");
   }
   
     handleFavorite() {
-      const { item, user } = this.props;
-      console.log(item);
+      const { item, user, receiveSession } = this.props;
       axios({
-        url: 'http://localhost:5000/favorites/add',
+        url: 'http://localhost:5000/api/favorites/add',
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -57,11 +56,9 @@ export default class IcoDetail extends Component {
           user
         }
       }).then(function (response) {
-        console.log(response);
-      })
-        .catch(function (error) {
-          console.log(error);
-        });
+        receiveSession({ user: response.data });
+      });
+
     }
   tick() {
     this.setState({

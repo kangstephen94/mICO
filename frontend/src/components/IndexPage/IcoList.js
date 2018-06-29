@@ -30,7 +30,6 @@ class IcoList extends React.Component {
           currentPage: response.data.currentPage,
           isLoading: false
         });
-        console.log(this.state.dataSource);
       });
   }
 
