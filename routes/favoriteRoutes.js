@@ -11,7 +11,18 @@ module.exports = (app) => {
 
     app.post('/favorites/add', 
     (req, res) => {
-        console.log('hit my route');
-        User.findOneAndUpdate({ profileID: req.user.profileID }, { $push: { favorites: req.body } });
+        User.findOne({ profileID: req.body.user.user.profileID })
+            .then((existingUser) => {
+                let has = false;
+                for (var i = 0; i < existingUser.favorites.length; i++) {
+                    if (existingUser.favorites[i].name === req.body.item.name) {
+                        has = true;
+                    } 
+                }
+                if (!has) {
+                    existingUser.favorites.push(req.body.item);
+                    existingUser.save();
+                    }       
+            });
     });
 };

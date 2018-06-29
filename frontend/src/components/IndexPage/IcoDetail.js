@@ -27,7 +27,7 @@ export default class IcoDetail extends Component {
   }
   
     handleFavorite() {
-      const { item } = this.props;
+      const { item, user } = this.props;
       console.log(item);
       axios({
         url: 'http://localhost:5000/favorites/add',
@@ -37,7 +37,10 @@ export default class IcoDetail extends Component {
           'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE',
           'Access-Control-Allow-Headers': 'Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type',
         },
-        data: item
+        data: {
+          item,
+          user
+        }
       }).then(function (response) {
         console.log(response);
       })
