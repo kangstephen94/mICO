@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import SafariView from 'react-native-safari-view';
 import Footer from '../Footer';
 
-export default class App extends Component {
+export default class LoginForm extends Component {
 
   state = {
     user: undefined, // user has not logged in yet
@@ -39,6 +39,10 @@ export default class App extends Component {
     // Extract stringified user string out of the URL
     const [, user_string] = url.match(/user=([^#]+)/);
     this.setState({
+      user: JSON.parse(decodeURI(user_string))
+    });
+
+    this.props.receiveSession({
       // Decode the user string and parse it into JSON
       user: JSON.parse(decodeURI(user_string))
     });
@@ -68,7 +72,8 @@ export default class App extends Component {
   };
 
   render() {
-    const { user } = this.state;
+    console.log(this.props);
+    const { user } = this.props.state.session;
     return (
       <View style={styles.container}>
         <ScrollView>
