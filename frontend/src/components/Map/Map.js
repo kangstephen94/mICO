@@ -230,8 +230,9 @@ export default class MyMap extends React.Component {
                   // followsUserLocation={true}
                   // showsMyLocationButton={true}
                 >
+                  
                     <Marker 
-                      // style={{position: 'relative'}}
+                      style={{position: 'relative'}}
                       image={require('../../../assets/images/map-marker-2.png')}
                       title="App Academy" coordinate={this.state}>
                       <Text style={styles.markerText}>1</Text> 

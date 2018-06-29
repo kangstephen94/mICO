@@ -18,8 +18,7 @@ const RouterComponent = () => {
           <Scene navBar={() => <Header title="Favorites" />} key="login" component={LoginFormContainer} title="Favorites" initial={true}/>
           <Scene navBar={() => <Header title="Upcoming Icos" />} key="icoList" component={IcoList} title="Upcoming ICOs" />
           <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="icoDetail" component={IcoDetailContainer} title="ICO" />
-          <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="events" component={EventsIndex} title="Events" />
-          
+          <Scene navBar={() => <Header title="Events" />} key="events" component={EventsIndex} title="Events" />
           {/* <Scene key="events" component={EventsIndex} title="Events" /> */}
         </Scene> 
       </Router>
