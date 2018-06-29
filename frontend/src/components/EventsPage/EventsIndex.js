@@ -56,7 +56,9 @@ export default class EventsIndex extends Component {
     return (
       <View style={styles.wrapper}>
       <Map />
+        <View>
         <TouchableOpacity onPress={() => this.refs.modal1.open()} style={styles.btn}></TouchableOpacity>
+        </View>
         <Modal
           style={[styles.modal, styles.modal1]}
           ref={"modal1"}
@@ -65,7 +67,8 @@ export default class EventsIndex extends Component {
           onClosed={this.onClose}
           onOpened={this.onOpen}
           onClosingState={this.onClosingState}
-          animationType='slide'          
+          swipeThreshold={200}
+          // animationType='slide'          
           >
             <Text style={styles.text}>Events</Text>
             <FlatList style={{width: screen.width, paddingLeft: 20}}
