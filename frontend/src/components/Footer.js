@@ -21,31 +21,60 @@ class Footer extends Component {
     //   Actions.pop();
     // } else {
       // debugger;
+    const length = Actions.state.routes.length;
+    console.log(Actions.state.routes[length -1]);
+    if (Actions.state.routes[length - 1].routeName === 'icoDetail' || 
+      Actions.state.routes[length - 1].routeName === 'login') {
+        console.log("it was a detail or favorite page before");
+        Actions.pop();
+        Actions.events();
+    } else {
       Actions.events();
-      this.setState({ currentScene: this.state.currentScene.concat(['events']) });
+    }
+    this.setState({ currentScene: this.state.currentScene.concat(['events']) });
     // }
   }
 
   handleFavorites() {
     this.setState({ currentScene: this.state.currentScene.concat(['login']) });
-    Actions.login();
+    const length = Actions.state.routes.length;
+    if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
+    Actions.state.routes[length - 1].routeName === 'login') {
+      Actions.pop();
+      Actions.login();
+    } else {
+      Actions.login();
+    }
   }
 
   handleUpcoming() {
-    console.log(Actions.state.routes);
     const length = Actions.state.routes.length;
+    console.log(Actions.state.routes[length-1].routeName);
     if (!Actions.state.routes[length - 2]) {
       this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
-      Actions.icoList();
-      
+      if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
+        Actions.state.routes[length - 1].routeName === 'login') {
+        console.log("popped off favorites or detail");
+        Actions.pop();
+        Actions.icoList();
+      } else {
+        Actions.icoList();
+      }
       return;
     }
     if (Actions.state.routes[length - 2].routeName === 'icoList') {
       Actions.pop();
-      const length = this.state.currentScene.length;
-      this.setState({ currentScene: this.state.currentScene.slice(0, length - 1) });
+      const lengthOf = this.state.currentScene.length;
+      this.setState({ currentScene: this.state.currentScene.slice(0, lengthOf - 1) });
     } else {
-      Actions.icoList();
+      if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
+        Actions.state.routes[length - 1].routeName === 'login') {
+        console.log("popped off favorites or detail");
+        Actions.pop();
+        Actions.icoList();
+      } else {
+        Actions.icoList();
+      }
       this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
     }
   }
@@ -60,9 +89,13 @@ class Footer extends Component {
       nonHighlightedIcon } = styles;
     const length = this.state.currentScene.length;
 
-    const upIconClass = this.state.currentScene[length - 1] === 'icoList' ? highlightedIcon : nonHighlightedIcon;
-    const upTextClass = this.state.currentScene[length - 1] === 'icoList' ? highlightedText : nonHighlightedText;
+    const upIconClass = (this.state.currentScene[length - 1] === 'icoList' 
+      || this.state.currentScene[length - 1] === 'icoDetail') ? highlightedIcon : nonHighlightedIcon;
+    const upTextClass = (this.state.currentScene[length - 1] === 'icoList' 
+      || this.state.currentScene[length - 1] === 'icoDetail') ? highlightedText : nonHighlightedText;
     
+    
+
     const favIconClass = this.state.currentScene[length - 1] === 'login' ? highlightedIcon : nonHighlightedIcon;
     const favTextClass = this.state.currentScene[length - 1] === 'login' ? highlightedText : nonHighlightedText;
 
