@@ -10,10 +10,10 @@ require('./models/Ico');
 const ICObench = require('./services/icobenchapi.js')
 
 // Uncomment after testing locally
-// mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI);
 
 // Used for local testing
-mongoose.connect('mongodb://localhost/mico');
+// mongoose.connect('mongodb://localhost/mico');
 
 const app = express();
 app.use(

@@ -22,6 +22,9 @@ class IcoList extends React.Component {
   // }
 
   componentDidMount() {
+    if (this.props.favorites) {
+        this.setState({ dataSource: this.props.favorites, isLoading: false });
+      } else {
     axios.get('http://localhost:5000/active_icos/0')
       .then(response => {
         console.log(response.data);
@@ -31,6 +34,7 @@ class IcoList extends React.Component {
           isLoading: false
         });
       });
+    }
   }
 
   renderItem({item}) {
