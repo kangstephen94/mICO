@@ -1,6 +1,5 @@
 import { getEvents } from '../utils/events_util';
 import { getIcos } from '../utils/icos_util';
-import { getUser } from '../utils/session_util';
 
 export const RECEIVE_ICOS = 'RECEIVE_ICOS';
 export const RECEIVE_EVENTS = 'RECEIVE_EVENTS';
