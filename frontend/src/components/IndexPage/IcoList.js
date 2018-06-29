@@ -22,7 +22,7 @@ class IcoList extends React.Component {
   // }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/active_icos/1')
+    axios.get('http://localhost:5000/active_icos/0')
       .then(response => {
         console.log(response.data);
         this.setState({
@@ -43,7 +43,7 @@ class IcoList extends React.Component {
       return <Spinner size="small" />;
     }
     return (
-      <View style={{flex: 1, backgroundColor: '#39314B'}}>
+      <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
         <ScrollView>
           <FlatList 
             data={this.state.dataSource}

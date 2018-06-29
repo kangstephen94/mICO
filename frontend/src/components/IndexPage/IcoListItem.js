@@ -14,8 +14,8 @@ const IcoListItem = (props) => {
           onPress={() => Actions.icoDetail({item})}
           style={sectionStyle}
           >
-          <View style={sectionStyle}>
-            <Text>{item.name}</Text>
+          <View style={{alignItems: 'center', flexDirection: 'row'}}>
+            <Text style={{marginRight: 20, fontSize: 24, fontWeight: 'bold'}}>{item.name}</Text>
             <Image style={imageStyle} source={{ uri: item.logo }} />
           </View>
         </TouchableOpacity> 
@@ -25,13 +25,17 @@ const IcoListItem = (props) => {
 const styles = {
   sectionStyle: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
+    borderWidth: 0.5,
+    borderColor: 'black',
+    padding: 10,
+    margin: 5,
     // flex: 1
   },
   imageStyle: {
     height: 100,
-    width: 200,
+    width: 100,
     resizeMode: 'contain'
     // flex: 1
   }
