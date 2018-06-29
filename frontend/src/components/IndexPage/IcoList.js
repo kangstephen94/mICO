@@ -43,7 +43,7 @@ class IcoList extends React.Component {
       return <Spinner size="small" />;
     }
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: '#39314B'}}>
         <ScrollView>
           <FlatList 
             data={this.state.dataSource}
