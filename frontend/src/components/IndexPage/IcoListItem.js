@@ -12,7 +12,7 @@ const IcoListItem = (props) => {
   return (
     <Section>
         <TouchableHighlight 
-          underlayColor={'none'}
+          // underlayColor={'red'}
           onPress={() => Actions.icoDetail({item})}>
           <View style={sectionStyle}>
             <Text>{item.name}</Text>
