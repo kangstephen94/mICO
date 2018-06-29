@@ -10,19 +10,31 @@ class IcoList extends React.Component {
   state = { dataSource: null,
             isLoading: true };
 
+  // componentDidMount() {
+  //   axios.get('https://api.icowatchlist.com/public/v1/live')
+  //     .then(response => {
+  //       this.setState({
+  //         dataSource: response.data.ico.live,
+  //         isLoading: false
+  //       });
+  //       console.log(this.state.dataSource);
+  //     });
+  // }
+
   componentDidMount() {
-    axios.get('https://api.icowatchlist.com/public/v1/live')
+    axios.get('http://localhost:5000/active_icos/0')
       .then(response => {
+        console.log(response.data);
         this.setState({
-          dataSource: response.data.ico.live,
+          dataSource: response.data.results,
+          currentPage: response.data.currentPage,
           isLoading: false
         });
-        console.log(this.state.dataSource);
       });
   }
 
   renderItem({item}) {
-    return <IcoListItem key={item.name} item={item} />;
+    return <IcoListItem key={item.id} item={item} />;
   }
 
   render() {
@@ -30,7 +42,7 @@ class IcoList extends React.Component {
       return <Spinner size="small" />;
     }
     return (
-      <View style={{flex: 1, backgroundColor: '#39314B'}}>
+      <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
         <ScrollView>
           <FlatList 
             data={this.state.dataSource}

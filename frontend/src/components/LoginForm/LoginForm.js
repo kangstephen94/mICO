@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Image,
   Linking,
   StyleSheet,
   Platform,
@@ -10,12 +9,12 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SafariView from 'react-native-safari-view';
-import Footer from '../Footer';
 
 export default class LoginForm extends Component {
 
   state = {
     user: undefined, // user has not logged in yet
+    favorites: undefined
   };
 
   // Set up Linking
@@ -39,7 +38,8 @@ export default class LoginForm extends Component {
     // Extract stringified user string out of the URL
     const [, user_string] = url.match(/user=([^#]+)/);
     this.setState({
-      user: JSON.parse(decodeURI(user_string))
+      user: JSON.parse(decodeURI(user_string)),
+      favorites: JSON.parse(decodeURI(user_string)).favorites
     });
 
     this.props.receiveSession({
@@ -72,12 +72,15 @@ export default class LoginForm extends Component {
   };
 
   render() {
-    console.log(this.props);
-    const { user } = this.props.state.session;
+    let array;
+    if (this.props.session.user) {
+      array = this.props.session.user.favorites;
+    }
+    console.log(this.props.session);
     return (
       <View style={styles.container}>
         <ScrollView>
-        {user
+        {array
           ? // Show user info if already logged in
           <View style={styles.content}>
           {/* Check to see if the user has any favorites.  If not, render Please add favorites.  If they do render their favorites. */}
