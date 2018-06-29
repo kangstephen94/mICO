@@ -19,6 +19,8 @@ import {
   TabBarIOSItem
 } from 'react-native';
 
+import GestureRecognizer from 'react-native-swipe-gestures';
+
 var screen = Dimensions.get('window');
 
 
@@ -56,9 +58,12 @@ export default class EventsIndex extends Component {
     return (
       <View style={styles.wrapper}>
       <Map />
-        <View>
-        <TouchableOpacity onPress={() => this.refs.modal1.open()} style={styles.btn}></TouchableOpacity>
-        </View>
+        <GestureRecognizer onSwipeUp={() => this.refs.modal1.open()}>
+        <TouchableOpacity 
+          // onPress={() => this.refs.modal1.open()} 
+          style={styles.btn}>
+        </TouchableOpacity>
+        </GestureRecognizer>
         <Modal
           style={[styles.modal, styles.modal1]}
           ref={"modal1"}
