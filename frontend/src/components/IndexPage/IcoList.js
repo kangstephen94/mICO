@@ -17,7 +17,6 @@ class IcoList extends React.Component {
           dataSource: response.data.ico.live,
           isLoading: false
         });
-        console.log(this.state.dataSource);
       });
   }
 

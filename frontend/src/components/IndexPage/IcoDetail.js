@@ -4,8 +4,6 @@ import FontAwesome, { Icons } from 'react-native-fontawesome';
 import axios from 'axios';
 
 
-
-
 export default class IcoDetail extends Component {
   constructor(props) {
     super(props);
@@ -24,13 +22,13 @@ export default class IcoDetail extends Component {
   
   componentWillUnmount() {
     clearInterval(this.state.timer);
+    console.log('hit unmount');
   }
   
     handleFavorite() {
-      const { item, user } = this.props;
-      console.log(item);
+      const { item, user, receiveSession } = this.props;
       axios({
-        url: 'http://localhost:5000/favorites/add',
+        url: 'http://localhost:5000/api/favorites/add',
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -42,11 +40,9 @@ export default class IcoDetail extends Component {
           user
         }
       }).then(function (response) {
-        console.log(response);
-      })
-        .catch(function (error) {
-          console.log(error);
-        });
+        receiveSession({ user: response.data });
+      });
+
     }
   tick() {
     this.setState({
