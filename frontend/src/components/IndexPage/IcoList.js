@@ -38,11 +38,12 @@ class IcoList extends React.Component {
   }
 
   render() {
+    console.log(this.state.dataSource);
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
     return (
-      <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
+      <View style={styles.listViewStyle}>
         <ScrollView>
           <FlatList 
             data={this.state.dataSource}
@@ -57,7 +58,11 @@ class IcoList extends React.Component {
 
 const styles = {
   listViewStyle: {
-    flex: 1
+    flex: 1, 
+    flexDirection: 'row', 
+    flexWrap: 'wrap', 
+    justifyContent: 'space-evenly',
+    backgroundColor: '#39314B'
   }
 };
 
