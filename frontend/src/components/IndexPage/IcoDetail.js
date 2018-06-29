@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, Image , Linking, TouchableHighlight, TouchableOpacity} from 'react-native';
-import Section from '../common/Section';
-import SubSection from '../common/SubSection';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import axios from 'axios';
 
@@ -18,41 +16,43 @@ export default class IcoDetail extends Component {
 
     this.tick = this.tick.bind(this);
   }
-
+  
   componentDidMount() {
-    let timer = setInterval(this.tick, 1000);
-    this.setState({timer});
+    const timer = setInterval(this.tick, 1000);
+    this.setState({ timer });
   }
-
+  
   componentWillUnmount() {
     clearInterval(this.state.timer);
   }
-
+  
+    handleFavorite() {
+      const { item, user } = this.props;
+      console.log(item);
+      axios({
+        url: 'http://localhost:5000/favorites/add',
+        method: 'POST',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE',
+          'Access-Control-Allow-Headers': 'Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type',
+        },
+        data: {
+          item,
+          user
+        }
+      }).then(function (response) {
+        console.log(response);
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   tick() {
     this.setState({
       counter: this.state.counter - 1
     });
   }
-
-
-  handleFavorite() {
-    const {item} = this.props;
-    console.log(item);
-    axios({
-      method: 'post',
-      baseURL: 'http://localhost:5000',
-      url: '/favorites',
-      data: {
-        item
-      }
-    }).then( function(response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-  
 
   render() {
     const {item} = this.props;

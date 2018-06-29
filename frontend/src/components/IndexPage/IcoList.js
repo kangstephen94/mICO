@@ -37,9 +37,7 @@ class IcoList extends React.Component {
             renderItem={this.renderItem}
           />
         </ScrollView> 
-        {/* <View> 
-          <Footer />
-        </View> */}
+       
       </View>
     );
   }

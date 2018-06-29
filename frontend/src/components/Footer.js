@@ -6,6 +6,10 @@ import Button from './common/Button';
 
 class Footer extends Component {
 
+  state = {
+    currentScene: ['events']
+  };
+
   handleEvents() {
     // console.log(Actions.state.routes);
     // const length = Actions.state.routes.length;
@@ -18,10 +22,12 @@ class Footer extends Component {
     // } else {
       // debugger;
       Actions.events();
+      this.setState({ currentScene: this.state.currentScene.concat(['events']) });
     // }
   }
 
   handleFavorites() {
+    this.setState({ currentScene: this.state.currentScene.concat(['login']) });
     Actions.login();
   }
 
@@ -29,32 +35,39 @@ class Footer extends Component {
     console.log(Actions.state.routes);
     const length = Actions.state.routes.length;
     if (!Actions.state.routes[length - 2]) {
+      this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
       Actions.icoList();
+      
       return;
     }
     if (Actions.state.routes[length - 2].routeName === 'icoList') {
       Actions.pop();
+      const length = this.state.currentScene.length;
+      this.setState({ currentScene: this.state.currentScene.slice(0, length - 1) });
     } else {
       Actions.icoList();
+      this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
     }
   }
 
   render() {
-    const { textStyle, 
+    const { 
+      textStyle, 
       footerStyle, 
       highlightedText, 
       nonHighlightedText,
       highlightedIcon, 
       nonHighlightedIcon } = styles;
-    
-    const upIconClass = Actions.currentScene === 'icoList' ? highlightedIcon : nonHighlightedIcon;
-    const upTextClass = Actions.currentScene === 'icoList' ? highlightedText : nonHighlightedText;
-    
-    const favIconClass = Actions.currentScene === 'login' ? highlightedIcon : nonHighlightedIcon;
-    const favTextClass = Actions.currentScene === 'login' ? highlightedText : nonHighlightedText;
+    const length = this.state.currentScene.length;
 
-     const eventIconClass = Actions.currentScene === 'events' ? highlightedIcon : nonHighlightedIcon;
-     const eventTextClass = Actions.currentScene === 'events' ? highlightedText : nonHighlightedText;
+    const upIconClass = this.state.currentScene[length - 1] === 'icoList' ? highlightedIcon : nonHighlightedIcon;
+    const upTextClass = this.state.currentScene[length - 1] === 'icoList' ? highlightedText : nonHighlightedText;
+    
+    const favIconClass = this.state.currentScene[length - 1] === 'login' ? highlightedIcon : nonHighlightedIcon;
+    const favTextClass = this.state.currentScene[length - 1] === 'login' ? highlightedText : nonHighlightedText;
+
+     const eventIconClass = this.state.currentScene[length - 1] === 'events' ? highlightedIcon : nonHighlightedIcon;
+     const eventTextClass = this.state.currentScene[length - 1] === 'events' ? highlightedText : nonHighlightedText;
 
 
     return (
