@@ -10,11 +10,24 @@ class IcoList extends React.Component {
   state = { dataSource: null,
             isLoading: true };
 
+  // componentDidMount() {
+  //   axios.get('https://api.icowatchlist.com/public/v1/live')
+  //     .then(response => {
+  //       this.setState({
+  //         dataSource: response.data.ico.live,
+  //         isLoading: false
+  //       });
+  //       console.log(this.state.dataSource);
+  //     });
+  // }
+
   componentDidMount() {
-    axios.get('https://api.icowatchlist.com/public/v1/live')
+    axios.get('http://localhost:5000/active_icos/1')
       .then(response => {
+        console.log(response.data);
         this.setState({
-          dataSource: response.data.ico.live,
+          dataSource: response.data.results,
+          currentPage: response.data.currentPage,
           isLoading: false
         });
         console.log(this.state.dataSource);
@@ -22,7 +35,7 @@ class IcoList extends React.Component {
   }
 
   renderItem({item}) {
-    return <IcoListItem key={item.name} item={item} />;
+    return <IcoListItem key={item.id} item={item} />;
   }
 
   render() {

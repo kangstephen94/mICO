@@ -20,9 +20,9 @@ module.exports = app => {
   app.get('/ico/:icoId', (req, res) => {
     const {icoId} = req.params;
     icobench.ico.profile({ico: icoId}).then( response => {
-      const ico = new Ico(response);
-      ico.save( err => console.log(err) );
-      res.send(ico);
+      // const ico = new Ico(response);
+      // ico.save( err => console.log(err) );
+      res.send(response);
     })}, (err, response) =>  console.log(err) )
   ,
 
