@@ -4,7 +4,7 @@ import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginFormContainer from './components/LoginForm/LoginFormContainer';
 import IcoList from './components/IndexPage/IcoList';
 import IcoDetailContainer from './components/IndexPage/IcoDetailContainer';
-import EventsIndex from './components/EventsPage/EventsIndex';
+import EventsIndexContainer from './components/EventsPage/EventsIndexContainer';
 import Header from './components/header';
 import Footer from './components/Footer';
 import MyMap from './components/Map/Map';
@@ -18,9 +18,9 @@ const RouterComponent = () => {
           <Scene navBar={()=> <Header title="Favorites" />} key="login" component={LoginFormContainer} title="Favorites" />
           <Scene navBar={() => <Header title="Upcoming Icos" />} key="icoList" component={IcoList} title="Upcoming ICOs" />
           <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="icoDetail" component={IcoDetailContainer} title="ICO" />
-          <Scene navBar={() => <Header title="Events" />} key="events" component={EventsIndex} title="Events" initial={true} />
+          <Scene navBar={() => <Header title="Events" />} key="events" component={EventsIndexContainer} title="Events" initial={true} />
           {/* <Scene key="events" component={EventsIndex} title="Events" /> */}
-        </Scene> 
+        </Scene>
       </Router>
       <Footer />
     </View>
@@ -44,5 +44,3 @@ const styles = {
 
 
 export default RouterComponent;
-
-

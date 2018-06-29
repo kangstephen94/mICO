@@ -51,6 +51,12 @@ export default class EventsIndex extends Component {
 
   }
 
+  componentDidMount() {
+    this.setState(this.props.receiveEvents());
+    console.log(this.props.receiveEvents());
+    console.log(this.state);
+  }
+
   render() {
     var BContent = <Button onPress={() => this.setState({isOpen: false})} style={[styles.btn, styles.btnModal]} title={"X"}></Button>;
     return (
@@ -68,7 +74,7 @@ export default class EventsIndex extends Component {
           onOpened={this.onOpen}
           onClosingState={this.onClosingState}
           swipeThreshold={200}
-          // animationType='slide'          
+          // animationType='slide'
           >
             <Text style={styles.text}>Events</Text>
             <FlatList style={{width: screen.width, paddingLeft: 20}}
@@ -159,7 +165,7 @@ const styles = StyleSheet.create({
       onClosed={this.onClose}
       onOpened={this.onOpen}
       onClosingState={this.onClosingState}
-      animationType='slide'          
+      animationType='slide'
       >
         <Text style={styles.text}>Events</Text>
         <FlatList style={{width: screen.width, paddingLeft: 20}}
