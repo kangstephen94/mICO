@@ -7,9 +7,10 @@ export default class EventIndexItem extends Component {
   }
 
   render() {
+    console.log(this.props);
     return ( <View style={[style.container]}>
         <View style={{flex: 2}}>
-          <Text>Event Name:</Text>        
+          <Text>Event Name:</Text>
         </View>
         <View style={{flex: 1}}>
           <Text>Event Date</Text>
@@ -26,7 +27,7 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
   },
   h2: {
     fontSize: 18,

@@ -52,9 +52,7 @@ export default class EventsIndex extends Component {
   }
 
   componentDidMount() {
-    this.setState(this.props.receiveEvents());
-    console.log(this.props.receiveEvents());
-    console.log(this.state);
+    this.props.retrieveEvents();
   }
 
   render() {
@@ -78,8 +76,8 @@ export default class EventsIndex extends Component {
           >
             <Text style={styles.text}>Events</Text>
             <FlatList style={{width: screen.width, paddingLeft: 20}}
-              data={[{key: 'a'}, {key: 'b'}]}
-              renderItem={({item}) => <EventIndexItem />}>
+              data={this.props.events}
+              renderItem={({item}) => <EventIndexItem item={item}/>}>
           </FlatList>
         </Modal>
     </View>
