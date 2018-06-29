@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image , Linking, TouchableHighlight, TouchableOpacity} from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import axios from 'axios';
+// import { Action } from 'react-native-router-flux';
 
 
 
@@ -24,6 +25,7 @@ export default class IcoDetail extends Component {
   
   componentWillUnmount() {
     clearInterval(this.state.timer);
+    console.log("Detail unmounted");
   }
   
     handleFavorite() {
@@ -55,6 +57,7 @@ export default class IcoDetail extends Component {
   }
 
   render() {
+    console.log("tick");
     const {item} = this.props;
     const timer = new Date(null);
     timer.setSeconds(this.state.counter);
