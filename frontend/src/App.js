@@ -1,14 +1,13 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
 import { Provider } from 'react-redux';
 import Router from './Router';
-import Header from './components/header';
-import Footer from './components/Footer';
+import configureStore from '../store/store';
 
 const App = () => {
-  // const store = createStore()
+  const preloadedState = {};
+  const store = configureStore(preloadedState);
   return (
-    <Provider>
+    <Provider store={store}>
         <Router />
     </Provider>
   );
