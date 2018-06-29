@@ -16,5 +16,7 @@ module.exports = {
     facebookClientID: '186168225333975',
     facebookClientSecret: '28cb8f7254c3afb5ee6ac2492f1089fd',
     linkedinClientID: '867cbqj6bzj2z2',
-    linkedinClientSecret: 'AMeKgEMNNEYpk5Mn'
+    linkedinClientSecret: 'AMeKgEMNNEYpk5Mn',
+    icoBenchPrivate: "f9b7b90e-b0d1-45f8-ae63-20ff7852fece", // lol
+    icoBenchPublic: "d4b5df77-0ec6-4f4c-9ed3-778d64d47825"
   };
