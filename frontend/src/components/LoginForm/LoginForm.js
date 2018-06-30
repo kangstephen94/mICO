@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SafariView from 'react-native-safari-view';
+import IcoList from '../IndexPage/IcoList';
 
 export default class LoginForm extends Component {
 
@@ -81,9 +82,9 @@ export default class LoginForm extends Component {
       <View style={styles.container}>
         <ScrollView>
         {array
-          ? // Show user info if already logged in
+          ? 
           <View style={styles.content}>
-          {/* Check to see if the user has any favorites.  If not, render Please add favorites.  If they do render their favorites. */}
+            <IcoList favorites={this.props.session.user.favorites} />
           </View>
           : // Show Please log in message if not
           <View style={styles.content}>
