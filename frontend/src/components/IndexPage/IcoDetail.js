@@ -25,16 +25,13 @@ export default class IcoDetail extends Component {
     const {item} = this.props;
     axios.get(`http://localhost:5000/ico/${item.id}`)
       .then(response => {
-        console.log(response.data);
         const timer = setInterval(this.tick, 1000);
-
         this.setState({
           dataSource: response.data,
           isLoading: false,
           counter: (new Date(response.data.dates.icoEnd) - new Date()) / 1000,
           timer
         });
-        console.log(this.state.dataSource);
       });
     if (this.props.user.user) {
       this.props.user.user.favorites.forEach(fav => {
