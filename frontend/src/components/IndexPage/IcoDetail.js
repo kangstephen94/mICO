@@ -13,10 +13,12 @@ export default class IcoDetail extends Component {
     this.state = {
       timer: null,
       isLoading: true,
-      counter: 0
+      counter: 0,
+      favorite: false
     };
 
     this.tick = this.tick.bind(this);
+    
   }
 
   componentDidMount() {
@@ -34,6 +36,13 @@ export default class IcoDetail extends Component {
         });
         console.log(this.state.dataSource);
       });
+    if (this.props.user.user) {
+      this.props.user.user.favorites.forEach(fav => {
+        if (fav.name === this.props.item.name) {
+          this.setState({ favorite: true});
+        }
+      });
+    }
   }
 
   
@@ -59,7 +68,7 @@ export default class IcoDetail extends Component {
       }).then(function (response) {
         receiveSession({ user: response.data });
       });
-
+      this.setState({favorite: !this.state.favorite});
     }
   tick() {
     this.setState({
@@ -68,11 +77,18 @@ export default class IcoDetail extends Component {
   }
 
   render() {
+    console.log("user", this.props.user);
+    // console.log("favClass", styles.favClass);
+    const item = this.state.dataSource;
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
+    console.log('favs',this.props.user.user);
+    // let favoriteClass = styles.nonFavClass;
+    const favoriteClass = this.state.favorite ? styles.favClass : styles.nonFavClass;
+    console.log('fav?', this.state.favorite);
+    console.log('favClass', favoriteClass);
     // const {item} = this.props;
-    const item = this.state.dataSource;
     const timer = new Date(null);
     timer.setSeconds(this.state.counter);
     const timeLeft = timer.toISOString().substr(11,8);
@@ -110,7 +126,7 @@ export default class IcoDetail extends Component {
           <View style={inlineView}>
             <TouchableOpacity onPress={this.handleFavorite.bind(this)} style={{flexDirection: 'column', alignItems: 'center', flex: 1}}>
               <Text style={{margin: 10, fontSize: 25}}>
-                <FontAwesome>{Icons.starO}</FontAwesome>
+                <FontAwesome style={favoriteClass}>{Icons.starO}</FontAwesome>
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={{flex: 1}}>
@@ -198,7 +214,8 @@ const styles = {
     padding: 8,
     flex: 0.7,
     marginRight: 30,
-    marginLeft: -60
+    marginLeft: -60,
+    borderRadius: 3
   },
   greenBorder: {
     borderColor: '#4CAF50',
@@ -214,5 +231,11 @@ const styles = {
   },
   white: {
     color: 'white'
+  },
+  favClass: {
+      color: '#4CAF50'
+  },
+  nonFavClass: {
+    color: 'black'
   }
 };
