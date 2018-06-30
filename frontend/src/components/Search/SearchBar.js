@@ -19,7 +19,10 @@ class SearchBar extends React.Component {
             .then(response => {
                 receiveSearchResults(response.data.results);
             }
-            );
+            ).catch(function (error) {
+                console.log('There has been a problem with your fetch operation: ' + error.message);
+                throw error;
+            });
         }, 250);
     }
 
