@@ -30,7 +30,7 @@ const styles = {
     },
     textStyle: {
         fontSize: 20,
-        color: 'white'
+        color: '#ff92e0' //'white'
     }
 };
 

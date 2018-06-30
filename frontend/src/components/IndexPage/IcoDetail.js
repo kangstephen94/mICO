@@ -3,6 +3,7 @@ import {ScrollView, View, Text, Image , Linking, TouchableHighlight, TouchableOp
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import Spinner from '../common/Spinner';
 import axios from 'axios';
+import HTML from 'react-native-render-html';
 // import { Action } from 'react-native-router-flux';
 
 
@@ -79,7 +80,8 @@ export default class IcoDetail extends Component {
     const { h2, greenBorder, imageStyle, sectionStyle, inlineView, infoStyle, 
             icoHeader, buttonStyle} = styles;
     return (
-      <ScrollView >
+      <ScrollView style={{backgroundColor: '#ddd'}}>
+        <Image style={{flex:1, resizeMode: 'cover', width: null, height: null}} source={require('../../../assets/images/origin-background.svg')} />
         <View style={sectionStyle}>
 
           <View style={icoHeader}>
@@ -143,8 +145,8 @@ export default class IcoDetail extends Component {
 
           <View style={infoStyle}> 
             <Text style={h2}>Full Description</Text>
-            <WebView html="<h1>Hello</h1>"  />
-            <Text>{item.about}</Text>          
+            <HTML html={item.about}  />
+            {/* <Text>{item.about}</Text>           */}
           </View>
         </View>
 
