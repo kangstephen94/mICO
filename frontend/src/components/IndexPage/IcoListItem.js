@@ -76,6 +76,8 @@ const styles = StyleSheet.create({
     // backgroundColor: '#FF4136',
     padding: 5,
     borderRadius: 3,
+    marginTop: 5,
+    width: 50
     // flex: 0.25
   },
   okayRating: {
@@ -84,7 +86,8 @@ const styles = StyleSheet.create({
     // backgroundColor: '#FF851B',
     padding: 5,
     borderRadius: 3,
-    width: 50
+    width: 50,
+    marginTop: 5
   },
   goodRating: {
     flexDirection: 'row',
@@ -92,7 +95,8 @@ const styles = StyleSheet.create({
     // backgroundColor: '#4CAF50',
     padding: 5,
     borderRadius: 3,
-    width: 50
+    width: 50,
+    marginTop: 5
     // flex: 0.25
   },
   poorStar: {
