@@ -79,10 +79,11 @@ export default class EventsIndex extends Component {
           swipeThreshold={200}
           // animationType='slide'
           >
-            <Text style={styles.text}>Events</Text>
-            <FlatList style={{width: screen.width, paddingLeft: 20}}
+            {/* <Text style={styles.text}>Events</Text> */}
+            <FlatList 
+              // style={{width: screen.width}}
               data={this.props.events}
-              renderItem={({item}) => <EventIndexItem item={item}/>}>
+              renderItem={({item, index}) => <EventIndexItem item={item} index={index}/>}>
           </FlatList>
         </Modal>
     </View>
