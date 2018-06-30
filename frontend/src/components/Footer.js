@@ -35,6 +35,11 @@ class Footer extends Component {
     // }
   }
 
+  handleOngoing() {
+    Actions.ongoingIcoList();
+    return null;
+  }
+
   handleFavorites() {
     this.setState({ currentScene: this.state.currentScene.concat(['login']) });
     const length = Actions.state.routes.length;
@@ -114,7 +119,7 @@ class Footer extends Component {
           <Text style={upTextClass}>Upcoming</Text>
         </TouchableOpacity>
       
-        <TouchableOpacity style={{flexDirection: 'column', alignItems: 'center'}}>
+        <TouchableOpacity onPress={this.handleOngoing.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>
           <Text style={{margin: 10, fontSize: 25}}>
             <FontAwesome>{Icons.clockO}</FontAwesome>
           </Text>
