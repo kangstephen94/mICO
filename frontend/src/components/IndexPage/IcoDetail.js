@@ -83,6 +83,14 @@ export default class IcoDetail extends Component {
     console.log('favs',this.props.user.user);
     // let favoriteClass = styles.nonFavClass;
     const favoriteClass = this.state.favorite ? styles.favClass : styles.nonFavClass;
+    const star = this.state.favorite ? 
+      <FontAwesome style={favoriteClass}>{Icons.star}</FontAwesome>
+    : 
+      <FontAwesome style={favoriteClass}>{Icons.starO}</FontAwesome>;
+
+
+
+
     console.log('fav?', this.state.favorite);
     console.log('favClass', favoriteClass);
     // const {item} = this.props;
@@ -123,7 +131,7 @@ export default class IcoDetail extends Component {
           <View style={inlineView}>
             <TouchableOpacity onPress={this.handleFavorite.bind(this)} style={{flexDirection: 'column', alignItems: 'center', flex: 1}}>
               <Text style={{margin: 10, fontSize: 25}}>
-                <FontAwesome style={favoriteClass}>{Icons.starO}</FontAwesome>
+                {star}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={{flex: 1}}>
@@ -231,7 +239,7 @@ const styles = {
     color: 'white'
   },
   favClass: {
-      color: '#4CAF50'
+      color: "#ff92e0" //'#4CAF50'
   },
   nonFavClass: {
     color: 'black'

@@ -150,13 +150,13 @@ const styles = StyleSheet.create({
 
   btn: {
     backgroundColor: "#ff92e0",
-    height: 8,
+    height: 5,
     width: 100,
     borderRadius: 10,
-    padding: 8,
+    padding: 4.5,
     margin: 5,
     position: 'absolute',
-    bottom: 15,
+    bottom: 8,
   },
 
   btnModal: {
