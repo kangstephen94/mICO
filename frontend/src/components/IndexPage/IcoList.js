@@ -1,36 +1,53 @@
 import React from 'react';
 import axios from 'axios';
-import { View, Text, FlatList, ScrollView } from 'react-native';
+import { View, Text, FlatList, ScrollView, RefreshControl, ActivityIndicator} from 'react-native';
 import IcoListItem from './IcoListItem';
 import Spinner from '../common/Spinner';
 import Footer from '../Footer';
 
 class IcoList extends React.Component {
 
-  state = { dataSource: null,
-            isLoading: true };
+  constructor(props) {
+    super(props);
+    this.state = { 
+      dataSource: [],
+      currentPage: 0,
+      refreshing: false,
+      isLoading: true 
+    };
 
-  // componentDidMount() {
-  //   axios.get('https://api.icowatchlist.com/public/v1/live')
-  //     .then(response => {
-  //       this.setState({
-  //         dataSource: response.data.ico.live,
-  //         isLoading: false
-  //       });
-  //       console.log(this.state.dataSource);
-  //     });
-  // }
+    this._fetchData = this._fetchData.bind(this);
+    this._refresh = this._refresh.bind(this);
+    this._handleEndReached = this._handleEndReached.bind(this)
+  }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/active_icos/0')
-      .then(response => {
-        console.log(response.data);
-        this.setState({
-          dataSource: response.data.results,
-          currentPage: response.data.currentPage,
-          isLoading: false
-        });
+    this._fetchData();
+  }
+
+  _fetchData() {
+    console.log('fetch');
+    console.log(this.state.currentPage);
+    axios.get(`http://localhost:5000/active_icos/${this.state.currentPage}`)
+    .then(response => {
+      console.log(response.data);
+      this.setState({
+        dataSource: this.state.dataSource.concat(response.data.results),
+        currentPage: response.data.currentPage + 1,
+        isLoading: false,
+        refreshing: false
       });
+    });
+  }
+
+  _refresh() {
+    this.setState({refreshing: true});
+    this._fetchData();
+  }
+
+  _handleEndReached() {
+    if (this.state.loading || this.state.refreshing) return null;
+    this._refresh();
   }
 
   renderItem({item}) {
@@ -41,15 +58,18 @@ class IcoList extends React.Component {
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
+
+    const refreshSpinner = this.state.refreshing ? <ActivityIndicator style={{size: 'small'}} /> : null ;
+
     return (
-      <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
-        <ScrollView>
-          <FlatList 
-            data={this.state.dataSource}
+      <View style={{flex: 1, flexDirection: 'column', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
+          <FlatList data={this.state.dataSource}
             renderItem={this.renderItem}
+            onEndReachedThreshold={0}
+            onEndReached={this._handleEndReached}
+            style={{flex: 3}}
           />
-        </ScrollView> 
-       
+          {refreshSpinner}
       </View>
     );
   }
