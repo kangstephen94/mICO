@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image , TouchableOpacity} from 'react-native';
+import { View, Text, Image , TouchableOpacity, StyleSheet} from 'react-native';
 import Section from '../common/Section';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import SubSection from '../common/SubSection';
@@ -8,7 +8,7 @@ import Footer from '../Footer';
 
 
 const IcoListItem = (props) => {
-  const { imageStyle, sectionStyle } = styles;
+  const { imageStyle, sectionStyle, titleStyle } = styles;
   const { item } = props;
   let ratingClass;
   if (item.rating < 2) {
@@ -28,10 +28,10 @@ const IcoListItem = (props) => {
         >
         <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start'}}>
           <Image style={imageStyle} source={{ uri: item.logo }} />
-          <Text style={{marginRight: 20, fontSize: 24, fontWeight: 'bold', width: '45%', fontFamily: 'Heiti SC'}}>{item.name}</Text>
+          <Text style={titleStyle}>{item.name}</Text>
           <View style={ratingClass}>
-            <FontAwesome style={{marginRight: 3}}>{Icons.starO}</FontAwesome>
-            <Text style={{fontWeight: 'bold'}}>
+            <FontAwesome style={{marginRight: 3, fontWeight: 'bold'}}>{Icons.starO}</FontAwesome>
+            <Text style={{fontWeight: 'bold', fontFamily: 'Encode Sans Semi Expanded'}}>
               {item.rating}
             </Text>
           </View>
@@ -42,7 +42,7 @@ const IcoListItem = (props) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   sectionStyle: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -82,9 +82,16 @@ const styles = {
     padding: 5,
     borderRadius: 3,
     // flex: 0.25
+  },
+  titleStyle: {
+      marginRight: 20,
+      fontSize: 24,
+      // fontWeight: '',
+      width: '45%',
+      fontFamily: 'Encode Sans Semi Expanded',
   }
 
-};
+});
 
 
 export default IcoListItem;

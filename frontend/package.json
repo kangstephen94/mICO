@@ -35,7 +35,7 @@
   },
   "rnpm": {
     "assets": [
-      "./assets/fonts/"
+      "./assets/fonts/EncodeSansSemiExpanded"
     ]
   }
 }
