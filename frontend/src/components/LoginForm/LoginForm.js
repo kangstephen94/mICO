@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SafariView from 'react-native-safari-view';
-import IcoList from '../IndexPage/IcoList';
+import FavoritesList from './FavoritesList';
 
 export default class LoginForm extends Component {
 
@@ -77,14 +77,15 @@ export default class LoginForm extends Component {
     if (this.props.session.user) {
       array = this.props.session.user.favorites;
     }
+    const containerClass = this.state.user ? styles.containerloggedIn : styles.container;
     console.log(this.props.session);
     return (
-      <View style={styles.container}>
+      <View style={containerClass}>
         <ScrollView>
         {array
           ? 
           <View style={styles.content}>
-            <IcoList favorites={this.props.session.user.favorites} />
+            <FavoritesList favorites={this.props.session.user.favorites} />
           </View>
           : // Show Please log in message if not
           <View style={styles.content}>
@@ -152,13 +153,17 @@ const iconStyles = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#ddd'
+  },
+  containerloggedIn: {
+    flex: 1,
+    backgroundColor: '#39314B'
   },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30
+    marginTop: 5,
   },
   avatar: {
     margin: 20,

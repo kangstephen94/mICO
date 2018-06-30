@@ -14,7 +14,7 @@ export default class MyMap extends React.Component {
         longitudeDelta: 0.002
     }
     marker = {
-      latitude: 37.794657, 
+      latitude: 37.794657,
       longitude: -122.422326
     }
     mapStyle = [
@@ -218,39 +218,40 @@ export default class MyMap extends React.Component {
       }
     ]
 
-    render() {
-        return (
+    componentDidMount() {
+      this.props.retrieveEvents().then(()=> (this.setState(loading: false)));
+    }
 
-                <MapView 
+    render() {
+      const {events} = this.props;
+      if (this.state.loading) {
+        return null;
+      }
+        return (
+                <MapView
                   provider={PROVIDER_GOOGLE}
-                  style={styles.map} 
+                  style={styles.map}
                   initialRegion={this.state}
                   customMapStyle={this.mapStyle}
-                  // showsUserLocation={true}
-                  // followsUserLocation={true}
-                  // showsMyLocationButton={true}
                 >
-                  
-                    <Marker 
+                  {events.map( (event, index) => (
+                    <Marker
+                      key={index}
                       style={{position: 'relative'}}
                       image={require('../../../assets/images/map-marker-2.png')}
-                      title="App Academy" coordinate={this.state}>
-                      <Text style={styles.markerText}>1</Text> 
+                      coordinate={{latitude: event.latitude, longitude: event.longitude}}>
+                      <Text style={styles.markerText}>{index + 1}</Text>
                       <Callout onPress={() => Actions.login()}>
-                        <View style={{width: 100, height: 50}}>
+                        <View style={{width: 200, height: 180}}>
                           {/* <TouchableOpacity > */}
-                            <Text>App Academy</Text>
+                            <Image source={{ uri:event.image }} style={{height: 80, width: 200}}></Image>
+                            <Text style={{fontWeight: 'bold', fontSize: 14, marginTop: 8}}>{`${index+1}. ${event.name}`}</Text>
+                            <Text style={{fontSize: 13}}>{`Location: ${event.address}`}</Text>
                           {/* </TouchableOpacity> */}
                         </View>
                       </Callout>
                     </Marker>
-                    <Marker 
-                      // style={{position: 'relative'}}
-                      image={require('../../../assets/images/map-marker-2.png')}
-                      title="My House" coordinate={this.marker}>
-                    <Text style={styles.markerText}>5</Text> 
-                    </Marker>
-                    
+                  ))}
                 </MapView>
         );
     }
@@ -288,16 +289,16 @@ const styles = {
 // <View style={styles.container}>
 // {/* <Image source={require('./map-marker.png')} /> */}
 
-//   <MapView 
+//   <MapView
 //     provider={PROVIDER_GOOGLE}
-//     style={styles.map} 
+//     style={styles.map}
 //     initialRegion={this.state}
 //     customMapStyle={this.mapStyle}
 //     // showsUserLocation={true}
 //     // followsUserLocation={true}
 //     // showsMyLocationButton={true}
 //   >
-//       <Marker 
+//       <Marker
 //         image={require('../../../assets/images/map-marker-2.png')}
 //         title="App Academy" coordinate={this.state} />
 //       <Callout />
@@ -308,3 +309,9 @@ const styles = {
 // </View>
 
 // </View>
+
+
+
+
+
+//events markers
