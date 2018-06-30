@@ -22,6 +22,10 @@ class IcoList extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.favorites) {
+      this.setState({dataSource: this.props.favorites, isLoading: false})
+      return null;
+    }
     this._fetchData();
   }
 
@@ -55,20 +59,29 @@ class IcoList extends React.Component {
   }
 
   render() {
+    console.log(this.state.dataSource);
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
 
-    const refreshSpinner = this.state.refreshing ? <ActivityIndicator style={{size: 'small'}} /> : null ;
-
-    return (
-      <View style={{flex: 1, flexDirection: 'column', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
-          <FlatList data={this.state.dataSource}
+    const flatList = this.props.favorite ? 
+      <FlatList 
+            data={this.state.dataSource}
+            renderItem={this.renderItem}
+          />
+    : 
+        <FlatList data={this.state.dataSource}
             renderItem={this.renderItem}
             onEndReachedThreshold={0}
             onEndReached={this._handleEndReached}
             style={{flex: 3}}
-          />
+          />;
+  
+    const refreshSpinner = this.state.refreshing ? <ActivityIndicator style={{size: 'small'}} /> : null ;
+    
+    return (
+      <View style={styles.listViewStyle}>
+          {flatList}
           {refreshSpinner}
       </View>
     );
@@ -77,7 +90,11 @@ class IcoList extends React.Component {
 
 const styles = {
   listViewStyle: {
-    flex: 1
+    flex: 1, 
+    flexDirection: 'row', 
+    flexWrap: 'wrap', 
+    justifyContent: 'space-evenly',
+    backgroundColor: '#39314B'
   }
 };
 

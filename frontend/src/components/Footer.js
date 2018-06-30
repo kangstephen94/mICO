@@ -94,8 +94,7 @@ class Footer extends Component {
     const upTextClass = (this.state.currentScene[length - 1] === 'icoList' 
       || this.state.currentScene[length - 1] === 'icoDetail') ? highlightedText : nonHighlightedText;
     
-    
-
+  
     const favIconClass = this.state.currentScene[length - 1] === 'login' ? highlightedIcon : nonHighlightedIcon;
     const favTextClass = this.state.currentScene[length - 1] === 'login' ? highlightedText : nonHighlightedText;
 
