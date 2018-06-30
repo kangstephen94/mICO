@@ -34,15 +34,21 @@ class IcoList extends React.Component {
   // ADD ONGOING 
   
   _fetchData() {
-    axios.get(`http://localhost:5000/active_icos/${this.state.currentPage}`)
-    .then(response => {
-      this.setState({
-        dataSource: this.state.dataSource.concat(response.data.results),
-        currentPage: response.data.currentPage + 1,
-        isLoading: false,
-        refreshing: false
-      });
-    });
+    const {name} = this.props
+    if (name === 'icoList') {
+      this._fetchUpcomingData();
+    } else {
+      this._fetchActiveData();
+    }
+    // axios.get(`http://localhost:5000/active_icos/${this.state.currentPage}`)
+    // .then(response => {
+    //   this.setState({
+    //     dataSource: this.state.dataSource.concat(response.data.results),
+    //     currentPage: response.data.currentPage + 1,
+    //     isLoading: false,
+    //     refreshing: false
+    //   });
+    // });
   }
 
   _fetchUpcomingData() {
