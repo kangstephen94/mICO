@@ -16,14 +16,15 @@ class SearchBar extends React.Component {
             axios.get(`http://localhost:5000/search_icos/${this.state.text}`)
             .then(response => {
                 receiveSearchResults(response.data.results);
-            });
-        }, 100);
+            }
+            );
+        }, 250);
     }
 
     checkInput() {
         const { receiveSearchResults } = this.props;
         if (this.state.text === '') {
-            receiveSearchResults([]);
+            setTimeout(() => receiveSearchResults([]), 300);
         }
     }
 
