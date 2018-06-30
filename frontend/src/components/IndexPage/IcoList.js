@@ -63,7 +63,7 @@ class IcoList extends React.Component {
     const refreshSpinner = this.state.refreshing ? <ActivityIndicator style={{size: 'small'}} /> : null ;
 
     return (
-      <View style={{flex: 1, flexDirection: 'column', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
+      <View style={styles.listViewStyle}>
           <FlatList data={this.state.dataSource}
             renderItem={this.renderItem}
             onEndReachedThreshold={0}
