@@ -55,6 +55,7 @@ class IcoList extends React.Component {
   }
 
   render() {
+    console.log(this.state.dataSource);
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
@@ -62,7 +63,7 @@ class IcoList extends React.Component {
     const refreshSpinner = this.state.refreshing ? <ActivityIndicator style={{size: 'small'}} /> : null ;
 
     return (
-      <View style={{flex: 1, flexDirection: 'column', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
+      <View style={styles.listViewStyle}>
           <FlatList data={this.state.dataSource}
             renderItem={this.renderItem}
             onEndReachedThreshold={0}
@@ -77,7 +78,11 @@ class IcoList extends React.Component {
 
 const styles = {
   listViewStyle: {
-    flex: 1
+    flex: 1, 
+    flexDirection: 'row', 
+    flexWrap: 'wrap', 
+    justifyContent: 'space-evenly',
+    backgroundColor: '#39314B'
   }
 };
 

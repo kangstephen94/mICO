@@ -17,6 +17,7 @@
     "react-native-modalbox": "^1.5.0",
     "react-native-router-flux": "^4.0.0-beta.31",
     "react-native-safari-view": "^2.1.0",
+    "react-native-swipe-gestures": "^1.0.2",
     "react-native-vector-icons": "^4.6.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
@@ -34,7 +35,7 @@
   },
   "rnpm": {
     "assets": [
-      "./assets/fonts/"
+      "./assets/fonts/EncodeSansSemiExpanded"
     ]
   }
 }
