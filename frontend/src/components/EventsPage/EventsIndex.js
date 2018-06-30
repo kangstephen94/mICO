@@ -64,7 +64,11 @@ export default class EventsIndex extends Component {
 
     var BContent = <Button onPress={() => this.setState({isOpen: false})} style={[styles.btn, styles.btnModal]} title={"X"}></Button>;
 
-    const eventsList = (<FlatList style={{flex: 1}} data={this.props.events}
+    const eventsList = (
+      <FlatList 
+        style={{flex: 1}} 
+        data={this.props.events}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => <EventIndexItem item={item} index={index}/>}>
       </FlatList>);
 
