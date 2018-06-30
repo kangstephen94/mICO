@@ -4,7 +4,7 @@ import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginFormContainer from './components/LoginForm/LoginFormContainer';
 import IcoList from './components/IndexPage/IcoList';
 import IcoDetailContainer from './components/IndexPage/IcoDetailContainer';
-import EventsIndex from './components/EventsPage/EventsIndex';
+import EventsIndexContainer from './components/EventsPage/EventsIndexContainer';
 import Header from './components/header';
 import SearchBarContainer from './components/Search/SearchBarContainer';
 import SearchListContainer from './components/Search/SearchListContainer';
@@ -23,7 +23,7 @@ const RouterComponent = () => {
           <Scene navBar={() => <Header title="Events" />} key="events" component={EventsIndex} title="Events" />
           <Scene navBar={() => <SearchBarContainer />} key="search" component={SearchListContainer} title="Search" initial={true} showNavigationBar={false}/>
           {/* <Scene key="events" component={EventsIndex} title="Events" /> */}
-        </Scene> 
+        </Scene>
       </Router>
       <Footer />
     </View>
@@ -47,5 +47,3 @@ const styles = {
 
 
 export default RouterComponent;
-
-

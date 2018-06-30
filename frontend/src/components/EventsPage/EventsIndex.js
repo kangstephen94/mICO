@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Modal from 'react-native-modalbox';
 import EventIndexItem from './EventIndexItem';
 import Footer from '../Footer';
-import Map from '../Map/Map';
+import MapContainer from '../Map/MapContainer';
 import {
   AppRegistry,
   Text,
@@ -53,14 +53,18 @@ export default class EventsIndex extends Component {
 
   }
 
+  componentDidMount() {
+    this.props.retrieveEvents();
+  }
+
   render() {
     var BContent = <Button onPress={() => this.setState({isOpen: false})} style={[styles.btn, styles.btnModal]} title={"X"}></Button>;
     return (
       <View style={styles.wrapper}>
-      <Map />
+      <MapContainer />
         <GestureRecognizer onSwipeUp={() => this.refs.modal1.open()}>
-        <TouchableOpacity 
-          // onPress={() => this.refs.modal1.open()} 
+        <TouchableOpacity
+          // onPress={() => this.refs.modal1.open()}
           style={styles.btn}>
         </TouchableOpacity>
         </GestureRecognizer>
@@ -73,12 +77,12 @@ export default class EventsIndex extends Component {
           onOpened={this.onOpen}
           onClosingState={this.onClosingState}
           swipeThreshold={200}
-          // animationType='slide'          
+          // animationType='slide'
           >
             <Text style={styles.text}>Events</Text>
             <FlatList style={{width: screen.width, paddingLeft: 20}}
-              data={[{key: 'a'}, {key: 'b'}]}
-              renderItem={({item}) => <EventIndexItem />}>
+              data={this.props.events}
+              renderItem={({item}) => <EventIndexItem item={item}/>}>
           </FlatList>
         </Modal>
     </View>
@@ -164,7 +168,7 @@ const styles = StyleSheet.create({
       onClosed={this.onClose}
       onOpened={this.onOpen}
       onClosingState={this.onClosingState}
-      animationType='slide'          
+      animationType='slide'
       >
         <Text style={styles.text}>Events</Text>
         <FlatList style={{width: screen.width, paddingLeft: 20}}

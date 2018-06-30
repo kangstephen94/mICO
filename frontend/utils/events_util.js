@@ -1,8 +1,16 @@
 import axios from 'axios';
 
-export const getEvents = () => (
+export const getEvents = () => {
+  console.log("hit axios call");
+  return (
     axios({
         url: 'http://localhost:5000/api/events',
-        method: 'GET'
+        method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE',
+          'Access-Control-Allow-Headers': 'Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type',
+        }
     })
 );
+};
