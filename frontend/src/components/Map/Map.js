@@ -233,6 +233,7 @@ export default class MyMap extends React.Component {
                   style={styles.map}
                   initialRegion={this.state}
                   customMapStyle={this.mapStyle}
+                  showsUserLocation={true}
                 >
                   {events.map( (event, index) => (
                     <Marker
