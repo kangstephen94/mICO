@@ -5,9 +5,10 @@ const passport = require('passport');
 const keys = require('./config/keys');
 const bodyParser = require('body-parser');
 require('./models/User');
+require('./models/Event');
 require('./services/passport');
 require('./models/Ico');
-const ICObench = require('./services/icobenchapi.js')
+const ICObench = require('./services/icobenchapi.js');
 
 // Uncomment after testing locally
 mongoose.connect(keys.mongoURI);
@@ -29,6 +30,7 @@ app.use(bodyParser.json());
 
 require('./routes/authRoutes')(app);
 require('./routes/favoriteRoutes')(app);
+require('./routes/eventRoutes')(app);
 require('./routes/icoBenchApi')(app);
 
 const PORT = process.env.PORT || 5000;

@@ -29,12 +29,19 @@ const IcoListItem = (props) => {
         <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start'}}>
           <Image style={imageStyle} source={{ uri: item.logo }} />
           <Text style={titleStyle}>{item.name}</Text>
-          <View style={ratingClass}>
-            <FontAwesome style={{marginRight: 3, fontWeight: 'bold'}}>{Icons.starO}</FontAwesome>
-            <Text style={{fontWeight: 'bold', fontFamily: 'Encode Sans Semi Expanded'}}>
-              {item.rating}
-            </Text>
+          <View >
+            <View style={ratingClass}>
+              <FontAwesome style={{marginRight: 3, fontWeight: 'bold'}}>{Icons.starO}</FontAwesome>
+              <Text style={{fontWeight: 'bold', fontFamily: 'Encode Sans Semi Expanded'}}>
+                {item.rating}
+              </Text>
+            </View>
+            <View style={{flexDirection: 'column', marginTop: 35, marginLeft: -175 }}>
+              {/* <Text>End Date:</Text> */}
+              <Text>End Date: {item.dates.icoEnd}</Text>
+            </View>
           </View>
+
         </View>
       </TouchableOpacity> 
     </Section>
@@ -73,7 +80,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FF851B',
     padding: 5,
-    borderRadius: 3
+    borderRadius: 3,
+    width: 50
   },
   goodRating: {
     flexDirection: 'row',
@@ -81,6 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4CAF50',
     padding: 5,
     borderRadius: 3,
+    width: 50
     // flex: 0.25
   },
   titleStyle: {
