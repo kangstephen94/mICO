@@ -18,8 +18,12 @@ class SearchBar extends React.Component {
             axios.get(`http://localhost:5000/search_icos/${this.state.text}`)
             .then(response => {
                 receiveSearchResults(response.data.results);
+            }
+            ).catch(function (error) {
+                console.log('There has been a problem with your fetch operation: ' + error.message);
+                throw error;
             });
-        }, 100);
+        }, 250);
     }
 
     handleBack() {
@@ -29,7 +33,7 @@ class SearchBar extends React.Component {
     checkInput() {
         const { receiveSearchResults } = this.props;
         if (this.state.text === '') {
-            receiveSearchResults([]);
+            setTimeout(() => receiveSearchResults([]), 300);
         }
     }
 
