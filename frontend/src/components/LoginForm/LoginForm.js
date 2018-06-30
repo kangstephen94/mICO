@@ -77,9 +77,10 @@ export default class LoginForm extends Component {
     if (this.props.session.user) {
       array = this.props.session.user.favorites;
     }
+    const containerClass = this.state.user ? styles.containerloggedIn : styles.container;
     console.log(this.props.session);
     return (
-      <View style={styles.container}>
+      <View style={containerClass}>
         <ScrollView>
         {array
           ? 
@@ -151,6 +152,10 @@ const iconStyles = {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: '#ddd'
+  },
+  containerloggedIn: {
     flex: 1,
     backgroundColor: '#39314B'
   },

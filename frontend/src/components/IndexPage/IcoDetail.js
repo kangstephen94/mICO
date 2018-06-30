@@ -102,17 +102,17 @@ export default class IcoDetail extends Component {
 
           <View style={icoHeader}>
             <Image source={{ uri: item.logo }} style={imageStyle}/>
-            <Text style={{fontWeight: 'bold', fontSize: 24  }}>{item.name}</Text>
+            <Text style={{fontWeight: 'bold', fontSize: 24, fontFamily: 'Encode Sans Semi Expanded' }}>{item.name}</Text>
           </View>
 
           <View style={inlineView}>
 
-            <View style={{flex: 1.0, margin: 10}}>
+            <View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
               <Text style={{color: 'grey'}}>End Date:</Text>
               <Text>{item.dates.icoEnd}</Text>
             </View>
 
-            <View style={{margin: 10}}>
+            <View style={{margin: 10, marginRight: 25}}>
               <Text style={{color: 'grey'}}>Time Left:</Text>
               <View style={greenBorder}>
                 <Text style={{color: '#4CAF50', fontWeight: 'bold'}}>
@@ -191,7 +191,7 @@ const styles = {
     resizeMode: 'contain',
     borderColor: 'grey',
     padding: 5,
-    borderRadius: 5,
+    borderRadius: 4,
     marginRight: 20,
   },
   inlineView: {
@@ -209,11 +209,11 @@ const styles = {
     width: 350
   },
   buttonStyle: {
-    backgroundColor: '#FF5FDB',
+    backgroundColor: '#39314B', //'#FF5FDB',
     alignItems: 'center',
     padding: 8,
     flex: 0.7,
-    marginRight: 30,
+    marginRight: 25,
     marginLeft: -60,
     borderRadius: 3
   },
@@ -227,7 +227,8 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-between',
     flex: 1,
-    marginTop: 30
+    marginTop: 30,
+    marginLeft: -112
   },
   white: {
     color: 'white'
