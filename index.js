@@ -7,8 +7,15 @@ const bodyParser = require('body-parser');
 require('./models/User');
 require('./models/Event');
 require('./services/passport');
+require('./models/Ico');
+const ICObench = require('./services/icobenchapi.js');
 
+// Uncomment after testing locally
 mongoose.connect(keys.mongoURI);
+
+// Used for local testing
+// mongoose.connect('mongodb://localhost/mico');
+
 const app = express();
 app.use(
     cookieSession({
@@ -16,7 +23,6 @@ app.use(
         keys: [keys.cookieKey]
     })
 );
-
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -25,6 +31,7 @@ app.use(bodyParser.json());
 require('./routes/authRoutes')(app);
 require('./routes/favoriteRoutes')(app);
 require('./routes/eventRoutes')(app);
+require('./routes/icoBenchApi')(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);

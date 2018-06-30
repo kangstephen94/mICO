@@ -1,10 +1,10 @@
 import { getEvents } from '../utils/events_util';
 import { getIcos } from '../utils/icos_util';
-import { getUser } from '../utils/session_util';
 
 export const RECEIVE_ICOS = 'RECEIVE_ICOS';
 export const RECEIVE_EVENTS = 'RECEIVE_EVENTS';
 export const RECEIVE_SESSION = 'RECEIVE_SESSION';
+export const RECEIVE_RESULTS = 'RECEIVE_RESULTS';
 
 export const retrieveEvents = () => dispatch => (
     getEvents().then(events => dispatch(receiveEvents(events)))
@@ -27,4 +27,9 @@ export const receiveIcos = icos => ({
 export const receiveSession = currentUser => ({
     type: RECEIVE_SESSION,
     currentUser
+});
+
+export const receiveSearchResults = results => ({
+    type: RECEIVE_RESULTS,
+    results
 });

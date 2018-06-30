@@ -2,14 +2,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('users');
 
 module.exports = (app) => {
-    app.get('/favorites', 
-    (req, res) => {
-        User.findOne({ profileID: req.user.profileID }, (err, result) => {
-            res.send(result);
-        });
-    });
-
-    app.post('/favorites/add', 
+    app.post('/api/favorites/add', 
     (req, res) => {
         User.findOne({ profileID: req.body.user.user.profileID })
             .then((existingUser) => {
@@ -22,7 +15,9 @@ module.exports = (app) => {
                 if (!has) {
                     existingUser.favorites.push(req.body.item);
                     existingUser.save();
-                    }       
+                    }     
+                console.log(existingUser);
+                res.send(existingUser);
             });
     });
 };

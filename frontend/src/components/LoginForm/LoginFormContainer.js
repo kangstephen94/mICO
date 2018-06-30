@@ -4,7 +4,7 @@ import { receiveSession } from '../../../actions/all_actions';
 
 
 const msp = state => ({
-    state
+    session: state.session
 });
 
 const mdp = dispatch => ({

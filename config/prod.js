@@ -7,4 +7,6 @@ module.exports = {
     facebookClientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     linkedinClientID: process.env.LINKEDIN_CLIENT_ID,
     linkedinClientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+    icoBenchPrivate: process.env.ICO_BENCH_PRIVATE,
+    icoBenchPublic: process.env.ICO_BENCH_PUBLIC
 };

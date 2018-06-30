@@ -24,14 +24,5 @@ module.exports = (app) => {
     app.get('/auth/linkedin/callback',
         passport.authenticate('linkedin', {failureRedirect: '/auth/linkedin'}),
         (req, res) => res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user)));
-
-    app.get('/api/logout', (req, res) => {
-        req.logout();
-        res.send(req.user);
-    });
-
-    app.get('/api/current_user', (req, res) => {
-        res.send(req.user);
-    });
 };
 
