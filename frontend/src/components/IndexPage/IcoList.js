@@ -22,6 +22,10 @@ class IcoList extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.favorites) {
+      this.setState({dataSource: this.props.favorites, isLoading: false})
+      return null;
+    }
     this._fetchData();
   }
 
@@ -60,16 +64,24 @@ class IcoList extends React.Component {
       return <Spinner size="small" />;
     }
 
-    const refreshSpinner = this.state.refreshing ? <ActivityIndicator style={{size: 'small'}} /> : null ;
-
-    return (
-      <View style={styles.listViewStyle}>
-          <FlatList data={this.state.dataSource}
+    const flatList = this.props.favorite ? 
+      <FlatList 
+            data={this.state.dataSource}
+            renderItem={this.renderItem}
+          />
+    : 
+        <FlatList data={this.state.dataSource}
             renderItem={this.renderItem}
             onEndReachedThreshold={0}
             onEndReached={this._handleEndReached}
             style={{flex: 3}}
-          />
+          />;
+  
+    const refreshSpinner = this.state.refreshing ? <ActivityIndicator style={{size: 'small'}} /> : null ;
+    
+    return (
+      <View style={styles.listViewStyle}>
+          {flatList}
           {refreshSpinner}
       </View>
     );
