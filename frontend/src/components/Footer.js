@@ -147,8 +147,9 @@ const styles = {
     // position: '',
     bottom: 0,
     // alignItems: 'center',
-    height: 100,
-    paddingTop: 10,
+    // height: 100,
+    // paddingTop: 10,
+    flex: 1
   },
   textStyle: {
     fontSize: 20
