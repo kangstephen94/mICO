@@ -242,11 +242,11 @@ export default class MyMap extends React.Component {
                       coordinate={{latitude: event.latitude, longitude: event.longitude}}>
                       <Text style={styles.markerText}>{index + 1}</Text>
                       <Callout onPress={() => Actions.login()}>
-                        <View style={{width: 100, height: 50}}>
+                        <View style={{width: 200, height: 180}}>
                           {/* <TouchableOpacity > */}
-                            <Text>{event.name}</Text>
-                            <Text>{event.address}</Text>
-                            <Image source={{ uri:event.image }} style={{height: 25, width: 25}}></Image>
+                            <Image source={{ uri:event.image }} style={{height: 80, width: 200}}></Image>
+                            <Text style={{fontWeight: 'bold', fontSize: 14, marginTop: 8}}>{`${index+1}. ${event.name}`}</Text>
+                            <Text style={{fontSize: 13}}>{`Location: ${event.address}`}</Text>
                           {/* </TouchableOpacity> */}
                         </View>
                       </Callout>

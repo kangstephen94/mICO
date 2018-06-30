@@ -10,7 +10,7 @@ class FavoritesList extends React.Component {
 
   render() {
     return (
-    <View style={{backgroundColor: '#39314'}}>
+    <View>
       <FlatList 
       data={this.props.favorites}
       renderItem={this.renderItem}

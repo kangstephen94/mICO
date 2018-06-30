@@ -10,13 +10,16 @@ import Footer from '../Footer';
 const IcoListItem = (props) => {
   const { imageStyle, sectionStyle, titleStyle } = styles;
   const { item } = props;
-  let ratingClass;
+  let ratingClass, starClass;
   if (item.rating < 2) {
     ratingClass = styles.poorRating;
+    starClass = styles.poorStar;
   } else if (item.rating < 4) {
     ratingClass = styles.okayRating;
+    starClass = styles.okayStar;
   } else {
     ratingClass = styles.goodRating;
+    starClass = styles.goodStar
   }
   return (
     
@@ -26,12 +29,12 @@ const IcoListItem = (props) => {
         style={{padding: 10}}
         // style={sectionStyle}
         >
-        <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
           <Image style={imageStyle} source={{ uri: item.logo }} />
           <Text style={titleStyle}>{item.name}</Text>
           <View >
             <View style={ratingClass}>
-              <FontAwesome style={{marginRight: 3, fontWeight: 'bold'}}>{Icons.starO}</FontAwesome>
+              <FontAwesome style={starClass}>{Icons.star}</FontAwesome>
               <Text style={{fontWeight: 'bold', fontFamily: 'Encode Sans Semi Expanded'}}>
                 {item.rating}
               </Text>
@@ -70,31 +73,53 @@ const styles = StyleSheet.create({
   poorRating: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FF4136',
+    // backgroundColor: '#FF4136',
     padding: 5,
     borderRadius: 3,
+    marginTop: 5,
+    width: 50
     // flex: 0.25
   },
   okayRating: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FF851B',
+    // backgroundColor: '#FF851B',
     padding: 5,
     borderRadius: 3,
-    width: 50
+    width: 50,
+    marginTop: 5
   },
   goodRating: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#4CAF50',
+    // backgroundColor: '#4CAF50',
     padding: 5,
     borderRadius: 3,
-    width: 50
+    width: 50,
+    marginTop: 5
     // flex: 0.25
   },
+  poorStar: {
+    color: '#FF4136',
+    marginRight: 3,
+    fontWeight: 'bold'
+  },
+  okayStar: {
+    color: '#FF851B',
+    marginRight: 3,
+    fontWeight: 'bold'
+  },
+  goodStar: {
+    color: '#4CAF50',
+    marginRight: 3,
+    fontWeight: 'bold'
+  },
+
+
   titleStyle: {
       marginRight: 20,
       fontSize: 24,
+      marginTop: 15,
       // fontWeight: '',
       width: '45%',
       fontFamily: 'Encode Sans Semi Expanded',
