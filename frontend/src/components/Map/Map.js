@@ -246,7 +246,7 @@ export default class MyMap extends React.Component {
                           {/* <TouchableOpacity > */}
                             <Image source={{ uri:event.image }} style={{height: 80, width: 200}}></Image>
                             <Text style={{fontWeight: 'bold', fontSize: 14, marginTop: 8}}>{`${index+1}. ${event.name}`}</Text>
-                            <Text style={{fontSize: 13}}>{`Location: ${event.address}`}</Text>
+                            <Text style={{fontSize: 13}}><Text style={{fontWeight: 'bold'}}>Location: </Text>{event.address}</Text>
                           {/* </TouchableOpacity> */}
                         </View>
                       </Callout>

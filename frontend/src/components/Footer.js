@@ -39,7 +39,8 @@ class Footer extends Component {
     this.setState({ currentScene: this.state.currentScene.concat(['login']) });
     const length = Actions.state.routes.length;
     if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
-    Actions.state.routes[length - 1].routeName === 'login') {
+    Actions.state.routes[length - 1].routeName === 'login' || 
+    Actions.state.routes[length - 1].routeName === 'search') {
       Actions.pop();
       Actions.login();
     } else {
@@ -53,7 +54,8 @@ class Footer extends Component {
     if (!Actions.state.routes[length - 2]) {
       this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
       if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
-        Actions.state.routes[length - 1].routeName === 'login') {
+        Actions.state.routes[length - 1].routeName === 'login' ||
+        Actions.state.routes[length - 1].routeName === 'search') {
         console.log("popped off favorites or detail");
         Actions.pop();
         Actions.icoList();
@@ -68,7 +70,8 @@ class Footer extends Component {
       this.setState({ currentScene: this.state.currentScene.slice(0, lengthOf - 1) });
     } else {
       if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
-        Actions.state.routes[length - 1].routeName === 'login') {
+        Actions.state.routes[length - 1].routeName === 'login' ||
+        Actions.state.routes[length -1].routeName === 'search') {
         console.log("popped off favorites or detail");
         Actions.pop();
         Actions.icoList();

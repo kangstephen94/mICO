@@ -28,6 +28,7 @@ class SearchBar extends React.Component {
 
     handleBack() {
       Actions.pop();
+      console.log(Actions.state);
     }
 
     checkInput() {
