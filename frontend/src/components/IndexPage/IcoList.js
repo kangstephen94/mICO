@@ -5,6 +5,10 @@ import IcoListItem from './IcoListItem';
 import Spinner from '../common/Spinner';
 import Footer from '../Footer';
 
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
+
+
 class IcoList extends React.Component {
 
   constructor(props) {
@@ -86,7 +90,7 @@ class IcoList extends React.Component {
   }
 
   renderItem({item}) {
-    return <IcoListItem key={item.id} item={item} />;
+    return <IcoListItem item={item} />;
   }
 
   render() {
@@ -98,6 +102,7 @@ class IcoList extends React.Component {
       <FlatList 
             data={this.state.dataSource}
             renderItem={this.renderItem}
+            keyExtractor={(item, index) => index.toString()}
           />
     : 
         <FlatList data={this.state.dataSource}
@@ -105,6 +110,7 @@ class IcoList extends React.Component {
             onEndReachedThreshold={0}
             onEndReached={this._handleEndReached}
             style={{flex: 3}}
+            keyExtractor={(item, index) => index.toString()}
           />;
   
     const refreshSpinner = this.state.refreshing ? <ActivityIndicator style={{size: 'small'}} /> : null ;

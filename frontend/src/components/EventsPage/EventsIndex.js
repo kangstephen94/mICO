@@ -64,7 +64,11 @@ export default class EventsIndex extends Component {
 
     var BContent = <Button onPress={() => this.setState({isOpen: false})} style={[styles.btn, styles.btnModal]} title={"X"}></Button>;
 
-    const eventsList = (<FlatList style={{flex: 1}} data={this.props.events}
+    const eventsList = (
+      <FlatList 
+        style={{flex: 1}} 
+        data={this.props.events}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => <EventIndexItem item={item} index={index}/>}>
       </FlatList>);
 
@@ -150,13 +154,13 @@ const styles = StyleSheet.create({
 
   btn: {
     backgroundColor: "#ff92e0",
-    height: 8,
+    height: 5,
     width: 100,
     borderRadius: 10,
-    padding: 8,
+    padding: 4.5,
     margin: 5,
     position: 'absolute',
-    bottom: 15,
+    bottom: 8,
   },
 
   btnModal: {

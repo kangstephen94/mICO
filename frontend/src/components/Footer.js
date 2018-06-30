@@ -36,7 +36,20 @@ class Footer extends Component {
   }
 
   handleOngoing() {
-    Actions.ongoingIcoList();
+    const length = Actions.state.routes.length;
+
+    if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
+      Actions.state.routes[length - 1].routeName === 'login' ||
+      Actions.state.routes[length - 1].routeName === 'search') {
+      console.log("popped off favorites or detail");
+      Actions.pop();
+      Actions.ongoingIcoList();
+    } else {
+      Actions.ongoingIcoList();
+    }
+    this.setState({
+      currentScene: this.state.currentScene.concat(['ongoingIcoList'])
+    });
     return null;
   }
 
@@ -44,7 +57,8 @@ class Footer extends Component {
     this.setState({ currentScene: this.state.currentScene.concat(['login']) });
     const length = Actions.state.routes.length;
     if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
-    Actions.state.routes[length - 1].routeName === 'login') {
+    Actions.state.routes[length - 1].routeName === 'login' || 
+    Actions.state.routes[length - 1].routeName === 'search') {
       Actions.pop();
       Actions.login();
     } else {
@@ -58,7 +72,8 @@ class Footer extends Component {
     if (!Actions.state.routes[length - 2]) {
       this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
       if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
-        Actions.state.routes[length - 1].routeName === 'login') {
+        Actions.state.routes[length - 1].routeName === 'login' ||
+        Actions.state.routes[length - 1].routeName === 'search') {
         console.log("popped off favorites or detail");
         Actions.pop();
         Actions.icoList();
@@ -73,7 +88,8 @@ class Footer extends Component {
       this.setState({ currentScene: this.state.currentScene.slice(0, lengthOf - 1) });
     } else {
       if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
-        Actions.state.routes[length - 1].routeName === 'login') {
+        Actions.state.routes[length - 1].routeName === 'login' ||
+        Actions.state.routes[length -1].routeName === 'search') {
         console.log("popped off favorites or detail");
         Actions.pop();
         Actions.icoList();
@@ -99,7 +115,12 @@ class Footer extends Component {
     const upTextClass = (this.state.currentScene[length - 1] === 'icoList' 
       || this.state.currentScene[length - 1] === 'icoDetail') ? highlightedText : nonHighlightedText;
     
-  
+    const ongoingIconClass = this.state.currentScene[length - 1] === 'ongoingIcoList' ?
+      highlightedIcon : nonHighlightedIcon;
+
+    const ongoingTextClass = this.state.currentScene[length - 1] === 'ongoingIcoList' ?
+      highlightedText : nonHighlightedText;
+
     const favIconClass = this.state.currentScene[length - 1] === 'login' ? highlightedIcon : nonHighlightedIcon;
     const favTextClass = this.state.currentScene[length - 1] === 'login' ? highlightedText : nonHighlightedText;
 
@@ -117,10 +138,10 @@ class Footer extends Component {
         </TouchableOpacity>
       
         <TouchableOpacity onPress={this.handleOngoing.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>
-          <Text style={{margin: 10, fontSize: 25}}>
+          <Text style={ongoingIconClass}>
             <FontAwesome>{Icons.clockO}</FontAwesome>
           </Text>
-          <Text style={{marginTop: -5, fontSize: 10}}>Ongoing</Text>
+          <Text style={ongoingTextClass}>Ongoing</Text>
         </TouchableOpacity>
       
         <TouchableOpacity onPress={this.handleEvents.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>
@@ -150,7 +171,7 @@ const styles = {
     bottom: 0,
     // alignItems: 'center',
     // height: 100,
-    // paddingTop: 10,
+    paddingTop: 10,
     flex: 1
   },
   textStyle: {

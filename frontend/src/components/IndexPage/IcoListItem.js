@@ -39,7 +39,7 @@ const IcoListItem = (props) => {
                 {item.rating}
               </Text>
             </View>
-            <View style={{flexDirection: 'column', marginTop: 35, marginLeft: -175 }}>
+            <View style={{flexDirection: 'column', marginTop: 40, marginLeft: -175 }}>
               {/* <Text>End Date:</Text> */}
               <Text>End Date: {item.dates.icoEnd}</Text>
             </View>
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
       marginRight: 20,
       fontSize: 24,
       marginTop: 15,
+      lineHeight: 27,
       // fontWeight: '',
       width: '45%',
       fontFamily: 'Encode Sans Semi Expanded',
