@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Modal from 'react-native-modalbox';
 import EventIndexItem from './EventIndexItem';
 import Footer from '../Footer';
-import Map from '../Map/Map';
+import MapContainer from '../Map/MapContainer';
 import {
   AppRegistry,
   Text,
@@ -59,7 +59,7 @@ export default class EventsIndex extends Component {
     var BContent = <Button onPress={() => this.setState({isOpen: false})} style={[styles.btn, styles.btnModal]} title={"X"}></Button>;
     return (
       <View style={styles.wrapper}>
-      <Map />
+        <MapContainer/>
         <View>
         <TouchableOpacity onPress={() => this.refs.modal1.open()} style={styles.btn}></TouchableOpacity>
         </View>
