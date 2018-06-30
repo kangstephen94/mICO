@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Section from '../common/Section';
 
 export default class EventIndexItem extends Component {
@@ -10,24 +10,26 @@ export default class EventIndexItem extends Component {
   render() {
     console.log(this.props);
     const { name, host, description, address, start_time, end_time, date, cost, image } = this.props.item;
-    return ( 
-      <View style={style.containerStyle}>
-        <View style={{flex: 2}}>
-          <Text style={{fontSize: 16, fontWeight: 'bold'}}>{ `${this.props.index+1}.  ${name}`}</Text>
-          <Image source={{ uri: image }} style={{height: 180, width: '100%'}}></Image>
+    return (
+      <TouchableWithoutFeedback>
+        <View style={style.containerStyle}>
+          <View style={{flex: 2}}>
+            <Text style={{fontSize: 16, fontWeight: 'bold'}}>{ `${this.props.index+1}.  ${name}`}</Text>
+            <Image source={{ uri: image }} style={{height: 180, width: '100%'}}></Image>
+          </View>
+          <View style={{flex: 1}}>
+            <Text>Event Host: { host }</Text>
+            <Text>Event Date: { date }</Text>
+            <Text>Event Start Time: { start_time }</Text>
+            <Text>Event End Time: { end_time }</Text>
+            <Text>Event Location: { address }</Text>
+            <Text>Event Cost: { cost }</Text>
+          </View>
+          <View style={{flex: 1}}>
+            <Text>Event Description: { description } </Text>
+          </View>
         </View>
-        <View style={{flex: 1}}>
-          <Text>Event Host: { host }</Text>
-          <Text>Event Date: { date }</Text>
-          <Text>Event Start Time: { start_time }</Text>
-          <Text>Event End Time: { end_time }</Text>
-          <Text>Event Location: { address }</Text>
-          <Text>Event Cost: { cost }</Text>
-        </View>
-        <View style={{flex: 1}}>
-          <Text>Event Description: { description } </Text>
-        </View>
-      </View>);
+      </TouchableWithoutFeedback>);
   }
 }
 
