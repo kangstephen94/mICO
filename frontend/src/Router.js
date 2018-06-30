@@ -19,6 +19,7 @@ const RouterComponent = () => {
         <Scene key="root">
           <Scene navBar={() => <Header title="Favorites" />} key="login" component={LoginFormContainer} title="Favorites" />
           <Scene navBar={() => <Header title="Upcoming Icos" />} key="icoList" component={IcoList} title="Upcoming ICOs" />
+          <Scene navBar={() => <Header title="Outgoing Icos" />} key="ongoingIcoList" component={IcoList} title="Ongoing ICOs" />
           <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="icoDetail" component={IcoDetailContainer} title="ICO" />
           <Scene navBar={() => <Header title="Events" />} key="events" component={EventsIndex} title="Events" />
           <Scene navBar={() => <SearchBarContainer />} key="search" component={SearchListContainer} title="Search" initial={true} showNavigationBar={false}/>

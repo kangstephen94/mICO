@@ -22,16 +22,13 @@ export default class IcoDetail extends Component {
     const {item} = this.props;
     axios.get(`http://localhost:5000/ico/${item.id}`)
       .then(response => {
-        console.log(response.data);
         const timer = setInterval(this.tick, 1000);
-
         this.setState({
           dataSource: response.data,
           isLoading: false,
           counter: (new Date(response.data.dates.icoEnd) - new Date()) / 1000,
           timer
         });
-        console.log(this.state.dataSource);
       });
   }
 
@@ -143,7 +140,6 @@ export default class IcoDetail extends Component {
 
           <View style={infoStyle}> 
             <Text style={h2}>Full Description</Text>
-            <WebView html="<h1>Hello</h1>"  />
             <Text>{item.about}</Text>          
           </View>
         </View>

@@ -18,19 +18,44 @@ class IcoList extends React.Component {
 
     this._fetchData = this._fetchData.bind(this);
     this._refresh = this._refresh.bind(this);
-    this._handleEndReached = this._handleEndReached.bind(this)
+    this._handleEndReached = this._handleEndReached.bind(this);
+    this._fetchUpcomingData = this._fetchUpcomingData.bind(this);
+    this._fetchActiveData = this._fetchActiveData.bind(this);
   }
 
   componentDidMount() {
     this._fetchData();
   }
 
+  // ADD ONGOING 
+  
   _fetchData() {
-    console.log('fetch');
-    console.log(this.state.currentPage);
     axios.get(`http://localhost:5000/active_icos/${this.state.currentPage}`)
     .then(response => {
-      console.log(response.data);
+      this.setState({
+        dataSource: this.state.dataSource.concat(response.data.results),
+        currentPage: response.data.currentPage + 1,
+        isLoading: false,
+        refreshing: false
+      });
+    });
+  }
+
+  _fetchUpcomingData() {
+    axios.get(`http://localhost:5000/active_icos/${this.state.currentPage}`)
+    .then(response => {
+      this.setState({
+        dataSource: this.state.dataSource.concat(response.data.results),
+        currentPage: response.data.currentPage + 1,
+        isLoading: false,
+        refreshing: false
+      });
+    });
+  }
+
+  _fetchActiveData() {
+    axios.get(`http://localhost:5000/active_icos/${this.state.currentPage}`)
+    .then(response => {
       this.setState({
         dataSource: this.state.dataSource.concat(response.data.results),
         currentPage: response.data.currentPage + 1,
@@ -55,7 +80,6 @@ class IcoList extends React.Component {
   }
 
   render() {
-    console.log(this.state.dataSource);
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
@@ -70,7 +94,9 @@ class IcoList extends React.Component {
             onEndReached={this._handleEndReached}
             style={{flex: 3}}
           />
-          {refreshSpinner}
+          <View style={{position: 'relative'}}>
+            {refreshSpinner}
+          </View>
       </View>
     );
   }
@@ -79,7 +105,7 @@ class IcoList extends React.Component {
 const styles = {
   listViewStyle: {
     flex: 1, 
-    flexDirection: 'row', 
+    flexDirection: 'column', 
     flexWrap: 'wrap', 
     justifyContent: 'space-evenly',
     backgroundColor: '#39314B'
