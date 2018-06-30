@@ -11,11 +11,17 @@ module.exports = app => {
   app.get('/active_icos/:pageId', (req, res) => {
     const {pageId} = req.params;
     icobench.icos.all({orderAsc: 'end', page: pageId, status: 'active'}).then( response => res.send(response));
-  }, (err, response) =>  console.log(err) ),
+  }, (err, response) => console.log(err));
+
+  app.get('/search_icos/:query', (req, res) => {
+    const { query } = req.params;
+    console.log(query);
+    icobench.icos.all({ search: query }).then(response => res.send(response));
+  }, (err, response) => console.log(err));
 
   app.get('/trending_icos', (req, res) => {
     icobench.icos.trending().then( response => res.send(response));
-  }, (err, response) =>  console.log(err) ),
+  }, (err, response) => console.log(err));
 
   app.get('/ico/:icoId', (req, res) => {
     const {icoId} = req.params;
@@ -23,16 +29,16 @@ module.exports = app => {
       // const ico = new Ico(response);
       // ico.save( err => console.log(err) );
       res.send(response);
-    })}, (err, response) =>  console.log(err) )
-  ,
+    })}, (err, response) => console.log(err));
+  
 
   app.get('/upcoming_icos/:pageId', (req, res) => {
     const {pageId} = req.params;
     icobench.icos.all({orderAsc: 'start', page: pageId, status: 'upcoming'}).then( response => res.send(response));
-  }, (err, response) =>  console.log(err) ),
+  }, (err, response) => console.log(err));
 
   app.get('/icofilter', (req, res) => {
     const {pageId} = req.params;
     icobench.icos.filters().then( response => console.log(response));
-  }, (err, response) =>  console.log(err) )
+  }, (err, response) => console.log(err));
 };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { WebView, ScrollView, View, Text, Image , Linking, TouchableHighlight, TouchableOpacity} from 'react-native';
+import {ScrollView, View, Text, Image , Linking, TouchableHighlight, TouchableOpacity, WebView} from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import Spinner from '../common/Spinner';
 import axios from 'axios';
@@ -139,9 +139,12 @@ export default class IcoDetail extends Component {
             <Text>Start Date: {item.dates.icoStart}</Text>
           </View>
 
+          
+
           <View style={infoStyle}> 
             <Text style={h2}>Full Description</Text>
-            {/* <Text>{item.about}</Text>           */}
+            <WebView html="<h1>Hello</h1>"  />
+            <Text>{item.about}</Text>          
           </View>
         </View>
 
