@@ -12,6 +12,7 @@ class FavoritesList extends React.Component {
     return (
     <View>
       <FlatList 
+      keyExtractor={(item, index) => index.toString()}
       data={this.props.favorites}
       renderItem={this.renderItem}
       />
