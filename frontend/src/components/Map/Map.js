@@ -8,11 +8,14 @@ import EventsIndex from '../EventsPage/EventsIndex';
 
 export default class MyMap extends React.Component {
     state = {
-        latitude: 37.798778,
-        longitude: -122.401376,
-        latitudeDelta: 0.002,
-        longitudeDelta: 0.002
+        latitude: 37.7857,
+        longitude: -122.4011,
+        latitudeDelta: 0.03,
+        longitudeDelta: 0.03
     }
+     componentDidMount() {
+       this.props.retrieveEvents().then(() => (this.setState(loading: false)));
+     }
     marker = {
       latitude: 37.794657,
       longitude: -122.422326
@@ -218,20 +221,20 @@ export default class MyMap extends React.Component {
       }
     ]
 
-    componentDidMount() {
-      this.props.retrieveEvents().then(()=> (this.setState(loading: false)));
-    }
+   
 
     render() {
       const {events} = this.props;
       if (this.state.loading) {
         return null;
       }
+      // const markerStyle = in
         return (
                 <MapView
                   provider={PROVIDER_GOOGLE}
                   style={styles.map}
                   initialRegion={this.state}
+                  showsUserLocation={true}
                   customMapStyle={this.mapStyle}
                 >
                   {events.map( (event, index) => (
@@ -240,13 +243,14 @@ export default class MyMap extends React.Component {
                       style={{position: 'relative'}}
                       image={require('../../../assets/images/map-marker-2.png')}
                       coordinate={{latitude: event.latitude, longitude: event.longitude}}>
-                      <Text style={styles.markerText}>{index + 1}</Text>
+                      <Text style={(index + 1) > 9 ? styles.markerGreatText : 
+                        styles.markerText}>{index + 1}</Text>
                       <Callout onPress={() => Actions.login()}>
-                        <View style={{width: 200, height: 180}}>
+                        <View style={{width: 200, height: 200, paddingTop: 5}}>
                           {/* <TouchableOpacity > */}
-                            <Image source={{ uri:event.image }} style={{height: 80, width: 200}}></Image>
-                            <Text style={{fontWeight: 'bold', fontSize: 14, marginTop: 8}}>{`${index+1}. ${event.name}`}</Text>
-                            <Text style={{fontSize: 13}}><Text style={{fontWeight: 'bold'}}>Location: </Text>{event.address}</Text>
+                            <Image source={{ uri:event.image }} style={{height: 100, width: 200}}></Image>
+                            <Text style={{fontWeight: 'bold', fontSize: 14, marginTop: 6}}>{`${index+1}. ${event.name}`}</Text>
+                            <Text style={{fontSize: 13, marginTop: 5}}><Text style={{fontWeight: 'bold'}}>Location: </Text>{event.address}</Text>
                           {/* </TouchableOpacity> */}
                         </View>
                       </Callout>
@@ -278,6 +282,14 @@ const styles = {
     markerText: {
       position: 'absolute',
       left: 20,
+      top: 7,
+      fontSize: 15,
+      color: 'white',
+      fontWeight: 'bold'
+    },
+    markerGreatText: {
+      position: 'absolute',
+      left: 16,
       top: 7,
       fontSize: 15,
       color: 'white',
