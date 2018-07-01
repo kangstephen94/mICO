@@ -264,7 +264,8 @@ const styles = {
     justifyContent: 'space-between',
     flex: 1,
     marginTop: 30,
-    marginLeft: -112
+    marginLeft: -112,
+    width: 200
   },
   white: {
     color: 'white'

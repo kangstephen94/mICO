@@ -123,9 +123,9 @@ const styles = StyleSheet.create({
 
   titleStyle: {
       marginRight: 20,
-      fontSize: 24,
+      fontSize: 22,
       marginTop: 15,
-      lineHeight: 27,
+      lineHeight: 22,
       // fontWeight: '',
       width: '45%',
       fontFamily: 'Encode Sans Semi Expanded',
