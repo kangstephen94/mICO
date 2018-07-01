@@ -5,14 +5,16 @@ import {
   Platform,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  YellowBox
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SafariView from 'react-native-safari-view';
 import FavoritesList from './FavoritesList';
+YellowBox.ignoreWarnings(['Class RCTCxxModule']);
 
 export default class LoginForm extends Component {
-
+  
   state = {
     user: undefined, // user has not logged in yet
     favorites: undefined
@@ -31,7 +33,6 @@ export default class LoginForm extends Component {
   }
 
   componentWillUnmount() {
-    // Remove event listener
     Linking.removeEventListener('url', this.handleOpenURL);
   }
 
@@ -78,7 +79,6 @@ export default class LoginForm extends Component {
       array = this.props.session.user.favorites;
     }
     const containerClass = this.state.user ? styles.containerloggedIn : styles.container;
-    console.log(this.props.session);
     return (
       <View style={containerClass}>
         <ScrollView>

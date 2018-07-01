@@ -45,11 +45,9 @@ export default class EventsIndex extends Component {
   }
 
   onOpen() {
-    console.log('Modal just opened');
   }
 
   onClosingState(state) {
-    console.log('the open/close of the swipeToClose just changed');
   }
 
   openDetail(index) {
@@ -107,7 +105,12 @@ export default class EventsIndex extends Component {
             <Text style={styles.text}>Events Nearby</Text>
             <FlatList 
               style={{flex: 1, backgroundColor: 'transparent', padding: 5}}
+<<<<<<< HEAD
               data={this.state.detailInfo ? this.state.detailInfo : this.props.events}
+=======
+              data={this.props.events}
+              keyExtractor={(item, index) => index.toString()}
+>>>>>>> 311aa958cef6a4ad0d87321d3c12edccc7e11dea
               renderItem={({item, index}) => <EventIndexItem item={item} key={index} index={index}/>}>
           </FlatList>
         </Modal>
