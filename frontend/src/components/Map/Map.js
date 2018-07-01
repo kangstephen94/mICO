@@ -11,7 +11,8 @@ export default class MyMap extends React.Component {
         latitude: 37.798778,
         longitude: -122.401376,
         latitudeDelta: 0.002,
-        longitudeDelta: 0.002
+        longitudeDelta: 0.002,
+        loading: true
     }
     marker = {
       latitude: 37.794657,
@@ -219,7 +220,7 @@ export default class MyMap extends React.Component {
     ]
 
     componentDidMount() {
-      this.props.retrieveEvents().then(()=> (this.setState(loading: false)));
+      this.props.retrieveEvents().then( ()=> (this.setState({loading: false})));
     }
 
     render() {
@@ -233,7 +234,7 @@ export default class MyMap extends React.Component {
                   style={styles.map}
                   initialRegion={this.state}
                   customMapStyle={this.mapStyle}
-                  showsUserLocation={true}
+                  followsUserLocation={true}
                 >
                   {events.map( (event, index) => (
                     <Marker

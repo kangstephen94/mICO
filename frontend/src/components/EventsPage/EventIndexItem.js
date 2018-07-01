@@ -8,7 +8,6 @@ export default class EventIndexItem extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { name, host, description, address, start_time, end_time, date, cost, image } = this.props.item;
     return (
       <TouchableWithoutFeedback>
