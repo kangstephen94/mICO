@@ -26,14 +26,14 @@ export default class IcoDetail extends Component {
     axios.get(`http://localhost:5000/ico/${item.id}`)
       .then(response => {
         const timer = setInterval(this.tick, 1000);
-        const date = item.type === 'active' ? new Date(response.data.dates.icoEnd) : ( response.data.dates.icoStart === '0000-00-00 00:00:00' ? (new Date(response.data.dates.preIcoStart)): new Date(response.data.dates.icoStart) );
-        console.log(response);
-        console.log(date);
+        const dateData = item.type === 'active' ? response.data.dates.icoEnd : (response.data.dates.icoStart === '0000-00-00 00:00:00' ? (response.data.dates.preIcoStart) : (response.data.dates.icoStart) );
+        const date = dateData.replace(' ', 'T');
         this.setState({
           dataSource: response.data,
           isLoading: false,
           // counter: (new Date(response.data.dates.icoEnd) - new Date()) / 1000,
-          counter: (date - new Date()) / 1000, // LOL PEMDAS almost did me in, previous code was 'counter: date - new Date() / 1000'
+          // counter: (date - new Date()) / 1000, // LOL PEMDAS almost did me in, previous code was 'counter: date - new Date() / 1000'
+          counter: (Date.parse(date) - new Date())/ 1000,
           timer,
           type: item.type
         });
@@ -80,13 +80,13 @@ export default class IcoDetail extends Component {
   }
 
   render() {
+    if (this.state.isLoading) {
+      return <Spinner size="small" />;
+    }
     console.log("user", this.props.user);
     // console.log("favClass", styles.favClass);
     const item = this.state.dataSource;
     console.log(this.state);
-    if (this.state.isLoading) {
-      return <Spinner size="small" />;
-    }
     console.log('favs',this.props.user.user);
     // let favoriteClass = styles.nonFavClass;
     const favoriteClass = this.state.favorite ? styles.favClass : styles.nonFavClass;
@@ -100,10 +100,10 @@ export default class IcoDetail extends Component {
 
     console.log('fav?', this.state.favorite);
     console.log('favClass', favoriteClass);
-    const timer = new Date(null);
-    timer.setSeconds(this.state.counter);
-    const timeLeft = timer.toISOString().substr(11,8);
-    const daysLeft  = Math.floor(timer / (3600000 * 24));
+    const time = new Date(null);
+    time.setSeconds(this.state.counter);
+    const timeLeft = time.toISOString().substr(11,8);
+    const daysLeft = Math.floor(time / 86400000);
     const { h2, greenBorder, imageStyle, sectionStyle, inlineView, infoStyle, 
             icoHeader, buttonStyle} = styles;
     const {type} = this.state;
@@ -129,8 +129,8 @@ export default class IcoDetail extends Component {
         <View style={sectionStyle}>
 
           <View style={icoHeader}>
-            <Image source={{ uri: item.logo }} style={imageStyle}/>
-            <Text style={{fontWeight: 'bold', fontSize: 24, fontFamily: 'Encode Sans Semi Expanded' }}>{item.name}</Text>
+            <Image source={{ uri: item.logo }} style={imageStyle} />
+            <Text style={{fontWeight: 'bold', fontSize: 22, fontFamily: 'Encode Sans Semi Expanded' , flexWrap: 'wrap'}}>{item.name}</Text>
           </View>
 
           <View style={inlineView}>
@@ -221,7 +221,7 @@ const styles = {
     borderColor: 'grey',
     padding: 5,
     borderRadius: 4,
-    marginRight: 20,
+    marginRight: 20
   },
   inlineView: {
     flexDirection: 'row',
@@ -255,9 +255,11 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    // justifyContent: 'space-around',
+    flexWrap: 'wrap',
     flex: 1,
     marginTop: 30,
-    marginLeft: -112
+    // marginLeft: -112
   },
   white: {
     color: 'white'
