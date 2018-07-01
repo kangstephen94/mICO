@@ -14,6 +14,7 @@
 @import GoogleMaps; //add this line if you want to use Google Maps
 
 @implementation AppDelegate
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {

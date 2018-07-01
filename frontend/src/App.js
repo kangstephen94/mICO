@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import Router from './Router';
 import configureStore from '../store/store';
 
+
 const App = () => {
   const preloadedState = {};
   const store = configureStore(preloadedState);
