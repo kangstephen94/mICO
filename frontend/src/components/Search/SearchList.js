@@ -3,7 +3,9 @@ import { Text, View } from 'react-native';
 import FavoritesList from '../LoginForm/FavoritesList';
 
 class SearchList extends React.Component {
-
+    componentWillUnmount() {
+      console.log('searchlist unmount');
+    }
 
     render() {
         const { results } = this.props;
@@ -15,7 +17,7 @@ class SearchList extends React.Component {
         );
 
         return (
-          <View style={{backgroundColor: '#39314'}}>
+          <View>
             <FavoritesList favorites={results} />
           </View>
         );

@@ -13,7 +13,7 @@ export default class IcoDetail extends Component {
     this.state = {
       timer: null,
       isLoading: true,
-      counter: 0,
+      // counter: null,
       favorite: false
     };
 
@@ -26,11 +26,16 @@ export default class IcoDetail extends Component {
     axios.get(`http://localhost:5000/ico/${item.id}`)
       .then(response => {
         const timer = setInterval(this.tick, 1000);
+        const date = item.type === 'active' ? new Date(response.data.dates.icoEnd) : ( response.data.dates.icoStart === '0000-00-00 00:00:00' ? (new Date(response.data.dates.preIcoStart)): new Date(response.data.dates.icoStart) );
+        console.log(response);
+        console.log(date);
         this.setState({
           dataSource: response.data,
           isLoading: false,
-          counter: (new Date(response.data.dates.icoEnd) - new Date()) / 1000,
-          timer
+          // counter: (new Date(response.data.dates.icoEnd) - new Date()) / 1000,
+          counter: (date - new Date()) / 1000, // LOL PEMDAS almost did me in, previous code was 'counter: date - new Date() / 1000'
+          timer,
+          type: item.type
         });
       });
     if (this.props.user.user) {
@@ -84,7 +89,7 @@ export default class IcoDetail extends Component {
       });
     }
     this.setState({ favorite: !this.state.favorite });
-  }0-
+  }
 
   tick() {
     this.setState({
@@ -94,18 +99,45 @@ export default class IcoDetail extends Component {
 
   render() {
     const item = this.state.dataSource;
+    console.log(this.state);
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
     // let favoriteClass = styles.nonFavClass;
     const favoriteClass = this.state.favorite ? styles.favClass : styles.nonFavClass;
-    // const {item} = this.props;
+    const star = this.state.favorite ? 
+      <FontAwesome style={favoriteClass}>{Icons.star}</FontAwesome>
+    : 
+      <FontAwesome style={favoriteClass}>{Icons.starO}</FontAwesome>;
+
+
+
+
+    console.log('fav?', this.state.favorite);
+    console.log('favClass', favoriteClass);
     const timer = new Date(null);
     timer.setSeconds(this.state.counter);
     const timeLeft = timer.toISOString().substr(11,8);
     const daysLeft  = Math.floor(timer / (3600000 * 24));
     const { h2, greenBorder, imageStyle, sectionStyle, inlineView, infoStyle, 
             icoHeader, buttonStyle} = styles;
+    const {type} = this.state;
+
+    const preOrNah = item.dates.icoStart === '0000-00-00 00:00:00' ? 
+      (<View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
+        <Text style={{color: 'grey'}}>Pre-ICO Start Date:</Text>
+        <Text>{item.dates.preIcoStart}</Text>
+      </View>) : (<View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
+      <Text style={{color: 'grey'}}>Start Date:</Text>
+      <Text>{item.dates.icoStart}</Text>
+    </View>);
+
+    const dateInfo = type === 'active' ? (
+      <View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
+        <Text style={{color: 'grey'}}>End Date:</Text>
+        <Text>{item.dates.icoEnd}</Text>
+      </View>) : preOrNah ;
+    
     return (
       <ScrollView style={{backgroundColor: '#ddd'}}>
         <Image style={{flex:1, resizeMode: 'cover', width: null, height: null}} source={require('../../../assets/images/origin-background.svg')} />
@@ -118,10 +150,11 @@ export default class IcoDetail extends Component {
 
           <View style={inlineView}>
 
-            <View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
+            {/* <View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
               <Text style={{color: 'grey'}}>End Date:</Text>
               <Text>{item.dates.icoEnd}</Text>
-            </View>
+            </View> */}
+            {dateInfo}
 
             <View style={{margin: 10, marginRight: 25}}>
               <Text style={{color: 'grey'}}>Time Left:</Text>
@@ -137,7 +170,7 @@ export default class IcoDetail extends Component {
           <View style={inlineView}>
             <TouchableOpacity onPress={this.handleFavorite.bind(this)} style={{flexDirection: 'column', alignItems: 'center', flex: 1}}>
               <Text style={{margin: 10, fontSize: 25}}>
-                <FontAwesome style={favoriteClass}>{Icons.starO}</FontAwesome>
+                {star}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={{flex: 1}}>
@@ -245,7 +278,7 @@ const styles = {
     color: 'white'
   },
   favClass: {
-      color: '#4CAF50'
+      color: "#ff92e0" //'#4CAF50'
   },
   nonFavClass: {
     color: 'black'

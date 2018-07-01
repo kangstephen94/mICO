@@ -5,6 +5,10 @@ import IcoListItem from './IcoListItem';
 import Spinner from '../common/Spinner';
 import Footer from '../Footer';
 
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
+
+
 class IcoList extends React.Component {
 
   constructor(props) {
@@ -29,30 +33,44 @@ class IcoList extends React.Component {
       return null;
     }
     this._fetchData();
+    console.log(this.props);
+  }
+
+  componentWillUnmount() {
+    console.log(this.props);
+    console.log('unmounted');
   }
 
   // ADD ONGOING 
-  
+
   _fetchData() {
-    axios.get(`http://localhost:5000/active_icos/${this.state.currentPage}`)
-    .then(response => {
-      this.setState({
-        dataSource: this.state.dataSource.concat(response.data.results),
-        currentPage: response.data.currentPage + 1,
-        isLoading: false,
-        refreshing: false
-      });
-    });
+    const {name} = this.props
+    
+    if (name === 'icoList') {
+      this._fetchUpcomingData();
+    } else {
+      this._fetchActiveData();
+    }
+    // axios.get(`http://localhost:5000/active_icos/${this.state.currentPage}`)
+    // .then(response => {
+    //   this.setState({
+    //     dataSource: this.state.dataSource.concat(response.data.results),
+    //     currentPage: response.data.currentPage + 1,
+    //     isLoading: false,
+    //     refreshing: false
+    //   });
+    // });
   }
 
   _fetchUpcomingData() {
-    axios.get(`http://localhost:5000/active_icos/${this.state.currentPage}`)
+    axios.get(`http://localhost:5000/upcoming_icos/${this.state.currentPage}`)
     .then(response => {
       this.setState({
         dataSource: this.state.dataSource.concat(response.data.results),
         currentPage: response.data.currentPage + 1,
         isLoading: false,
-        refreshing: false
+        refreshing: false,
+        type: 'upcoming'
       });
     });
   }
@@ -64,7 +82,8 @@ class IcoList extends React.Component {
         dataSource: this.state.dataSource.concat(response.data.results),
         currentPage: response.data.currentPage + 1,
         isLoading: false,
-        refreshing: false
+        refreshing: false,
+        type: 'active'
       });
     });
   }
@@ -80,7 +99,7 @@ class IcoList extends React.Component {
   }
 
   renderItem({item}) {
-    return <IcoListItem key={item.id} item={item} />;
+    return <IcoListItem item={item} />;
   }
 
   render() {
@@ -92,13 +111,17 @@ class IcoList extends React.Component {
       <FlatList 
             data={this.state.dataSource}
             renderItem={this.renderItem}
+            keyExtractor={(item, index) => index.toString()}
           />
     : 
         <FlatList data={this.state.dataSource}
-            renderItem={this.renderItem}
+            // renderItem={this.renderItem}
+            // renderItem={({item}) => <Text>{item.key}</Text>}
+            renderItem={({item}) => <IcoListItem item={item} type={this.state.type} />}
             onEndReachedThreshold={0}
             onEndReached={this._handleEndReached}
             style={{flex: 3}}
+            keyExtractor={(item, index) => index.toString()}
           />;
   
     const refreshSpinner = this.state.refreshing ? <ActivityIndicator style={{size: 'small'}} /> : null ;
