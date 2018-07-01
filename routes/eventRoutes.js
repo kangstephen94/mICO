@@ -4,7 +4,6 @@ const Event = mongoose.model('events');
 module.exports = (app) => {
   app.get('/api/events',
     (req, res) => {
-      console.log('hit route');
       Event.find( (err, events) => {
         if (err) return next(err);
         res.send(events);

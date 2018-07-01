@@ -22,13 +22,11 @@ export default class IcoDetail extends Component {
   }
 
   componentDidMount() {
-    const {item} = this.props;
+    const { item } = this.props;
     axios.get(`http://localhost:5000/ico/${item.id}`)
       .then(response => {
         const timer = setInterval(this.tick, 1000);
         const date = item.type === 'active' ? new Date(response.data.dates.icoEnd) : ( response.data.dates.icoStart === '0000-00-00 00:00:00' ? (new Date(response.data.dates.preIcoStart)): new Date(response.data.dates.icoStart) );
-        console.log(response);
-        console.log(date);
         this.setState({
           dataSource: response.data,
           isLoading: false,
@@ -41,7 +39,7 @@ export default class IcoDetail extends Component {
     if (this.props.user.user) {
       this.props.user.user.favorites.forEach(fav => {
         if (fav.name === this.props.item.name) {
-          this.setState({ favorite: true});
+          this.setState({ favorite: true });
         }
       });
     }
@@ -99,7 +97,6 @@ export default class IcoDetail extends Component {
 
   render() {
     const item = this.state.dataSource;
-    console.log(this.state);
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
@@ -110,18 +107,13 @@ export default class IcoDetail extends Component {
     : 
       <FontAwesome style={favoriteClass}>{Icons.starO}</FontAwesome>;
 
-
-
-
-    console.log('fav?', this.state.favorite);
-    console.log('favClass', favoriteClass);
     const timer = new Date(null);
     timer.setSeconds(this.state.counter);
     const timeLeft = timer.toISOString().substr(11,8);
     const daysLeft  = Math.floor(timer / (3600000 * 24));
     const { h2, greenBorder, imageStyle, sectionStyle, inlineView, infoStyle, 
             icoHeader, buttonStyle} = styles;
-    const {type} = this.state;
+    const { type } = this.state;
 
     const preOrNah = item.dates.icoStart === '0000-00-00 00:00:00' ? 
       (<View style={{flex: 1.0, margin: 10, marginLeft: 25}}>

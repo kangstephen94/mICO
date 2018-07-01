@@ -16,12 +16,11 @@ module.exports = (app) => {
                     existingUser.favorites.push(req.body.item);
                     existingUser.save();
                     }     
-                console.log(existingUser);
                 res.send(existingUser);
             });
     });
 
-    app.put('api/favorites/remove',
+    app.put('/api/favorites/remove',
         (req, res) => {
             User.findOne({ profileID: req.body.user.user.profileID })
                 .then((existingUser) => {

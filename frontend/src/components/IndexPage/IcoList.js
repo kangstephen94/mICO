@@ -33,12 +33,9 @@ class IcoList extends React.Component {
       return null;
     }
     this._fetchData();
-    console.log(this.props);
   }
 
   componentWillUnmount() {
-    console.log(this.props);
-    console.log('unmounted');
   }
 
   // ADD ONGOING 

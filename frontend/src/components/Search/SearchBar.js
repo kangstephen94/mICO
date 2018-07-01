@@ -9,6 +9,10 @@ class SearchBar extends React.Component {
         text: '',
         timeout: 0,
     }
+
+    componentWillUnmount() {
+        this.setState({ text: '' });
+    }
     
     handleChange(text) {
         this.setState({ text }, this.checkInput.bind(this));
@@ -20,15 +24,13 @@ class SearchBar extends React.Component {
                 receiveSearchResults(response.data.results);
             }
             ).catch(function (error) {
-                console.log('There has been a problem with your fetch operation: ' + error.message);
                 throw error;
             });
-        }, 250);
+        }, 300);
     }
 
     handleBack() {
       Actions.pop();
-      console.log(Actions.state);
     }
 
     checkInput() {

@@ -15,7 +15,6 @@ module.exports = app => {
 
   app.get('/search_icos/:query', (req, res) => {
     const { query } = req.params;
-    console.log(query);
     icobench.icos.all({ search: query }).then(response => res.send(response));
   }, (err, response) => console.log(err));
 
