@@ -45,11 +45,28 @@ export default class IcoDetail extends Component {
   
   componentWillUnmount() {
     clearInterval(this.state.timer);
-    console.log("Detail unmounted");
   }
   
     handleFavorite() {
       const { item, user, receiveSession } = this.props;
+
+      if (this.state.favorite) {
+        axios({
+          url: 'http://localhost:5000/api/favorites/remove',
+          method: 'PUT',
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE',
+            'Access-Control-Allow-Headers': 'Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type',
+          },
+          data: {
+            item,
+            user
+          }
+        }).then(function (response) {
+          receiveSession({ user: response.data });
+        });
+      } else {
       axios({
         url: 'http://localhost:5000/api/favorites/add',
         method: 'POST',
@@ -65,8 +82,10 @@ export default class IcoDetail extends Component {
       }).then(function (response) {
         receiveSession({ user: response.data });
       });
-      this.setState({favorite: !this.state.favorite});
     }
+    this.setState({ favorite: !this.state.favorite });
+  }0-
+
   tick() {
     this.setState({
       counter: this.state.counter - 1
@@ -74,17 +93,12 @@ export default class IcoDetail extends Component {
   }
 
   render() {
-    console.log("user", this.props.user);
-    // console.log("favClass", styles.favClass);
     const item = this.state.dataSource;
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
-    console.log('favs',this.props.user.user);
     // let favoriteClass = styles.nonFavClass;
     const favoriteClass = this.state.favorite ? styles.favClass : styles.nonFavClass;
-    console.log('fav?', this.state.favorite);
-    console.log('favClass', favoriteClass);
     // const {item} = this.props;
     const timer = new Date(null);
     timer.setSeconds(this.state.counter);
