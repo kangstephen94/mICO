@@ -27,6 +27,7 @@
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
     "passport-linkedin": "^1.0.0",
+    "react-native": "^0.55.4",
     "request": "^2.87.0"
   }
 }
