@@ -13,7 +13,7 @@ export default class EventIndexItem extends Component {
       <TouchableWithoutFeedback>
         <View style={style.containerStyle}>
           <View style={{flex: 2}}>
-            <Text style={{fontSize: 16, fontWeight: 'bold'}}>{ `${this.props.index+1}.  ${name}`}</Text>
+            <Text style={{fontSize: 16, fontWeight: 'bold'}}>{ `${this.props.indexHead}${name}`}</Text>
             <Image source={{ uri: image }} style={{height: 180, width: '100%'}}></Image>
           </View>
           <View style={{flex: 1}}>

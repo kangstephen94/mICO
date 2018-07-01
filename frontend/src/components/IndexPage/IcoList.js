@@ -122,11 +122,7 @@ class IcoList extends React.Component {
             keyExtractor={(item, index) => index.toString()}
           />;
   
-<<<<<<< HEAD
-    const refreshSpinner = this.state.refreshing ? <ActivityIndicator size='small' /> : null ;
-=======
     const refreshSpinner = this.state.refreshing ? <ActivityIndicator size='small' /> : null;
->>>>>>> 0c39ccc6a9c5a1c7c98f962a9ac188ecda6cfd2e
     
     return (
       <View style={styles.listViewStyle}>
