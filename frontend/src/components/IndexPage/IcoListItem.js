@@ -9,7 +9,8 @@ import Footer from '../Footer';
 
 const IcoListItem = (props) => {
   const { imageStyle, sectionStyle, titleStyle } = styles;
-  const { item } = props;
+  const { item, type } = props;
+  item.type = type;
   let ratingClass, starClass;
   if (item.rating < 2) {
     ratingClass = styles.poorRating;
@@ -21,6 +22,9 @@ const IcoListItem = (props) => {
     ratingClass = styles.goodRating;
     starClass = styles.goodStar
   }
+
+  const date = type === 'active' ? <Text>End Date: {item.dates.icoEnd}</Text> : <Text>Start Date: {item.dates.icoStart}</Text>;
+  
   return (
     
     <Section>
@@ -41,7 +45,8 @@ const IcoListItem = (props) => {
             </View>
             <View style={{flexDirection: 'column', marginTop: 40, marginLeft: -175 }}>
               {/* <Text>End Date:</Text> */}
-              <Text>End Date: {item.dates.icoEnd}</Text>
+              {/* <Text>End Date: {item.dates.icoEnd}</Text> */}
+              {date}
             </View>
           </View>
 
