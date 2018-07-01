@@ -7,7 +7,7 @@ import Button from './common/Button';
 class Footer extends Component {
 
   state = {
-    currentScene: ['login']
+    currentScene: ['icoList']
   };
 
   handleEvents() {
@@ -30,6 +30,8 @@ class Footer extends Component {
     } else {
       Actions.events();
     }
+    this.props.resetFavScene();
+
     this.setState({ currentScene: this.state.currentScene.concat(['events']) });
     // }
   }
@@ -45,9 +47,11 @@ class Footer extends Component {
     } else {
       Actions.ongoingIcoList();
     }
+    
     this.setState({
       currentScene: this.state.currentScene.concat(['ongoingIcoList'])
     });
+    this.props.resetFavScene();
     return null;
   }
 
@@ -66,8 +70,8 @@ class Footer extends Component {
 
   handleUpcoming() {
     const length = Actions.state.routes.length;
+    this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
     if (!Actions.state.routes[length - 2]) {
-      this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
       if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
         Actions.state.routes[length - 1].routeName === 'login' ||
         Actions.state.routes[length - 1].routeName === 'search') {
@@ -76,12 +80,13 @@ class Footer extends Component {
       } else {
         Actions.icoList();
       }
+      this.props.resetFavScene();
       return;
     }
     if (Actions.state.routes[length - 2].routeName === 'icoList') {
       Actions.pop();
       const lengthOf = this.state.currentScene.length;
-      this.setState({ currentScene: this.state.currentScene.slice(0, lengthOf - 1) });
+      // this.setState({ currentScene: this.state.currentScene.slice(0, lengthOf - 1) });
     } else {
       if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
         Actions.state.routes[length - 1].routeName === 'login' ||
@@ -91,8 +96,9 @@ class Footer extends Component {
       } else {
         Actions.icoList();
       }
-      this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
+      // this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
     }
+    this.props.resetFavScene();
   }
 
   render() {
@@ -103,25 +109,47 @@ class Footer extends Component {
       nonHighlightedText,
       highlightedIcon, 
       nonHighlightedIcon } = styles;
-    const length = this.state.currentScene.length;
 
-    const upIconClass = (this.state.currentScene[length - 1] === 'icoList' 
+    let favIconClass;
+    let favTextClass;
+    let upIconClass;
+    let upTextClass;
+    let ongoingIconClass;
+    let ongoingTextClass;
+    let eventIconClass;
+    let eventTextClass;
+
+    console.log("state",this.props.state);
+
+    if (this.props.favScene.length > 0) {
+      favIconClass = highlightedIcon;
+      favTextClass = highlightedText;
+      upIconClass = nonHighlightedIcon;
+      upTextClass = nonHighlightedText;
+      ongoingIconClass = nonHighlightedIcon;
+      ongoingTextClass = nonHighlightedText;
+      eventIconClass = nonHighlightedIcon;
+      eventTextClass = nonHighlightedText;
+    } else {
+
+    const length = this.state.currentScene.length;
+    upIconClass = (this.state.currentScene[length - 1] === 'icoList' 
       || this.state.currentScene[length - 1] === 'icoDetail') ? highlightedIcon : nonHighlightedIcon;
-    const upTextClass = (this.state.currentScene[length - 1] === 'icoList' 
+    upTextClass = (this.state.currentScene[length - 1] === 'icoList'
       || this.state.currentScene[length - 1] === 'icoDetail') ? highlightedText : nonHighlightedText;
     
-    const ongoingIconClass = this.state.currentScene[length - 1] === 'ongoingIcoList' ?
+    ongoingIconClass = this.state.currentScene[length - 1] === 'ongoingIcoList' ?
       highlightedIcon : nonHighlightedIcon;
 
-    const ongoingTextClass = this.state.currentScene[length - 1] === 'ongoingIcoList' ?
+    ongoingTextClass = this.state.currentScene[length - 1] === 'ongoingIcoList' ?
       highlightedText : nonHighlightedText;
 
-    const favIconClass = this.state.currentScene[length - 1] === 'login' ? highlightedIcon : nonHighlightedIcon;
-    const favTextClass = this.state.currentScene[length - 1] === 'login' ? highlightedText : nonHighlightedText;
+    favIconClass = this.state.currentScene[length - 1] === 'login' ? highlightedIcon : nonHighlightedIcon;
+    favTextClass = this.state.currentScene[length - 1] === 'login' ? highlightedText : nonHighlightedText;
 
-     const eventIconClass = this.state.currentScene[length - 1] === 'events' ? highlightedIcon : nonHighlightedIcon;
-     const eventTextClass = this.state.currentScene[length - 1] === 'events' ? highlightedText : nonHighlightedText;
-
+     eventIconClass = this.state.currentScene[length - 1] === 'events' ? highlightedIcon : nonHighlightedIcon;
+     eventTextClass = this.state.currentScene[length - 1] === 'events' ? highlightedText : nonHighlightedText;
+    }
 
     return (
       <View style={footerStyle}>

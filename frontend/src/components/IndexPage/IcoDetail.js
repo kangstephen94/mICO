@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {ScrollView, View, Text, Image , Linking, TouchableHighlight, TouchableOpacity, WebView} from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import Spinner from '../common/Spinner';
+import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 import HTML from 'react-native-render-html';
 // import { Action } from 'react-native-router-flux';
@@ -52,6 +53,13 @@ export default class IcoDetail extends Component {
   
     handleFavorite() {
       const { item, user, receiveSession } = this.props;
+      console.log("handle user", user);
+      if (!user.user) {
+        Actions.pop();
+        Actions.login();
+        this.props.receiveFavScene();
+        return;
+      }
 
       if (this.state.favorite) {
         axios({
