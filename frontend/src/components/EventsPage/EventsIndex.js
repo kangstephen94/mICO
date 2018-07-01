@@ -34,18 +34,25 @@ export default class EventsIndex extends Component {
       isDisabled: false,
       swipeToClose: true,
       slidervalue: 0.3,
+      detailInfo: null,
       isLoading: true
     };
-
   }
 
   onClose() {
+    console.log('Modal just closed');
+    this.setState({ detailInfo: null });
   }
 
   onOpen() {
   }
 
   onClosingState(state) {
+  }
+
+  openDetail(index) {
+    console.log('open detail');
+    this.setState({ detailInfo: [this.props.events[index]]}, this.refs.modal1.open);
   }
 
   fetchData() {
@@ -72,7 +79,7 @@ export default class EventsIndex extends Component {
     return (
       <View style={styles.wrapper}>
 
-        <MapContainer />
+        <MapContainer openDetail={this.openDetail.bind(this)} />
 
         <GestureRecognizer style={{alignItems: 'center'}} onSwipeUp={() => this.refs.modal1.open()} swipeThreshold={0}>
           <TouchableOpacity
@@ -87,7 +94,7 @@ export default class EventsIndex extends Component {
           ref={"modal1"}
           transparent={true}
           swipeToClose={this.state.swipeToClose}
-          onClosed={this.onClose}
+          onClosed={this.onClose.bind(this)}
           onOpened={this.onOpen}
           onClosingState={this.onClosingState}
           swipeThreshold={0}
@@ -98,7 +105,7 @@ export default class EventsIndex extends Component {
             <Text style={styles.text}>Events Nearby</Text>
             <FlatList 
               style={{flex: 1, backgroundColor: 'transparent', padding: 5}}
-              data={this.props.events}
+              data={this.state.detailInfo ? this.state.detailInfo : this.props.events}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => <EventIndexItem item={item} key={index} index={index}/>}>
           </FlatList>
