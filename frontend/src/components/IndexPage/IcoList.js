@@ -33,12 +33,19 @@ class IcoList extends React.Component {
       return null;
     }
     this._fetchData();
+    console.log(this.props);
+  }
+
+  componentWillUnmount() {
+    console.log(this.props);
+    console.log('unmounted');
   }
 
   // ADD ONGOING 
-  
+
   _fetchData() {
     const {name} = this.props
+    
     if (name === 'icoList') {
       this._fetchUpcomingData();
     } else {
@@ -56,13 +63,14 @@ class IcoList extends React.Component {
   }
 
   _fetchUpcomingData() {
-    axios.get(`http://localhost:5000/active_icos/${this.state.currentPage}`)
+    axios.get(`http://localhost:5000/upcoming_icos/${this.state.currentPage}`)
     .then(response => {
       this.setState({
         dataSource: this.state.dataSource.concat(response.data.results),
         currentPage: response.data.currentPage + 1,
         isLoading: false,
-        refreshing: false
+        refreshing: false,
+        type: 'upcoming'
       });
     });
   }
@@ -74,7 +82,8 @@ class IcoList extends React.Component {
         dataSource: this.state.dataSource.concat(response.data.results),
         currentPage: response.data.currentPage + 1,
         isLoading: false,
-        refreshing: false
+        refreshing: false,
+        type: 'active'
       });
     });
   }
@@ -106,7 +115,9 @@ class IcoList extends React.Component {
           />
     : 
         <FlatList data={this.state.dataSource}
-            renderItem={this.renderItem}
+            // renderItem={this.renderItem}
+            // renderItem={({item}) => <Text>{item.key}</Text>}
+            renderItem={({item}) => <IcoListItem item={item} type={this.state.type} />}
             onEndReachedThreshold={0}
             onEndReached={this._handleEndReached}
             style={{flex: 3}}
