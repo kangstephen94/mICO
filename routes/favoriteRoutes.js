@@ -16,8 +16,20 @@ module.exports = (app) => {
                     existingUser.favorites.push(req.body.item);
                     existingUser.save();
                     }     
-                console.log(existingUser);
                 res.send(existingUser);
             });
     });
+
+    app.put('/api/favorites/remove',
+        (req, res) => {
+            User.findOne({ profileID: req.body.user.user.profileID })
+                .then((existingUser) => {
+                    const newFavorites = existingUser.favorites.filter(ico => {
+                        return ico.name !== req.body.item.name;
+                    });
+                    existingUser.favorites = newFavorites;
+                    existingUser.save();
+                    res.send(existingUser);
+                });
+        });
 };

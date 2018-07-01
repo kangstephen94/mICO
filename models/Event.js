@@ -10,8 +10,8 @@ const eventSchema = new Schema({
   end_time: String,
   date: String,
   cost: String,
-  latitude: String,
-  longitude: String,
+  latitude: Number,
+  longitude: Number,
   image: String
 });
 

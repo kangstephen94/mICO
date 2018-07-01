@@ -249,7 +249,7 @@ export default class MyMap extends React.Component {
                       coordinate={{latitude: event.latitude, longitude: event.longitude}}>
                       <Text style={(index + 1) > 9 ? styles.markerGreatText : 
                         styles.markerText}>{index + 1}</Text>
-                      <Callout onPress={() => Actions.login()}>
+                      <Callout onPress={() => this.props.openDetail(index)}>
                         <View style={{width: 200, height: 200, paddingTop: 5}}>
                           {/* <TouchableOpacity > */}
                             <Image source={{ uri:event.image }} style={{height: 100, width: 200}}></Image>
