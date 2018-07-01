@@ -4,18 +4,14 @@ import FavoritesList from '../LoginForm/FavoritesList';
 
 class SearchList extends React.Component {
     componentWillUnmount() {
-      console.log('searchlist unmount');
+      this.props.receiveSearchResults([]);
     }
 
     render() {
         const { results } = this.props;
-        console.log("results", results);
         if (results === undefined) {
             return null;
         }
-        const searchResults = results.map(result => (<Text>{result.name}</Text>)
-        );
-
         return (
           <View>
             <FavoritesList favorites={results} />

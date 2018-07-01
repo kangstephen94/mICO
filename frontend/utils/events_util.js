@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const getEvents = () => {
-  console.log("hit axios call");
   return (
     axios({
         url: 'http://localhost:5000/api/events',
