@@ -18,15 +18,18 @@ class SearchBar extends React.Component {
         this.setState({ text }, this.checkInput.bind(this));
         const { receiveSearchResults } = this.props;
         if (this.timeout) clearTimeout(this.timeout);
+
+        if (text.length !== 0) {
         this.timeout = setTimeout(() => {
             axios.get(`https://mico-ios.herokuapp.com/search_icos/${this.state.text}`)
             .then(response => {
-                receiveSearchResults(response.data.results);
+                if (response.data.results) {
+                    receiveSearchResults(response.data.results);
+                }
             }
-            ).catch(function (error) {
-                throw error;
-            });
-        }, 300);
+            );
+        }, 330);
+        }
     }
 
     handleBack() {
@@ -36,7 +39,7 @@ class SearchBar extends React.Component {
     checkInput() {
         const { receiveSearchResults } = this.props;
         if (this.state.text === '') {
-            setTimeout(() => receiveSearchResults([]), 300);
+            setTimeout(() => receiveSearchResults([]), 800);
         }
     }
 
