@@ -21,20 +21,21 @@ export default class IcoDetail extends Component {
     this.tick = this.tick.bind(this);
     
   }
-
+//   start date is greater than current date = upcoming, everything else is active
   componentDidMount() {
     const { item } = this.props;
     axios.get(`https://mico-ios.herokuapp.com/ico/${item.id}`)
       .then(response => {
-        const timer = setInterval(this.tick, 1000);
         const dateData = item.type === 'active' ? response.data.dates.icoEnd : (response.data.dates.icoStart === '0000-00-00 00:00:00' ? (response.data.dates.preIcoStart) : (response.data.dates.icoStart) );
         const date = dateData.replace(' ', 'T');
+        // const timer = setInterval(this.tick, 1000);
+        const timer = new Date() < Date.parse(date) ?  setInterval(this.tick, 1000) : null; 
         this.setState({
           dataSource: response.data,
           isLoading: false,
           // counter: (new Date(response.data.dates.icoEnd) - new Date()) / 1000,
           // counter: (date - new Date()) / 1000, // LOL PEMDAS almost did me in, previous code was 'counter: date - new Date() / 1000'
-          counter: (Date.parse(date) - new Date())/ 1000,
+          counter: (Date.parse(date) - new Date()) / 1000,
           timer,
           type: item.type
         });
@@ -50,7 +51,7 @@ export default class IcoDetail extends Component {
 
   
   componentWillUnmount() {
-    clearInterval(this.state.timer);
+    if (this.state.timer) clearInterval(this.state.timer);
   }
   
     handleFavorite() {
@@ -105,8 +106,7 @@ export default class IcoDetail extends Component {
   }
 
   _formatDate(date) {
-    "2018-09-12 00:00:00"
-    return `${date.slice(5,7)}-${date.slice(8,10)}-${date.slice(0,4)} ` + date.slice(11);
+    return `${date.slice(5,7)}-${date.slice(8,10)}-${date.slice(0,4)} `.replace(/[-]/g, '/') + date.slice(11);
   }
 
   render() {
@@ -119,14 +119,20 @@ export default class IcoDetail extends Component {
       <FontAwesome style={favoriteClass}>{Icons.star}</FontAwesome>
     : 
       <FontAwesome style={favoriteClass}>{Icons.starO}</FontAwesome>;
-
     const time = new Date(null);
     time.setSeconds(this.state.counter);
     const timeLeft = time.toISOString().substr(11,8);
     const daysLeft = Math.floor(time / 86400000);
+  
+    const timeCounter = this.state.timer ? `${daysLeft}d, ${timeLeft}`: "ENDED";
+
     const { h2, greenBorder, imageStyle, sectionStyle, inlineView, infoStyle, 
-            icoHeader, buttonStyle} = styles;
+            icoHeader, buttonStyle, redBorder } = styles;
     const { type } = this.state;
+
+    const timerBorder = this.state.timer ? greenBorder : redBorder;
+    
+    const timerColor = this.state.timer ? '#4CAF50' : '#B33A3A' ;
 
     const preOrNah = item.dates.icoStart === '0000-00-00 00:00:00' ? 
       (<View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
@@ -157,9 +163,9 @@ export default class IcoDetail extends Component {
             {dateInfo}
             <View style={{margin: 10, marginRight: 25}}>
               <Text style={{color: 'grey'}}>Time Left:</Text>
-              <View style={greenBorder}>
-                <Text style={{color: '#4CAF50', fontWeight: 'bold'}}>
-                  {`${daysLeft}`}d, {timeLeft}
+              <View style={timerBorder}>
+                <Text style={{color: timerColor, fontWeight: 'bold'}}>
+                  {timeCounter}
                 </Text>
               </View>
             </View>
@@ -272,6 +278,12 @@ const styles = {
     borderColor: '#4CAF50',
     borderWidth: 0.8,
     padding: 2
+  },
+  redBorder: {
+    borderColor: '#B33A3A',
+    borderWidth: 0.8,
+    padding: 2,
+    alignItems: 'center'
   },
   icoHeader: {
     flexDirection: 'row',
