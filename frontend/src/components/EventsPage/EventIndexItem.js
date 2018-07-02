@@ -25,7 +25,7 @@ export default class EventIndexItem extends Component {
             <Text><Text style={{fontWeight: 'bold'}}>Event Cost: </Text>{ cost }</Text>
           </View>
           <View style={{flex: 1}}>
-            <Text><Text style={{fontWeight: 'bold'}}>Event Description: </Text>{ description } </Text>
+            <Text><Text style={{fontWeight: 'bold', paddingBottom: 10 }}>Event Description: </Text>{ description } </Text>
           </View>
         </View>
       </TouchableWithoutFeedback>);
@@ -40,7 +40,7 @@ const style = StyleSheet.create({
   },
   containerStyle: {
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 6,
     borderColor: "#39314B", //'#ddd',
     borderBottomWidth: 0,
     shadowColor: '#1A2334',
@@ -52,7 +52,7 @@ const style = StyleSheet.create({
     marginRight: 5,
     marginTop: 10,
     padding: 10,
-    backgroundColor: '#eee'
+    backgroundColor: '#eee',
   },
   h2: {
     fontSize: 18,

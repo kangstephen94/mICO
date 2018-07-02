@@ -24,7 +24,7 @@ export default class IcoDetail extends Component {
 
   componentDidMount() {
     const { item } = this.props;
-    axios.get(`http://localhost:5000/ico/${item.id}`)
+    axios.get(`https://mico-ios.herokuapp.com/ico/${item.id}`)
       .then(response => {
         const timer = setInterval(this.tick, 1000);
         const dateData = item.type === 'active' ? response.data.dates.icoEnd : (response.data.dates.icoStart === '0000-00-00 00:00:00' ? (response.data.dates.preIcoStart) : (response.data.dates.icoStart) );
@@ -55,7 +55,6 @@ export default class IcoDetail extends Component {
   
     handleFavorite() {
       const { item, user, receiveSession } = this.props;
-      console.log("handle user", user);
       if (!user.user) {
         Actions.pop();
         Actions.login();
@@ -65,7 +64,7 @@ export default class IcoDetail extends Component {
 
       if (this.state.favorite) {
         axios({
-          url: 'http://localhost:5000/api/favorites/remove',
+          url: 'https://mico-ios.herokuapp.com/api/favorites/remove',
           method: 'PUT',
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -81,7 +80,7 @@ export default class IcoDetail extends Component {
         });
       } else {
       axios({
-        url: 'http://localhost:5000/api/favorites/add',
+        url: 'https://mico-ios.herokuapp.com/api/favorites/add',
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -147,7 +146,7 @@ export default class IcoDetail extends Component {
 
           <View style={icoHeader}>
             <Image source={{ uri: item.logo }} style={imageStyle} />
-            <Text style={{fontWeight: 'bold', fontSize: 22, fontFamily: 'Encode Sans Semi Expanded' , flexWrap: 'wrap'}}>{item.name}</Text>
+            <Text style={{fontWeight: 'bold', fontSize: 22, fontFamily: 'Encode Sans Semi Expanded' , flexWrap: 'wrap', width: 230}}>{item.name}</Text>
           </View>
 
           <View style={inlineView}>
@@ -271,13 +270,12 @@ const styles = {
   icoHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    // justifyContent: 'space-around',
+    // justifyContent: 'flex-start',
+    justifyContent: 'space-around',
     flexWrap: 'wrap',
     flex: 1,
     marginTop: 30,
-    marginLeft: -112,
-    width: 200
+    marginLeft: 0
   },
   white: {
     color: 'white'

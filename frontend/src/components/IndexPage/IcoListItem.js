@@ -8,7 +8,7 @@ import { Actions } from 'react-native-router-flux';
 const IcoListItem = (props) => {
   const { imageStyle, sectionStyle, titleStyle } = styles;
   const { item, type } = props;
-  item.type = type;
+  item.type = type || item.type;
   let ratingClass, starClass;
   if (item.rating < 2) {
     ratingClass = styles.poorRating;
@@ -32,7 +32,7 @@ const IcoListItem = (props) => {
         onPress={() => Actions.icoDetail({item})}
         style={{padding: 10}}
         >
-        <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start' }}>
           <Image style={imageStyle} source={{ uri: item.logo }} />
           <Text style={titleStyle}>{name}</Text>
           <View >
