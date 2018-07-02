@@ -1,66 +1,61 @@
 # mICO
-#### mICO is a mobile app designed to provide a platform for viewing and participating in initial coin offerings.
 
-## Background and Overview
-Initial coin offerings (ICOs) are evolving into an industry unto themselves.  As with any other growing business, you can tell this is happening when third parties intervene to create specialized services catered towards clients.  Here at mICO, we firmly believe that creating a mobile platform for viewing and participating in initial coin offerings will allow coin issuers and investors to focus more on the product and less on the details of the actual sale.
+## Description
+![title](https://s3-us-west-1.amazonaws.com/micoimage/title.png)
 
-This problem decomposes into several areas of activity:
+[mICO](https://github.com/kangstephen94/mICO) is an IOS app that helps users monitor and participate in ongoing and upcoming initial coin offerings(ICO). You can also check out nearby crypto-related events in the San Francisco area.
 
-* List of upcoming and past ICOs
-* Related news and social media outlets for each ICO
-* Listings of crypto-related meetups and conferences
+## Project Design
+mICO was designed over a 10 day period in June of 2018.  Prior to development a list of minimum viable products (MVPs) and sample wireframes were created to demonstrate the planning process and track progression throughout development.  Each team member was focused on a specific aspect of the app, such as working the backend to implement OAuth, to efficiently develop the app.
 
-## Functionality and MVP
+## Technologies
+mICO was built using a MongoDB database with Express.js framework for the backend.  Axios requests were used to communicate with the backend and all responses render JSON back to the frontend which uses React Native, a library that allows you to build mobile apps using JavaScript.
 
-* Users will be able to signup/login and add specific ICOs to their favorites
-* Users will be able to view an index of all the past and upcoming ICOs
-* Users will be able to view an ICO page, and see all related content
-* Users will be able to view an index of all crypto-related meetups and conferences local to their geographic location
+React Native sets up the frontend state such that there are separate reducers and actions for receiving users, ICOs, or events.  This makes keeping components up to date simpler and more controlled leading to a better UX design.
 
-## Bonus Features
+Additional Sources:
+* [React Native](https://facebook.github.io/react-native/), [MERN Stack](http://mern.io/)
 
-* Allow users to rate ICOs
-* Allow users to report ICOs
-* Push notifications for when favorited ICOs start and end
+## Key Features
+* O-Auth, which allows sign in via Google, Facebook, or LinkedIn
+* ICO profiles and index
+* ICO search functionality
+* Integrated map
+* Events index on map page
+* Favorite ICOs
 
-## Technologies & Technical Challenges
+### OAuth
+User Authorization utilizes Google passport to incorporate different methods of logging in.  User login is required to have favorite ICOs.  When navigating through the app and attempting to favorite an ICO, the user is redirected to the login page if they are not currently signed in.
 
-Backend: NodeJS
+![login](https://s3-us-west-1.amazonaws.com/micoimage/login.png)
 
-Frontend: React Native, Redux
+### Search Functionality
+Users can type in keywords to search for relevant ICOs, whether they are upcoming or currently ongoing.  Changing the search parameters dynamically renders a list of any ICOs that pertain to the search.
 
-## Wireframes
-![](https://s3-us-west-1.amazonaws.com/micoproject/Event-Show.png)
-![](https://s3-us-west-1.amazonaws.com/micoproject/Event-index.png)
-![](https://s3-us-west-1.amazonaws.com/micoproject/Event-map.png)
-![](https://s3-us-west-1.amazonaws.com/micoproject/ICO-Show.png)
-![](https://s3-us-west-1.amazonaws.com/micoproject/ICO-index.png)
+![search](https://s3-us-west-1.amazonaws.com/micoimage/search.png)
 
+This works by issuing a new axios request every single time the input is changed.  However to create a seamless experience the update process is asynchronous so that the app updates once the user stops typing.
 
-
-## Accomplish over the weekend
-* Watched tutorials on React Native and NodeJS
-* Setup starting framework/backend for the project
-* Plan out database schema and normalizing state
-
-
-## Group Members & Work Breakdown
-
-### Day 1
-* User Auth 
-### Day 2-3
-* Index Page of ICOs
-* Favorited ICO
-* Website
-### Day 4-5
-* Show Page of ICOS 
-* Website
-### Day 6
-* Index Page of Events
-    * Meetups based on user's geolocation
-* Website
-### Day 7
-* Polishing and Deploying on App Store
-* Website
+``` javascript
+handleChange(text) {
+    this.setState({ text }, this.checkInput.bind(this));
+    const { receiveSearchResults } = this.props;
+    if (this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+        axios.get(`http://localhost:5000/search_icos/${this.state.text}`)
+        .then(response => {
+            receiveSearchResults(response.data.results);
+        }
+        ).catch(function (error) {
+            throw error;
+        });
+    }, 300);
+}
+```
 
 
+## Future Plans
+* Update Map to take the User's current location via geolocation or built in settings
+* Update Markers to be more interactive
+* Implement real time events with API
+* Further polish user interface and design

@@ -38,21 +38,37 @@ class Footer extends Component {
 
   handleOngoing() {
     const length = Actions.state.routes.length;
-
-    if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
-      Actions.state.routes[length - 1].routeName === 'login' ||
-      Actions.state.routes[length - 1].routeName === 'search') {
-      Actions.pop();
-      Actions.ongoingIcoList();
-    } else {
-      Actions.ongoingIcoList();
-    }
-    
     this.setState({
       currentScene: this.state.currentScene.concat(['ongoingIcoList'])
     });
+    if (!Actions.state.routes[length - 2]) {
+      if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
+        Actions.state.routes[length - 1].routeName === 'login' ||
+        Actions.state.routes[length - 1].routeName === 'search') {
+        Actions.pop();
+        Actions.ongoingIcoList();
+      } else {
+        Actions.ongoingIcoList();
+      }
+      this.props.resetFavScene();
+      return;
+    }
+    if (Actions.state.routes[length - 2].routeName === 'icoList') {
+      Actions.pop();
+      const lengthOf = this.state.currentScene.length;
+      // this.setState({ currentScene: this.state.currentScene.slice(0, lengthOf - 1) });
+    } else {
+      if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
+        Actions.state.routes[length - 1].routeName === 'login' ||
+        Actions.state.routes[length - 1].routeName === 'search') {
+        Actions.pop();
+        Actions.ongoingIcoList();
+      } else {
+        Actions.ongoingIcoList();
+      }
+      // this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
+    }
     this.props.resetFavScene();
-    return null;
   }
 
   handleFavorites() {
