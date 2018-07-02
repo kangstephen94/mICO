@@ -274,7 +274,7 @@ const styles = {
     padding: 2
   },
   icoHeader: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
     // justifyContent: 'flex-start',
     justifyContent: 'space-around',
