@@ -40,7 +40,6 @@ export default class EventsIndex extends Component {
   }
 
   onClose() {
-    console.log('Modal just closed');
     this.setState({ detailInfo: null });
   }
 
