@@ -19,7 +19,7 @@ class SearchBar extends React.Component {
         const { receiveSearchResults } = this.props;
         if (this.timeout) clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
-            axios.get(`http://localhost:5000/search_icos/${this.state.text}`)
+            axios.get(`https://mico-ios.herokuapp.com/search_icos/${this.state.text}`)
             .then(response => {
                 receiveSearchResults(response.data.results);
             }

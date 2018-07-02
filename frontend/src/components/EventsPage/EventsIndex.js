@@ -51,7 +51,6 @@ export default class EventsIndex extends Component {
   }
 
   openDetail(index) {
-    console.log('open detail');
     this.setState({ detailInfo: [this.props.events[index]]}, this.refs.modal1.open);
   }
 

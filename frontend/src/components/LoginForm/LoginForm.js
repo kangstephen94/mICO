@@ -53,10 +53,10 @@ export default class LoginForm extends Component {
     }
   };
 
-  loginWithFacebook = () => this.openURL('http://localhost:5000/auth/facebook');
+  loginWithFacebook = () => this.openURL('https://mico-ios.herokuapp.com/auth/facebook');
   // Handle Login with Google button tap
-  loginWithGoogle = () => this.openURL('http://localhost:5000/auth/google');
-  loginWithLinkedIn = () => this.openURL('http://localhost:5000/auth/linkedin');
+  loginWithGoogle = () => this.openURL('https://mico-ios.herokuapp.com/auth/google');
+  loginWithLinkedIn = () => this.openURL('https://mico-ios.herokuapp.com/auth/linkedin');
 
   // Open URL in a browser
   openURL = (url) => {
@@ -84,7 +84,7 @@ export default class LoginForm extends Component {
         <ScrollView>
         {array
           ? 
-          <View style={styles.content}>
+          <View style={styles.content2}>
             <FavoritesList favorites={this.props.session.user.favorites} />
           </View>
           : // Show Please log in message if not
@@ -93,8 +93,8 @@ export default class LoginForm extends Component {
               Welcome Stranger!
               </Text>
             <Text style={styles.text}>
-              Please log in to continue {'\n'}
-              to see your favorite ICOs
+                Please log in to add and{'\n'}
+                see your favorite ICOs
               </Text>
             <View style={styles.buttons}>
               <View style={styles.buttonWrapper}>
@@ -163,7 +163,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 5,
+    marginTop: 120
+  },
+  content2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5
   },
   avatar: {
     margin: 20,

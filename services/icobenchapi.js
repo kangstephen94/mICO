@@ -1,6 +1,6 @@
 const request = require('request');
 const CryptoJS = require('crypto-js');
-const keys = require('../config/dev');
+const keys = require('../config/keys');
 
 class ICObench {
     constructor(){
