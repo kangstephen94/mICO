@@ -24,7 +24,7 @@ export default class IcoDetail extends Component {
 
   componentDidMount() {
     const { item } = this.props;
-    axios.get(`http://localhost:5000/ico/${item.id}`)
+    axios.get(`http://mico-ios.herokuapp.com/ico/${item.id}`)
       .then(response => {
         const timer = setInterval(this.tick, 1000);
         const dateData = item.type === 'active' ? response.data.dates.icoEnd : (response.data.dates.icoStart === '0000-00-00 00:00:00' ? (response.data.dates.preIcoStart) : (response.data.dates.icoStart) );
@@ -64,7 +64,7 @@ export default class IcoDetail extends Component {
 
       if (this.state.favorite) {
         axios({
-          url: 'http://localhost:5000/api/favorites/remove',
+          url: 'http://mico-ios.herokuapp.com/api/favorites/remove',
           method: 'PUT',
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -80,7 +80,7 @@ export default class IcoDetail extends Component {
         });
       } else {
       axios({
-        url: 'http://localhost:5000/api/favorites/add',
+        url: 'http://mico-ios.herokuapp.com/api/favorites/add',
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': '*',
