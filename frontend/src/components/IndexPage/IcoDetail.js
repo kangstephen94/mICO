@@ -146,7 +146,7 @@ export default class IcoDetail extends Component {
 
           <View style={icoHeader}>
             <Image source={{ uri: item.logo }} style={imageStyle} />
-            <Text style={{fontWeight: 'bold', fontSize: 22, fontFamily: 'Encode Sans Semi Expanded' , flexWrap: 'wrap'}}>{item.name}</Text>
+            <Text style={{fontWeight: 'bold', fontSize: 22, fontFamily: 'Encode Sans Semi Expanded' , flexWrap: 'wrap', width: 230}}>{item.name}</Text>
           </View>
 
           <View style={inlineView}>
@@ -270,11 +270,12 @@ const styles = {
   icoHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    // justifyContent: 'space-around',
+    // justifyContent: 'flex-start',
+    justifyContent: 'space-around',
     flexWrap: 'wrap',
     flex: 1,
     marginTop: 30,
+    marginLeft: 0
   },
   white: {
     color: 'white'
