@@ -13,7 +13,7 @@ class SearchList extends React.Component {
             return null;
         }
         return (
-          <View>
+          <View style={{flex: 1, backgroundColor: '#39314B'}}>
             <FavoritesList favorites={results} />
           </View>
         );
