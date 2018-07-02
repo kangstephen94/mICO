@@ -1,5 +1,8 @@
 # mICO
 
+## Background
+Initial coin offerings (ICOs) are evolving into an industry unto themselves.  As with any other growing business, you can tell this is happening when third parties intervene to create specialized services catered towards clients.  Here at mICO, we firmly believe that creating a mobile platform for viewing and participating in initial coin offerings will allow coin issuers and investors to focus more on the product and less on the details of the actual sale.
+
 ## Description
 ![title](https://s3-us-west-1.amazonaws.com/micoimage/title.png)
 
