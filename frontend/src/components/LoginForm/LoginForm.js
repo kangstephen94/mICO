@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import {
-  Image,
   Linking,
   StyleSheet,
   Platform,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  YellowBox
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SafariView from 'react-native-safari-view';
-import Footer from '../Footer';
+import FavoritesList from './FavoritesList';
+YellowBox.ignoreWarnings(['Class RCTCxxModule']);
 
-export default class App extends Component {
-
+export default class LoginForm extends Component {
+  
   state = {
     user: undefined, // user has not logged in yet
+    favorites: undefined
   };
 
   // Set up Linking
@@ -31,7 +33,6 @@ export default class App extends Component {
   }
 
   componentWillUnmount() {
-    // Remove event listener
     Linking.removeEventListener('url', this.handleOpenURL);
   }
 
@@ -39,6 +40,11 @@ export default class App extends Component {
     // Extract stringified user string out of the URL
     const [, user_string] = url.match(/user=([^#]+)/);
     this.setState({
+      user: JSON.parse(decodeURI(user_string)),
+      favorites: JSON.parse(decodeURI(user_string)).favorites
+    });
+
+    this.props.receiveSession({
       // Decode the user string and parse it into JSON
       user: JSON.parse(decodeURI(user_string))
     });
@@ -68,14 +74,18 @@ export default class App extends Component {
   };
 
   render() {
-    const { user } = this.state;
+    let array;
+    if (this.props.session.user) {
+      array = this.props.session.user.favorites;
+    }
+    const containerClass = this.state.user ? styles.containerloggedIn : styles.container;
     return (
-      <View style={styles.container}>
+      <View style={containerClass}>
         <ScrollView>
-        {user
-          ? // Show user info if already logged in
+        {array
+          ? 
           <View style={styles.content}>
-          {/* Check to see if the user has any favorites.  If not, render Please add favorites.  If they do render their favorites. */}
+            <FavoritesList favorites={this.props.session.user.favorites} />
           </View>
           : // Show Please log in message if not
           <View style={styles.content}>
@@ -143,13 +153,17 @@ const iconStyles = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#ddd'
+  },
+  containerloggedIn: {
+    flex: 1,
+    backgroundColor: '#39314B'
   },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30
+    marginTop: 5,
   },
   avatar: {
     margin: 20,

@@ -17,13 +17,17 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cookie-session": "^2.0.0-beta.3",
+    "crypto-js": "^3.1.9-1",
     "eslint-config-rallycoding": "^3.2.0",
     "express": "^4.16.3",
     "mongoose": "^5.1.6",
+    "node-icobench": "^1.0.2",
     "nodemon": "^1.17.5",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
-    "passport-linkedin": "^1.0.0"
+    "passport-linkedin": "^1.0.0",
+    "react-native": "^0.55.4",
+    "request": "^2.87.0"
   }
 }

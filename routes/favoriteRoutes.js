@@ -27,7 +27,6 @@ module.exports = (app) => {
                     const newFavorites = existingUser.favorites.filter(ico => {
                         return ico.name !== req.body.item.name;
                     });
-                    console.log(newFavorites);
                     existingUser.favorites = newFavorites;
                     existingUser.save();
                     res.send(existingUser);

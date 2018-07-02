@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Modal from 'react-native-modalbox';
 import EventIndexItem from './EventIndexItem';
 import Footer from '../Footer';
-import Map from '../Map/Map';
+import MapContainer from '../Map/MapContainer';
 import {
   AppRegistry,
   Text,
@@ -16,8 +16,11 @@ import {
   FlatList,
   TouchableOpacity,
   TabBarIOS,
-  TabBarIOSItem
+  TabBarIOSItem,
+  TouchableWithoutFeedback
 } from 'react-native';
+
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 var screen = Dimensions.get('window');
 
@@ -30,12 +33,15 @@ export default class EventsIndex extends Component {
       isOpen: false,
       isDisabled: false,
       swipeToClose: true,
-      slidervalue: 0.3
+      slidervalue: 0.3,
+      detailInfo: null,
+      isLoading: true
     };
-
   }
 
   onClose() {
+    console.log('Modal just closed');
+    this.setState({ detailInfo: null });
   }
 
   onOpen() {
@@ -44,32 +50,70 @@ export default class EventsIndex extends Component {
   onClosingState(state) {
   }
 
+  openDetail(index) {
+    console.log('open detail');
+    this.setState({ detailInfo: [this.props.events[index]]}, this.refs.modal1.open);
+  }
+
   fetchData() {
 
   }
 
+  componentDidMount() {
+    this.props.retrieveEvents().then( () => this.setState({isLoading: false}) );
+  }
+
   render() {
+    if (this.state.isLoading) return null;
+
     var BContent = <Button onPress={() => this.setState({isOpen: false})} style={[styles.btn, styles.btnModal]} title={"X"}></Button>;
+
+    const eventsList = (
+      <FlatList 
+        style={{flex: 1}} 
+        data={this.props.events}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item, index}) => <EventIndexItem item={item} index={index}/>}>
+      </FlatList>);
+
     return (
       <View style={styles.wrapper}>
-      <Map />
-        <TouchableOpacity onPress={() => this.refs.modal1.open()} style={styles.btn}></TouchableOpacity>
+
+        <MapContainer openDetail={this.openDetail.bind(this)} />
+
+        <GestureRecognizer style={{alignItems: 'center'}} onSwipeUp={() => this.refs.modal1.open()} swipeThreshold={0}>
+          <TouchableOpacity
+            onPress={() => this.refs.modal1.open()}
+            style={styles.btn}>
+          </TouchableOpacity>
+        </GestureRecognizer>
+
         <Modal
-          style={[styles.modal, styles.modal1]}
+          // style={[styles.modal, styles.modal1]}
+          style={styles.modal}
           ref={"modal1"}
           transparent={true}
           swipeToClose={this.state.swipeToClose}
-          onClosed={this.onClose}
+          onClosed={this.onClose.bind(this)}
           onOpened={this.onOpen}
           onClosingState={this.onClosingState}
-          animationType='slide'          
+          swipeThreshold={0}
+          // children={eventsList}
+          // scrollOffset={20}
+          // animationType='slide'
           >
-            <Text style={styles.text}>Events</Text>
-            <FlatList style={{width: screen.width, paddingLeft: 20}}
-              data={[{key: 'a'}, {key: 'b'}]}
-              renderItem={({item}) => <EventIndexItem />}>
+            <Text style={styles.text}>Events Nearby</Text>
+            <FlatList 
+              style={{flex: 1, backgroundColor: 'transparent', padding: 5}}
+              data={this.state.detailInfo ? this.state.detailInfo : this.props.events}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }) => this.state.detailInfo ? 
+              <EventIndexItem item={item} key={index} indexHead={""}/>
+              :
+              <EventIndexItem item={item} key={index} indexHead={`${index+1} . `}/>}>
           </FlatList>
         </Modal>
+
     </View>
     );
   }
@@ -92,11 +136,14 @@ const styles = StyleSheet.create({
   modal: {
     justifyContent: 'center',
     alignItems: 'center',
-    // flex: 1
+    flex: 0.9,
+    backgroundColor: 'transparent'
+    // position: 'relative'
   },
 
   modal1: {
-    flex: 1
+    flex: 1,
+    padding: 5
   },
 
   modal2: {
@@ -116,10 +163,12 @@ const styles = StyleSheet.create({
   btn: {
     backgroundColor: "#ff92e0",
     height: 5,
-    width: 80,
+    width: 100,
     borderRadius: 10,
-    padding: 2,
-    margin: 5
+    padding: 4.5,
+    margin: 5,
+    position: 'absolute',
+    bottom: 8,
   },
 
   btnModal: {
@@ -132,8 +181,10 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color: "black",
-    fontSize: 22
+    color: "white",
+    fontSize: 22,
+    alignItems: 'center',
+    padding: 5
   }
 
 });
@@ -153,7 +204,7 @@ const styles = StyleSheet.create({
       onClosed={this.onClose}
       onOpened={this.onOpen}
       onClosingState={this.onClosingState}
-      animationType='slide'          
+      animationType='slide'
       >
         <Text style={styles.text}>Events</Text>
         <FlatList style={{width: screen.width, paddingLeft: 20}}

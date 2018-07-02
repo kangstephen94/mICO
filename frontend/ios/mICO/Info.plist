@@ -51,10 +51,30 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>fontawesome.ttf</string>
+		<string>EncodeSansSemiExpanded-Black.ttf</string>
+		<string>EncodeSansSemiExpanded-Bold.ttf</string>
+		<string>EncodeSansSemiExpanded-ExtraBold.ttf</string>
+		<string>EncodeSansSemiExpanded-ExtraLight.ttf</string>
+		<string>EncodeSansSemiExpanded-Light.ttf</string>
+		<string>EncodeSansSemiExpanded-Medium.ttf</string>
+		<string>EncodeSansSemiExpanded-Regular.ttf</string>
+		<string>EncodeSansSemiExpanded-SemiBold.ttf</string>
+		<string>EncodeSansSemiExpanded-Thin.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Zocial.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

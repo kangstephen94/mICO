@@ -6,6 +6,10 @@ import Button from './common/Button';
 
 class Footer extends Component {
 
+  state = {
+    currentScene: ['icoList']
+  };
+
   handleEvents() {
     // console.log(Actions.state.routes);
     // const length = Actions.state.routes.length;
@@ -17,26 +21,84 @@ class Footer extends Component {
     //   Actions.pop();
     // } else {
       // debugger;
+    const length = Actions.state.routes.length;
+    if (Actions.state.routes[length - 1].routeName === 'icoDetail' || 
+      Actions.state.routes[length - 1].routeName === 'login' ||
+      Actions.state.routes[length - 1].routeName === 'search') {
+        Actions.pop();
+        Actions.events();
+    } else {
       Actions.events();
+    }
+    this.props.resetFavScene();
+
+    this.setState({ currentScene: this.state.currentScene.concat(['events']) });
     // }
   }
 
+  handleOngoing() {
+    const length = Actions.state.routes.length;
+
+    if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
+      Actions.state.routes[length - 1].routeName === 'login' ||
+      Actions.state.routes[length - 1].routeName === 'search') {
+      Actions.pop();
+      Actions.ongoingIcoList();
+    } else {
+      Actions.ongoingIcoList();
+    }
+    
+    this.setState({
+      currentScene: this.state.currentScene.concat(['ongoingIcoList'])
+    });
+    this.props.resetFavScene();
+    return null;
+  }
+
   handleFavorites() {
-    Actions.login();
+    this.setState({ currentScene: this.state.currentScene.concat(['login']) });
+    const length = Actions.state.routes.length;
+    if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
+    Actions.state.routes[length - 1].routeName === 'login' || 
+    Actions.state.routes[length - 1].routeName === 'search') {
+      Actions.pop();
+      Actions.login();
+    } else {
+      Actions.login();
+    }
   }
 
   handleUpcoming() {
-    console.log(Actions.state.routes);
     const length = Actions.state.routes.length;
+    this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
     if (!Actions.state.routes[length - 2]) {
-      Actions.icoList();
+      if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
+        Actions.state.routes[length - 1].routeName === 'login' ||
+        Actions.state.routes[length - 1].routeName === 'search') {
+        Actions.pop();
+        Actions.icoList();
+      } else {
+        Actions.icoList();
+      }
+      this.props.resetFavScene();
       return;
     }
     if (Actions.state.routes[length - 2].routeName === 'icoList') {
       Actions.pop();
+      const lengthOf = this.state.currentScene.length;
+      // this.setState({ currentScene: this.state.currentScene.slice(0, lengthOf - 1) });
     } else {
-      Actions.icoList();
+      if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||
+        Actions.state.routes[length - 1].routeName === 'login' ||
+        Actions.state.routes[length -1].routeName === 'search') {
+        Actions.pop();
+        Actions.icoList();
+      } else {
+        Actions.icoList();
+      }
+      // this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
     }
+    this.props.resetFavScene();
   }
 
   render() {
@@ -47,16 +109,47 @@ class Footer extends Component {
       nonHighlightedText,
       highlightedIcon, 
       nonHighlightedIcon } = styles;
-    
-    const upIconClass = Actions.currentScene === 'icoList' ? highlightedIcon : nonHighlightedIcon;
-    const upTextClass = Actions.currentScene === 'icoList' ? highlightedText : nonHighlightedText;
-    
-    const favIconClass = Actions.currentScene === 'login' ? highlightedIcon : nonHighlightedIcon;
-    const favTextClass = Actions.currentScene === 'login' ? highlightedText : nonHighlightedText;
 
-     const eventIconClass = Actions.currentScene === 'events' ? highlightedIcon : nonHighlightedIcon;
-     const eventTextClass = Actions.currentScene === 'events' ? highlightedText : nonHighlightedText;
+    let favIconClass;
+    let favTextClass;
+    let upIconClass;
+    let upTextClass;
+    let ongoingIconClass;
+    let ongoingTextClass;
+    let eventIconClass;
+    let eventTextClass;
 
+    console.log("state",this.props.state);
+
+    if (this.props.favScene.length > 0) {
+      favIconClass = highlightedIcon;
+      favTextClass = highlightedText;
+      upIconClass = nonHighlightedIcon;
+      upTextClass = nonHighlightedText;
+      ongoingIconClass = nonHighlightedIcon;
+      ongoingTextClass = nonHighlightedText;
+      eventIconClass = nonHighlightedIcon;
+      eventTextClass = nonHighlightedText;
+    } else {
+
+    const length = this.state.currentScene.length;
+    upIconClass = (this.state.currentScene[length - 1] === 'icoList' 
+      || this.state.currentScene[length - 1] === 'icoDetail') ? highlightedIcon : nonHighlightedIcon;
+    upTextClass = (this.state.currentScene[length - 1] === 'icoList'
+      || this.state.currentScene[length - 1] === 'icoDetail') ? highlightedText : nonHighlightedText;
+    
+    ongoingIconClass = this.state.currentScene[length - 1] === 'ongoingIcoList' ?
+      highlightedIcon : nonHighlightedIcon;
+
+    ongoingTextClass = this.state.currentScene[length - 1] === 'ongoingIcoList' ?
+      highlightedText : nonHighlightedText;
+
+    favIconClass = this.state.currentScene[length - 1] === 'login' ? highlightedIcon : nonHighlightedIcon;
+    favTextClass = this.state.currentScene[length - 1] === 'login' ? highlightedText : nonHighlightedText;
+
+     eventIconClass = this.state.currentScene[length - 1] === 'events' ? highlightedIcon : nonHighlightedIcon;
+     eventTextClass = this.state.currentScene[length - 1] === 'events' ? highlightedText : nonHighlightedText;
+    }
 
     return (
       <View style={footerStyle}>
@@ -67,11 +160,11 @@ class Footer extends Component {
           <Text style={upTextClass}>Upcoming</Text>
         </TouchableOpacity>
       
-        <TouchableOpacity style={{flexDirection: 'column', alignItems: 'center'}}>
-          <Text style={{margin: 10, fontSize: 25}}>
+        <TouchableOpacity onPress={this.handleOngoing.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>
+          <Text style={ongoingIconClass}>
             <FontAwesome>{Icons.clockO}</FontAwesome>
           </Text>
-          <Text style={{marginTop: -5, fontSize: 10}}>Ongoing</Text>
+          <Text style={ongoingTextClass}>Ongoing</Text>
         </TouchableOpacity>
       
         <TouchableOpacity onPress={this.handleEvents.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>
@@ -100,8 +193,9 @@ const styles = {
     // position: '',
     bottom: 0,
     // alignItems: 'center',
-    height: 100,
+    // height: 100,
     paddingTop: 10,
+    flex: 1
   },
   textStyle: {
     fontSize: 20

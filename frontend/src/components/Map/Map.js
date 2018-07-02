@@ -8,13 +8,17 @@ import EventsIndex from '../EventsPage/EventsIndex';
 
 export default class MyMap extends React.Component {
     state = {
-        latitude: 37.798778,
-        longitude: -122.401376,
-        latitudeDelta: 0.002,
-        longitudeDelta: 0.002
+        latitude: 37.7857,
+        longitude: -122.4011,
+        latitudeDelta: 0.03,
+        longitudeDelta: 0.03,
+        loading: true
     }
+    //  componentDidMount() {
+    //    this.props.retrieveEvents().then(() => (this.setState(loading: false)));
+    //  }
     marker = {
-      latitude: 37.794657, 
+      latitude: 37.794657,
       longitude: -122.422326
     }
     mapStyle = [
@@ -218,38 +222,44 @@ export default class MyMap extends React.Component {
       }
     ]
 
-    render() {
-        return (
+    componentDidMount() {
+      this.props.retrieveEvents().then( ()=> (this.setState({loading: false})));
+    }
 
-                <MapView 
+    render() {
+      const {events} = this.props;
+      if (this.state.loading) {
+        return null;
+      }
+      // const markerStyle = in
+        return (
+                <MapView
                   provider={PROVIDER_GOOGLE}
-                  style={styles.map} 
+                  style={styles.map}
                   initialRegion={this.state}
+                  showsUserLocation={true}
                   customMapStyle={this.mapStyle}
-                  // showsUserLocation={true}
-                  // followsUserLocation={true}
-                  // showsMyLocationButton={true}
+                  followsUserLocation={true}
                 >
-                    <Marker 
-                      // style={{position: 'relative'}}
+                  {events.map( (event, index) => (
+                    <Marker
+                      key={index}
+                      style={{position: 'relative'}}
                       image={require('../../../assets/images/map-marker-2.png')}
-                      title="App Academy" coordinate={this.state}>
-                      <Text style={styles.markerText}>1</Text> 
-                      <Callout onPress={() => Actions.login()}>
-                        <View style={{width: 100, height: 50}}>
+                      coordinate={{latitude: event.latitude, longitude: event.longitude}}>
+                      <Text style={(index + 1) > 9 ? styles.markerGreatText : 
+                        styles.markerText}>{index + 1}</Text>
+                      <Callout onPress={() => this.props.openDetail(index)}>
+                        <View style={{width: 200, height: 200, paddingTop: 5}}>
                           {/* <TouchableOpacity > */}
-                            <Text>App Academy</Text>
+                            <Image source={{ uri:event.image }} style={{height: 100, width: 200}}></Image>
+                            <Text style={{fontWeight: 'bold', fontSize: 14, marginTop: 6}}>{`${index+1}. ${event.name}`}</Text>
+                            <Text style={{fontSize: 13, marginTop: 5}}><Text style={{fontWeight: 'bold'}}>Location: </Text>{event.address}</Text>
                           {/* </TouchableOpacity> */}
                         </View>
                       </Callout>
                     </Marker>
-                    <Marker 
-                      // style={{position: 'relative'}}
-                      image={require('../../../assets/images/map-marker-2.png')}
-                      title="My House" coordinate={this.marker}>
-                    <Text style={styles.markerText}>5</Text> 
-                    </Marker>
-                    
+                  ))}
                 </MapView>
         );
     }
@@ -280,6 +290,14 @@ const styles = {
       fontSize: 15,
       color: 'white',
       fontWeight: 'bold'
+    },
+    markerGreatText: {
+      position: 'absolute',
+      left: 16,
+      top: 7,
+      fontSize: 15,
+      color: 'white',
+      fontWeight: 'bold'
     }
 };
 
@@ -287,16 +305,16 @@ const styles = {
 // <View style={styles.container}>
 // {/* <Image source={require('./map-marker.png')} /> */}
 
-//   <MapView 
+//   <MapView
 //     provider={PROVIDER_GOOGLE}
-//     style={styles.map} 
+//     style={styles.map}
 //     initialRegion={this.state}
 //     customMapStyle={this.mapStyle}
 //     // showsUserLocation={true}
 //     // followsUserLocation={true}
 //     // showsMyLocationButton={true}
 //   >
-//       <Marker 
+//       <Marker
 //         image={require('../../../assets/images/map-marker-2.png')}
 //         title="App Academy" coordinate={this.state} />
 //       <Callout />
@@ -307,3 +325,9 @@ const styles = {
 // </View>
 
 // </View>
+
+
+
+
+
+//events markers
