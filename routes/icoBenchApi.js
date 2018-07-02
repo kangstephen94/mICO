@@ -15,8 +15,10 @@ module.exports = app => {
 
   app.get('/search_icos/:query', (req, res) => {
     const { query } = req.params;
-    icobench.icos.all({ search: query }).then(response => res.send(response));
-  }, (err, response) => console.log(err));
+    icobench.icos.all({ search: query })
+    .then(response => res.send(response),
+    error => res.send(error));
+  });
 
   app.get('/trending_icos', (req, res) => {
     icobench.icos.trending().then( response => res.send(response));

@@ -8,7 +8,7 @@ const eventSchema = new Schema({
   address: String,
   start_time: String,
   end_time: String,
-  date: String,
+  date: Stri
   cost: String,
   latitude: Number,
   longitude: Number,
