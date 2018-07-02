@@ -35,10 +35,6 @@ class IcoList extends React.Component {
     this._fetchData();
   }
 
-  componentWillUnmount() {
-  }
-
-  // ADD ONGOING 
 
   _fetchData() {
     const {name} = this.props
@@ -48,15 +44,6 @@ class IcoList extends React.Component {
     } else {
       this._fetchActiveData();
     }
-    // axios.get(`http://localhost:5000/active_icos/${this.state.currentPage}`)
-    // .then(response => {
-    //   this.setState({
-    //     dataSource: this.state.dataSource.concat(response.data.results),
-    //     currentPage: response.data.currentPage + 1,
-    //     isLoading: false,
-    //     refreshing: false
-    //   });
-    // });
   }
 
   _fetchUpcomingData() {
@@ -104,7 +91,6 @@ class IcoList extends React.Component {
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
-    console.log(this.state);
 
     const flatList = this.props.favorite ? 
       <FlatList 
@@ -114,21 +100,17 @@ class IcoList extends React.Component {
           />
     : 
         <FlatList data={this.state.dataSource}
-            // renderItem={this.renderItem}
-            // renderItem={({item}) => <Text>{item.key}</Text>}
             renderItem={({item}) => <IcoListItem item={item} type={this.state.type} />}
             onEndReachedThreshold={0}
             onEndReached={this._handleEndReached}
             style={{flex: 4}}
             keyExtractor={(item, index) => index.toString()}
+            ListFooterComponent={() => this.state.refreshing ? <ActivityIndicator size='small' /> : null}
           />;
-  
-    const refreshSpinner = this.state.refreshing ? <ActivityIndicator size='small' /> : null;
     
     return (
       <View style={styles.listViewStyle}>
           {flatList}
-          {refreshSpinner}
       </View>
     );
   }

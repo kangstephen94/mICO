@@ -5,7 +5,7 @@ import { View, FlatList } from 'react-native';
 class FavoritesList extends React.Component {
 
   renderItem({item}) {
-    return <IcoListItem key={item.id} item={item} />
+    return <IcoListItem key={item.id} item={item} type={item.type}/>
   }
 
   render() {
