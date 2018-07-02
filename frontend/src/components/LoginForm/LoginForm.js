@@ -78,7 +78,7 @@ export default class LoginForm extends Component {
     if (this.props.session.user) {
       array = this.props.session.user.favorites;
     }
-    const containerClass = this.state.user ? styles.containerloggedIn : styles.container;
+    const containerClass = this.props.session.user ? styles.containerloggedIn : styles.container;
     return (
       <View style={containerClass}>
         <ScrollView>
