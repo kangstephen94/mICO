@@ -104,12 +104,16 @@ export default class IcoDetail extends Component {
     });
   }
 
+  _formatDate(date) {
+    "2018-09-12 00:00:00"
+    return `${date.slice(5,7)}-${date.slice(8,10)}-${date.slice(0,4)} ` + date.slice(11);
+  }
+
   render() {
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
     const item = this.state.dataSource;
-    // let favoriteClass = styles.nonFavClass;
     const favoriteClass = this.state.favorite ? styles.favClass : styles.nonFavClass;
     const star = this.state.favorite ? 
       <FontAwesome style={favoriteClass}>{Icons.star}</FontAwesome>
@@ -127,16 +131,16 @@ export default class IcoDetail extends Component {
     const preOrNah = item.dates.icoStart === '0000-00-00 00:00:00' ? 
       (<View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
         <Text style={{color: 'grey'}}>Pre-ICO Start Date:</Text>
-        <Text>{item.dates.preIcoStart}</Text>
+        <Text>{this._formatDate(item.dates.preIcoStart)}</Text>
       </View>) : (<View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
       <Text style={{color: 'grey'}}>Start Date:</Text>
-      <Text>{item.dates.icoStart}</Text>
+      <Text>{this._formatDate(item.dates.icoStart)}</Text>
     </View>);
 
     const dateInfo = type === 'active' ? (
       <View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
         <Text style={{color: 'grey'}}>End Date:</Text>
-        <Text>{item.dates.icoEnd}</Text>
+        <Text>{this._formatDate(item.dates.icoEnd)}</Text>
       </View>) : preOrNah ;
     
     return (
@@ -150,13 +154,7 @@ export default class IcoDetail extends Component {
           </View>
 
           <View style={inlineView}>
-
-            {/* <View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
-              <Text style={{color: 'grey'}}>End Date:</Text>
-              <Text>{item.dates.icoEnd}</Text>
-            </View> */}
             {dateInfo}
-
             <View style={{margin: 10, marginRight: 25}}>
               <Text style={{color: 'grey'}}>Time Left:</Text>
               <View style={greenBorder}>
@@ -165,7 +163,6 @@ export default class IcoDetail extends Component {
                 </Text>
               </View>
             </View>
-
           </View>
 
           <View style={inlineView}>
@@ -185,6 +182,14 @@ export default class IcoDetail extends Component {
           </View>
 
           <View style={infoStyle}>
+            <Text style={h2} >Dates</Text>
+            <Text>Pre-ICO Start Date: {this._formatDate(item.dates.preIcoStart)}</Text>
+            <Text>Pre-ICO End Date:  {this._formatDate(item.dates.preIcoEnd)}</Text>
+            <Text>Start Date:  {this._formatDate(item.dates.icoStart)}</Text>
+            <Text>End Date:  {this._formatDate(item.dates.icoEnd)}</Text>
+          </View>
+
+          <View style={infoStyle}>
             <Text style={h2} >Finance</Text>
             <Text>Price: {item.finance.price}</Text>
             <Text>Hardcap:  {item.finance.hardcap}</Text>
@@ -199,15 +204,16 @@ export default class IcoDetail extends Component {
           <View style={infoStyle}>
             <Text style={h2} >Brief Information</Text>
             <Text>{item.intro}</Text>
-            <Text>Start Date: {item.dates.icoStart}</Text>
           </View>
 
-          
+          <View style={infoStyle}>
+            <Text style={h2} >Categories</Text>
+            <Text>{item.categories.map( el => el.name).join(", ")}</Text>
+          </View>
 
           <View style={infoStyle}> 
             <Text style={h2}>Full Description</Text>
             <HTML html={item.about}  />
-            {/* <Text>{item.about}</Text>           */}
           </View>
         </View>
 
