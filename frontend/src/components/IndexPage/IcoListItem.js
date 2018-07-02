@@ -32,7 +32,7 @@ const IcoListItem = (props) => {
         onPress={() => Actions.icoDetail({item})}
         style={{padding: 10}}
         >
-        <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start' }}>
           <Image style={imageStyle} source={{ uri: item.logo }} />
           <Text style={titleStyle}>{name}</Text>
           <View >
