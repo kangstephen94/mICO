@@ -1,50 +1,94 @@
 import React, { Component } from 'react';
-import { View, Text, Image , Linking, TouchableHighlight, TouchableOpacity} from 'react-native';
+import {ScrollView, View, Text, Image , Linking, TouchableHighlight, TouchableOpacity, WebView} from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
+import Spinner from '../common/Spinner';
 import axios from 'axios';
-
-
+import HTML from 'react-native-render-html';
+// import { Action } from 'react-native-router-flux';
 
 
 export default class IcoDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timer: null, 
-      counter: (new Date(this.props.item.end_time) - new Date()) / 1000
+      timer: null,
+      isLoading: true,
+      // counter: null,
+      favorite: false
     };
 
     this.tick = this.tick.bind(this);
+    
   }
-  
+
   componentDidMount() {
-    const timer = setInterval(this.tick, 1000);
-    this.setState({ timer });
+    const { item } = this.props;
+    axios.get(`http://mico-ios.herokuapp.com/ico/${item.id}`)
+      .then(response => {
+        const timer = setInterval(this.tick, 1000);
+        const date = item.type === 'active' ? new Date(response.data.dates.icoEnd) : ( response.data.dates.icoStart === '0000-00-00 00:00:00' ? (new Date(response.data.dates.preIcoStart)): new Date(response.data.dates.icoStart) );
+        this.setState({
+          dataSource: response.data,
+          isLoading: false,
+          // counter: (new Date(response.data.dates.icoEnd) - new Date()) / 1000,
+          counter: (date - new Date()) / 1000, // LOL PEMDAS almost did me in, previous code was 'counter: date - new Date() / 1000'
+          timer,
+          type: item.type
+        });
+      });
+    if (this.props.user.user) {
+      this.props.user.user.favorites.forEach(fav => {
+        if (fav.name === this.props.item.name) {
+          this.setState({ favorite: true });
+        }
+      });
+    }
   }
+
   
   componentWillUnmount() {
     clearInterval(this.state.timer);
   }
   
     handleFavorite() {
-      const { item } = this.props;
-      console.log(item);
+      const { item, user, receiveSession } = this.props;
+
+      if (this.state.favorite) {
+        axios({
+          url: 'http://mico-ios.herokuapp.com/api/favorites/remove',
+          method: 'PUT',
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE',
+            'Access-Control-Allow-Headers': 'Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type',
+          },
+          data: {
+            item,
+            user
+          }
+        }).then(function (response) {
+          receiveSession({ user: response.data });
+        });
+      } else {
       axios({
-        url: 'http://localhost:5000/favorites/add',
+        url: 'http://mico-ios.herokuapp.com/api/favorites/add',
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE',
           'Access-Control-Allow-Headers': 'Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type',
         },
-        data: item
+        data: {
+          item,
+          user
+        }
       }).then(function (response) {
-        console.log(response);
-      })
-        .catch(function (error) {
-          console.log(error);
-        });
+        receiveSession({ user: response.data });
+      });
     }
+    this.setState({ favorite: !this.state.favorite });
+  }
+
   tick() {
     this.setState({
       counter: this.state.counter - 1
@@ -52,56 +96,113 @@ export default class IcoDetail extends Component {
   }
 
   render() {
-    const {item} = this.props;
+    const item = this.state.dataSource;
+    if (this.state.isLoading) {
+      return <Spinner size="small" />;
+    }
+    // let favoriteClass = styles.nonFavClass;
+    const favoriteClass = this.state.favorite ? styles.favClass : styles.nonFavClass;
+    const star = this.state.favorite ? 
+      <FontAwesome style={favoriteClass}>{Icons.star}</FontAwesome>
+    : 
+      <FontAwesome style={favoriteClass}>{Icons.starO}</FontAwesome>;
+
     const timer = new Date(null);
     timer.setSeconds(this.state.counter);
     const timeLeft = timer.toISOString().substr(11,8);
     const daysLeft  = Math.floor(timer / (3600000 * 24));
     const { h2, greenBorder, imageStyle, sectionStyle, inlineView, infoStyle, 
             icoHeader, buttonStyle} = styles;
+    const {type} = this.state;
+
+    const preOrNah = item.dates.icoStart === '0000-00-00 00:00:00' ? 
+      (<View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
+        <Text style={{color: 'grey'}}>Pre-ICO Start Date:</Text>
+        <Text>{item.dates.preIcoStart}</Text>
+      </View>) : (<View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
+      <Text style={{color: 'grey'}}>Start Date:</Text>
+      <Text>{item.dates.icoStart}</Text>
+    </View>);
+
+    const dateInfo = type === 'active' ? (
+      <View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
+        <Text style={{color: 'grey'}}>End Date:</Text>
+        <Text>{item.dates.icoEnd}</Text>
+      </View>) : preOrNah ;
+    
     return (
-      <View style={sectionStyle} >
-        <View style={icoHeader}>
-          <Text style={{fontWeight: 'bold', fontSize: 24  }}>{item.name}</Text>
-          <Image source={{ uri: item.image }} style={imageStyle}/>
-        </View>
-        <View style={inlineView}>
-          <View>
-            <Text style={{color: 'grey'}}>End Date:</Text>
-            <Text>{item.end_time}</Text>
+      <ScrollView style={{backgroundColor: '#ddd'}}>
+        <Image style={{flex:1, resizeMode: 'cover', width: null, height: null}} source={require('../../../assets/images/origin-background.svg')} />
+        <View style={sectionStyle}>
+
+          <View style={icoHeader}>
+            <Image source={{ uri: item.logo }} style={imageStyle}/>
+            <Text style={{fontWeight: 'bold', fontSize: 24, fontFamily: 'Encode Sans Semi Expanded' }}>{item.name}</Text>
           </View>
-          <View>
-            <Text style={{color: 'grey'}}>Time Left:</Text>
-            <View style={greenBorder}>
-              <Text style={{color: '#4CAF50', fontWeight: 'bold'}}>
-                {`${daysLeft}`}d, {timeLeft}
-              </Text>
+
+          <View style={inlineView}>
+
+            {/* <View style={{flex: 1.0, margin: 10, marginLeft: 25}}>
+              <Text style={{color: 'grey'}}>End Date:</Text>
+              <Text>{item.dates.icoEnd}</Text>
+            </View> */}
+            {dateInfo}
+
+            <View style={{margin: 10, marginRight: 25}}>
+              <Text style={{color: 'grey'}}>Time Left:</Text>
+              <View style={greenBorder}>
+                <Text style={{color: '#4CAF50', fontWeight: 'bold'}}>
+                  {`${daysLeft}`}d, {timeLeft}
+                </Text>
+              </View>
             </View>
+
+          </View>
+
+          <View style={inlineView}>
+            <TouchableOpacity onPress={this.handleFavorite.bind(this)} style={{flexDirection: 'column', alignItems: 'center', flex: 1}}>
+              <Text style={{margin: 10, fontSize: 25}}>
+                {star}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{flex: 1}}>
+              <Text style={{margin: 10, fontSize: 25}}>
+                <FontAwesome>{Icons.share}</FontAwesome>
+              </Text>
+            </TouchableOpacity>
+            <TouchableHighlight style={buttonStyle} onPress={() => Linking.openURL(item.url)}>
+              <Text style={{color: 'white', fontWeight: 'bold'}}>Website</Text>
+            </TouchableHighlight>
+          </View>
+
+          <View style={infoStyle}>
+            <Text style={h2} >Finance</Text>
+            <Text>Price: {item.finance.price}</Text>
+            <Text>Hardcap:  {item.finance.hardcap}</Text>
+            <Text>Raised:  {item.finance.raised}</Text>
+            <Text>Distributed:  {item.finance.distributed}</Text>
+            <Text>Tokens:  {item.finance.tokens}</Text>
+            <Text>Minimum:  {item.finance.minimum}</Text>
+            <Text>Platform:  {item.finance.platform}</Text>
+            <Text>Accepting:  {item.finance.accepting}</Text>
+          </View>
+
+          <View style={infoStyle}>
+            <Text style={h2} >Brief Information</Text>
+            <Text>{item.intro}</Text>
+            <Text>Start Date: {item.dates.icoStart}</Text>
+          </View>
+
+          
+
+          <View style={infoStyle}> 
+            <Text style={h2}>Full Description</Text>
+            <HTML html={item.about}  />
+            {/* <Text>{item.about}</Text>           */}
           </View>
         </View>
-        <View style={inlineView}>
-          <TouchableOpacity onPress={this.handleFavorite.bind(this)} style={{flexDirection: 'column', alignItems: 'center'}}>
-            <Text style={{margin: 10, fontSize: 25}}>
-              <FontAwesome>{Icons.starO}</FontAwesome>
-            </Text>
-          </TouchableOpacity>
-          <Text style={{margin: 10, fontSize: 25}}>
-            <FontAwesome>{Icons.share}</FontAwesome>
-          </Text>
-          <TouchableHighlight style={buttonStyle} onPress={() => Linking.openURL(item.icowatchlist_url)}>
-            <Text style={{color: 'white'}}>Website</Text>
-          </TouchableHighlight>
-        </View>
-        <View style={infoStyle}>
-          <Text style={h2} >Brief Information</Text>
-          <Text>{item.website_link}</Text>
-          <Text>Start Date: {item.start_time}</Text>
-        </View>
-        <View style={infoStyle}> 
-          <Text style={h2}>Full Description</Text>
-          <Text>{item.description}</Text>          
-        </View>
-     </View>);
+
+     </ScrollView>);
   }
 }
 
@@ -111,38 +212,46 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    margin: 5,
+    // margin: 5,
+    // backgroundColor: '#3B2E4D',
     flex: 1
   },
   h2: {
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: 10
   },
   imageStyle: {
     height: 80,
     width: 80,
-    resizeMode: 'contain'
-    // flex: 1
+    resizeMode: 'contain',
+    borderColor: 'grey',
+    padding: 5,
+    borderRadius: 4,
+    marginRight: 20,
   },
   inlineView: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'center',
     borderBottomColor: 'grey',
     borderBottomWidth: 1,
-    width: 340,
-    padding: 10
+    // width: 340,
+    // padding: 10,
+    flex: 1
   },
   infoStyle: {
     padding: 10,
     width: 350
   },
   buttonStyle: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#39314B', //'#FF5FDB',
     alignItems: 'center',
     padding: 8,
-    color: 'white',
-    fontWeight: 'bold'
+    flex: 0.7,
+    marginRight: 25,
+    marginLeft: -60,
+    borderRadius: 3
   },
   greenBorder: {
     borderColor: '#4CAF50',
@@ -152,6 +261,19 @@ const styles = {
   icoHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start'
+    justifyContent: 'space-between',
+    flex: 1,
+    marginTop: 30,
+    marginLeft: -112,
+    width: 200
+  },
+  white: {
+    color: 'white'
+  },
+  favClass: {
+      color: "#ff92e0" //'#4CAF50'
+  },
+  nonFavClass: {
+    color: 'black'
   }
 };
