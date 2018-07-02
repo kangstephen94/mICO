@@ -1,5 +1,5 @@
 const ICOBench = require('node-icobench');
-const keys = require('../config/dev');
+const keys = require('../config/keys');
 const Ico = require('../models/Ico');
 
 const pubKey = keys.icoBenchPublic;

@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getEvents = () => {
   return (
     axios({
-        url: 'http://localhost:5000/api/events',
+      url: 'https://mico-ios.herokuapp.com/api/events',
         method: 'GET',
         headers: {
           'Access-Control-Allow-Origin': '*',
