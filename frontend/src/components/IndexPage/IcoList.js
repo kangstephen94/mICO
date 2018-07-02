@@ -86,6 +86,7 @@ class IcoList extends React.Component {
   }
 
   _refresh() {
+    if (this.state.refreshing) return null;
     this.setState({refreshing: true});
     this._fetchData();
   }
@@ -117,7 +118,7 @@ class IcoList extends React.Component {
             renderItem={({item}) => <IcoListItem item={item} type={this.state.type} />}
             onEndReachedThreshold={0}
             onEndReached={this._handleEndReached}
-            style={{flex: 3}}
+            style={{flex: 4}}
             keyExtractor={(item, index) => index.toString()}
           />;
   

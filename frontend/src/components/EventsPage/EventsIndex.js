@@ -107,7 +107,10 @@ export default class EventsIndex extends Component {
               style={{flex: 1, backgroundColor: 'transparent', padding: 5}}
               data={this.state.detailInfo ? this.state.detailInfo : this.props.events}
               keyExtractor={(item, index) => index.toString()}
-              renderItem={({item, index}) => <EventIndexItem item={item} key={index} index={index}/>}>
+              renderItem={({ item, index }) => this.state.detailInfo ? 
+              <EventIndexItem item={item} key={index} indexHead={""}/>
+              :
+              <EventIndexItem item={item} key={index} indexHead={`${index+1} . `}/>}>
           </FlatList>
         </Modal>
 

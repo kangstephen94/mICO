@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image , TouchableOpacity, StyleSheet} from 'react-native';
 import Section from '../common/Section';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
-import SubSection from '../common/SubSection';
 import { Actions } from 'react-native-router-flux';
-import Footer from '../Footer';
 
 
 const IcoListItem = (props) => {
@@ -23,7 +21,9 @@ const IcoListItem = (props) => {
     starClass = styles.goodStar
   }
 
-  const date = type === 'active' ? <Text>End Date: {item.dates.icoEnd}</Text> : <Text>Start Date: {item.dates.icoStart}</Text>;
+  const date = type === 'active' ? <Text>End Date: {item.dates.icoEnd.slice(0,10)}</Text> : <Text>Start Date: {item.dates.icoStart.slice(0,10)}</Text>;
+
+  const name = item.name.length > 15 ? item.name.slice(0,15) + "..." : item.name;
   
   return (
     
@@ -31,11 +31,10 @@ const IcoListItem = (props) => {
       <TouchableOpacity
         onPress={() => Actions.icoDetail({item})}
         style={{padding: 10}}
-        // style={sectionStyle}
         >
         <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
           <Image style={imageStyle} source={{ uri: item.logo }} />
-          <Text style={titleStyle}>{item.name}</Text>
+          <Text style={titleStyle}>{name}</Text>
           <View >
             <View style={ratingClass}>
               <FontAwesome style={starClass}>{Icons.star}</FontAwesome>
@@ -44,8 +43,6 @@ const IcoListItem = (props) => {
               </Text>
             </View>
             <View style={{flexDirection: 'column', marginTop: 40, marginLeft: -175 }}>
-              {/* <Text>End Date:</Text> */}
-              {/* <Text>End Date: {item.dates.icoEnd}</Text> */}
               {date}
             </View>
           </View>
@@ -58,16 +55,6 @@ const IcoListItem = (props) => {
 };
 
 const styles = StyleSheet.create({
-  sectionStyle: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    borderWidth: 0.5,
-    borderColor: 'black',
-    padding: 10,
-    margin: 5,
-    // flex: 1
-  },
   imageStyle: {
     height: 90,
     width: 90,
