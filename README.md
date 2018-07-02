@@ -6,7 +6,7 @@ Initial coin offerings (ICOs) are evolving into an industry unto themselves.  As
 ## Description
 ![title](https://s3-us-west-1.amazonaws.com/micoimage/title.png)
 
-[mICO](https://github.com/kangstephen94/mICO) is an IOS app that helps users monitor and participate in ongoing and upcoming initial coin offerings(ICO). You can also check out nearby crypto-related events in the San Francisco area.
+[mICO](https://therealmeyer.github.io/mICO_splash/) is an IOS app that helps users monitor and participate in ongoing and upcoming initial coin offerings(ICO). You can also check out nearby crypto-related events in the San Francisco area.
 
 ## Project Design
 mICO was designed over a 10 day period in June of 2018.  Prior to development a list of minimum viable products (MVPs) and sample wireframes were created to demonstrate the planning process and track progression throughout development.  Each team member was focused on a specific aspect of the app, such as working the backend to implement OAuth, to efficiently develop the app.
