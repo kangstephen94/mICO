@@ -268,12 +268,8 @@ const styles = {
     flexWrap: 'wrap',
     flex: 1,
     marginTop: 30,
-<<<<<<< HEAD
-    // marginLeft: -112
-=======
     marginLeft: -112,
     width: 200
->>>>>>> 0c39ccc6a9c5a1c7c98f962a9ac188ecda6cfd2e
   },
   white: {
     color: 'white'
