@@ -53,10 +53,10 @@ export default class LoginForm extends Component {
     }
   };
 
-  loginWithFacebook = () => this.openURL('http://mico-ios.herokuapp.com/auth/facebook');
+  loginWithFacebook = () => this.openURL('https://mico-ios.herokuapp.com/auth/facebook');
   // Handle Login with Google button tap
-  loginWithGoogle = () => this.openURL('http://mico-ios.herokuapp.com/auth/google');
-  loginWithLinkedIn = () => this.openURL('http://mico-ios.herokuapp.com/auth/linkedin');
+  loginWithGoogle = () => this.openURL('https://mico-ios.herokuapp.com/auth/google');
+  loginWithLinkedIn = () => this.openURL('https://mico-ios.herokuapp.com/auth/linkedin');
 
   // Open URL in a browser
   openURL = (url) => {
