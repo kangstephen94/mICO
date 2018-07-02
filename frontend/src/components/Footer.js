@@ -135,7 +135,7 @@ class Footer extends Component {
     let eventIconClass;
     let eventTextClass;
 
-    console.log("state",this.props.state);
+    // console.log("state",this.props.state);
 
     if (this.props.favScene.length > 0) {
       favIconClass = highlightedIcon;
