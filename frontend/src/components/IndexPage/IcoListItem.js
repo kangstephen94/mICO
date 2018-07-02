@@ -21,7 +21,9 @@ const IcoListItem = (props) => {
     starClass = styles.goodStar
   }
 
-  const date = type === 'active' ? <Text>End Date: {item.dates.icoEnd.slice(0,10)}</Text> : <Text>Start Date: {item.dates.icoStart.slice(0,10)}</Text>;
+  const formatDate = date => `${date.slice(5,7)}-${date.slice(8,10)}-${date.slice(0,4)} `.replace(/[-]/g, '/');
+
+  const date = type === 'active' ? <Text>End Date: {formatDate(item.dates.icoEnd)}</Text> : <Text>Start Date: {formatDate(item.dates.icoStart)}</Text>;
 
   const name = item.name.length > 15 ? item.name.slice(0,15) + "..." : item.name;
   
