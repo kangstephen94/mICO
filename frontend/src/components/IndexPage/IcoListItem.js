@@ -8,7 +8,7 @@ import { Actions } from 'react-native-router-flux';
 const IcoListItem = (props) => {
   const { imageStyle, sectionStyle, titleStyle } = styles;
   const { item, type } = props;
-  item.type = type;
+  item.type = type || item.type;
   let ratingClass, starClass;
   if (item.rating < 2) {
     ratingClass = styles.poorRating;

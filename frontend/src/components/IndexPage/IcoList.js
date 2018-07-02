@@ -60,7 +60,7 @@ class IcoList extends React.Component {
   }
 
   _fetchUpcomingData() {
-    axios.get(`http://mico-ios.herokuapp.com/upcoming_icos/${this.state.currentPage}`)
+    axios.get(`https://mico-ios.herokuapp.com/upcoming_icos/${this.state.currentPage}`)
     .then(response => {
       this.setState({
         dataSource: this.state.dataSource.concat(response.data.results),
@@ -73,7 +73,7 @@ class IcoList extends React.Component {
   }
 
   _fetchActiveData() {
-    axios.get(`http://mico-ios.herokuapp.com/active_icos/${this.state.currentPage}`)
+    axios.get(`https://mico-ios.herokuapp.com/active_icos/${this.state.currentPage}`)
     .then(response => {
       this.setState({
         dataSource: this.state.dataSource.concat(response.data.results),
