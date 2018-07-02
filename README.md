@@ -1,7 +1,7 @@
 # mICO
 
 ## Description
-[title](https://s3-us-west-1.amazonaws.com/micoimage/title.png)
+![title](https://s3-us-west-1.amazonaws.com/micoimage/title.png)
 
 [mICO](https://github.com/kangstephen94/mICO) is an IOS app that helps users monitor and participate in ongoing and upcoming initial coin offerings(ICO). You can also check out nearby crypto-related events in the San Francisco area.
 
@@ -26,6 +26,7 @@ Additional Sources:
 
 ### OAuth
 User Authorization utilizes Google passport to incorporate different methods of logging in.  User login is required to have favorite ICOs.  When navigating through the app and attempting to favorite an ICO, the user is redirected to the login page if they are not currently signed in.
+
 ![login](https://s3-us-west-1.amazonaws.com/micoimage/login.png)
 
 ### Search Functionality
