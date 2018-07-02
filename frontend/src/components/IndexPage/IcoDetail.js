@@ -243,7 +243,7 @@ const styles = {
     borderColor: 'grey',
     padding: 5,
     borderRadius: 4,
-    // marginRight: 20
+    marginRight: 20
   },
   inlineView: {
     flexDirection: 'row',
