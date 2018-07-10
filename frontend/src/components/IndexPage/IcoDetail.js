@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ScrollView, View, Text, Image , Linking, TouchableHighlight, TouchableOpacity, WebView} from 'react-native';
+import {ScrollView, View, Text, Image , Linking, TouchableHighlight, Dimensions, TouchableOpacity, WebView} from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import Spinner from '../common/Spinner';
 import { Actions } from 'react-native-router-flux';
@@ -15,6 +15,7 @@ export default class IcoDetail extends Component {
       timer: null,
       isLoading: true,
       // counter: null,
+      team: true,
       favorite: false
     };
 
@@ -109,10 +110,104 @@ export default class IcoDetail extends Component {
     return `${date.slice(5,7)}-${date.slice(8,10)}-${date.slice(0,4)} `.replace(/[-]/g, '/') + date.slice(11);
   }
 
+  github(item) {
+    if (item.links.github) {
+      return (
+        <TouchableOpacity onPress={() => Linking.openURL(item.links.github)}>
+          <Text  style={{margin: 10, fontSize: 30}}>
+            <FontAwesome>{Icons.github}</FontAwesome>
+          </Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return <View></View>;
+    }
+  }
+  reddit(item) {
+    if (item.links.reddit) {
+      return (
+        <TouchableOpacity onPress={() => Linking.openURL(item.links.reddit)}>
+          <Text style={{margin: 10, fontSize: 30, color: '#ed4401'}}>
+            <FontAwesome>{Icons.reddit}</FontAwesome>
+          </Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return <View></View>;
+    }
+  }
+
+  twitter(item) {
+    if (item.links.twitter) {
+      return (
+        <TouchableOpacity onPress={() => Linking.openURL(item.links.twitter)}>
+          <Text style={{margin: 10, fontSize: 30, color: '#50a1f2'}}>
+            <FontAwesome>{Icons.twitter}</FontAwesome>
+          </Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return <View></View>;
+    }
+  }
+  telegram(item) {
+    if (item.links.telegram) {
+      return (
+        <TouchableOpacity onPress={() => Linking.openURL(item.links.telegram)}>
+          <Text style={{margin:10, fontSize: 30, color: '#4596c8'}}>
+            <FontAwesome>{Icons.telegram}</FontAwesome>
+          </Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return <View></View>;
+    }
+  }
+  whitepaper(item) {
+    if (item.links.whitepaper) {
+      return (
+        <TouchableOpacity onPress={() => Linking.openURL(item.links.whitepaper)}>
+          <Text style={{margin:10, fontSize: 30, color: 'gray'}}>
+            <FontAwesome>{Icons.newspaperO}</FontAwesome>
+          </Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return <View></View>;
+    }
+  }
+
+  toggleTeam() {
+    this.setState({team: !this.state.team });
+  }
+
+  teamInfo(team) {
+    let { height, width } = Dimensions.get('window');
+    console.log("team", team);
+    return (team.map(member => (
+        <View style={{width: width-20, flexDirection: 'row', marginBottom: 25, paddingBottom: 15, borderBottomColor: 'grey', borderBottomWidth: 1}}>
+          <Image source={{ uri: member.photo }} style={{borderRadius: 30, height: 60, width: 60, marginLeft: 15}} />
+          <View style={{ width: 170, marginLeft: 10, flexDirection: 'column'}}>
+            <View style={{height: 60}}>
+              <Text style={{fontWeight: 'bold'}}>{member.name}</Text>
+            </View>
+            <Text style={{marginTop: -30}}>{member.title}</Text>
+          </View>
+
+            <TouchableOpacity onPress={() => Linking.openURL(member.links)}>
+              <Text style={{margin:10, fontSize: 35, color: '#3a77b6', marginTop: 0, marginLeft: 30}}>
+                <FontAwesome>{Icons.linkedinSquare}</FontAwesome>
+              </Text>
+            </TouchableOpacity>
+        </View>
+    )
+    ));
+  }
   render() {
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
+    console.log(item);
     const item = this.state.dataSource;
     const favoriteClass = this.state.favorite ? styles.favClass : styles.nonFavClass;
     const star = this.state.favorite ? 
@@ -127,7 +222,7 @@ export default class IcoDetail extends Component {
     const timeCounter = this.state.timer ? `${daysLeft}d, ${timeLeft}`: "ENDED";
 
     const { h2, greenBorder, imageStyle, sectionStyle, inlineView, infoStyle, 
-            icoHeader, buttonStyle, redBorder } = styles;
+            icoHeader, buttonStyle, redBorder, teambuttonStyle } = styles;
     const { type } = this.state;
 
     const timerBorder = this.state.timer ? greenBorder : redBorder;
@@ -148,7 +243,7 @@ export default class IcoDetail extends Component {
         <Text style={{color: 'grey'}}>End Date:</Text>
         <Text>{this._formatDate(item.dates.icoEnd)}</Text>
       </View>) : preOrNah ;
-    
+    console.log("item", item);
     return (
       <ScrollView style={{backgroundColor: '#ddd'}}>
         <Image style={{flex:1, resizeMode: 'cover', width: null, height: null}} source={require('../../../assets/images/origin-background.svg')} />
@@ -178,13 +273,31 @@ export default class IcoDetail extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={{flex: 1}}>
-              <Text style={{margin: 10, fontSize: 25}}>
+              <Text style={{margin: 10, fontSize: 25, marginRight: 0}}>
                 <FontAwesome>{Icons.share}</FontAwesome>
               </Text>
             </TouchableOpacity>
             <TouchableHighlight style={buttonStyle} onPress={() => Linking.openURL(item.url)}>
               <Text style={{color: 'white', fontWeight: 'bold'}}>Website</Text>
             </TouchableHighlight>
+            {this.state.team ? 
+              <TouchableHighlight style={teambuttonStyle} onPress={this.toggleTeam.bind(this)}>
+                <Text style={{color: 'white', fontWeight: 'bold'}}>Team</Text>
+              </TouchableHighlight> : 
+              <TouchableHighlight style={teambuttonStyle} onPress={this.toggleTeam.bind(this)}>
+                <Text style={{color: 'white', fontWeight: 'bold'}}>Info</Text>
+              </TouchableHighlight> 
+            }
+            
+          </View>
+          {this.state.team ? (
+          <View>
+          <View style={{margin: 10, flexDirection: 'row', justifyContent: 'center', marginLeft: 0}}>
+            {this.github(item)}
+            {this.reddit(item)}
+            {this.twitter(item)}
+            {this.telegram(item)}
+            {this.whitepaper(item)}
           </View>
 
           <View style={infoStyle}>
@@ -221,7 +334,19 @@ export default class IcoDetail extends Component {
             <Text style={h2}>Full Description</Text>
             <HTML html={item.about}  />
           </View>
-        </View>
+          </View>) :
+            (<View style={{margin: 10}}>
+              <Text style={{textAlign: 'center', fontWeight: 'bold', marginBottom: 15, fontSize: 20}}>
+                Team Info
+              </Text>
+              <View style={{flexDirection: 'column', alignItems: 'flex-start'}}>
+              {this.teamInfo(item.team)}
+              </View>
+            </View>)
+          }
+        </View> 
+
+        
 
      </ScrollView>);
   }
@@ -270,8 +395,18 @@ const styles = {
     alignItems: 'center',
     padding: 8,
     flex: 0.7,
+    marginRight: 10,
+    marginLeft: -20,
+    // marginLeft: -60,
+    borderRadius: 3
+  },
+  teambuttonStyle: {
+    backgroundColor: '#1D2437', //'#FF5FDB',
+    alignItems: 'center',
+    padding: 8,
+    flex: 0.7,
     marginRight: 25,
-    marginLeft: -60,
+    marginLeft: 10,
     borderRadius: 3
   },
   greenBorder: {
