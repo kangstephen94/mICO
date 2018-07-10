@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ScrollView, View, Text, Image , Linking, TouchableHighlight, Dimensions, TouchableOpacity, WebView} from 'react-native';
+import {ScrollView, View, Text, Image , Linking, Share, TouchableHighlight, Dimensions, TouchableOpacity, WebView} from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import Spinner from '../common/Spinner';
 import { Actions } from 'react-native-router-flux';
@@ -15,12 +15,13 @@ export default class IcoDetail extends Component {
       timer: null,
       isLoading: true,
       // counter: null,
+      result: '',
       team: true,
       favorite: false
     };
 
     this.tick = this.tick.bind(this);
-    
+    this.showResults = this.showResults.bind(this);
   }
 //   start date is greater than current date = upcoming, everything else is active
   componentDidMount() {
@@ -203,6 +204,24 @@ export default class IcoDetail extends Component {
     )
     ));
   }
+
+  showResults(result) {
+    this.setState({ result });
+  }
+
+  handleShare() {
+    Share.share({
+      message: 'Simple message that you want to share',
+      url: 'https://therealmeyer.com',
+      title: 'Check out this ICO',
+      
+    }, 
+      {
+        // social: Share.social.EMAIL,
+        tintColor: 'green'
+      }).then(this.showResults);
+  }
+
   render() {
     if (this.state.isLoading) {
       return <Spinner size="small" />;
@@ -246,6 +265,7 @@ export default class IcoDetail extends Component {
     console.log("item", item);
     return (
       <ScrollView style={{backgroundColor: '#ddd'}}>
+        <Text>{JSON.stringify(this.state.result)}</Text>
         <Image style={{flex:1, resizeMode: 'cover', width: null, height: null}} source={require('../../../assets/images/origin-background.svg')} />
         <View style={sectionStyle}>
 
@@ -272,7 +292,7 @@ export default class IcoDetail extends Component {
                 {star}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{flex: 1}}>
+            <TouchableOpacity onPress={this.handleShare.bind(this)} style={{flex: 1}}>
               <Text style={{margin: 10, fontSize: 25, marginRight: 0}}>
                 <FontAwesome>{Icons.share}</FontAwesome>
               </Text>
@@ -299,7 +319,6 @@ export default class IcoDetail extends Component {
             {this.telegram(item)}
             {this.whitepaper(item)}
           </View>
-
           <View style={infoStyle}>
             <Text style={h2} >Dates</Text>
             <Text>Pre-ICO Start Date: {this._formatDate(item.dates.preIcoStart)}</Text>
