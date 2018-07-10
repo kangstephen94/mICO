@@ -292,7 +292,7 @@ export default class IcoDetail extends Component {
           </View>
           {this.state.team ? (
           <View>
-          <View style={{margin: 10, flexDirection: 'row'}}>
+          <View style={{margin: 10, flexDirection: 'row', justifyContent: 'center', marginLeft: 0}}>
             {this.github(item)}
             {this.reddit(item)}
             {this.twitter(item)}
