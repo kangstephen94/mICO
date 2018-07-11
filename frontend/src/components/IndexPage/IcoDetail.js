@@ -268,6 +268,11 @@ export default class IcoDetail extends Component {
         <Text>{this._formatDate(item.dates.icoEnd)}</Text>
       </View>) : preOrNah ;
     console.log("item", item);
+    const preIcoStartDate = this._formatDate(item.dates.preIcoStart).padStart(40, ".");
+    const preIcoEndDate = this._formatDate(item.dates.preIcoEnd).padStart(42, ".");
+    const icoStartDate = this._formatDate(item.dates.icoStart).padStart(54, ".");
+    const icoEndDate = this._formatDate(item.dates.icoEnd).padStart(56, ".");
+
     return (
       <ScrollView style={{backgroundColor: '#ddd'}}>
         <Image style={{flex:1, resizeMode: 'cover', width: null, height: null}} source={require('../../../assets/images/origin-background.svg')} />
@@ -325,22 +330,22 @@ export default class IcoDetail extends Component {
           </View>
           <View style={infoStyle}>
             <Text style={h2} >Dates</Text>
-            <Text>Pre-ICO Start Date: {this._formatDate(item.dates.preIcoStart)}</Text>
-            <Text>Pre-ICO End Date:  {this._formatDate(item.dates.preIcoEnd)}</Text>
-            <Text>Start Date:  {this._formatDate(item.dates.icoStart)}</Text>
-            <Text>End Date:  {this._formatDate(item.dates.icoEnd)}</Text>
+            <Text style={{lineHeight: 20}}>Pre-ICO Start: {preIcoStartDate}</Text>
+            <Text style={{lineHeight: 20}}>Pre-ICO End: {preIcoEndDate}</Text>
+            <Text style={{lineHeight: 20}}>Start: {icoStartDate}</Text>
+            <Text style={{lineHeight: 20}}>End: {icoEndDate}</Text>
           </View>
 
           <View style={infoStyle}>
             <Text style={h2} >Finance</Text>
-            <Text>Price: {item.finance.price}</Text>
-            <Text>Hardcap:  {item.finance.hardcap}</Text>
-            <Text>Raised:  {item.finance.raised}</Text>
-            <Text>Distributed:  {item.finance.distributed}</Text>
-            <Text>Tokens:  {item.finance.tokens}</Text>
-            <Text>Minimum:  {item.finance.minimum}</Text>
-            <Text>Platform:  {item.finance.platform}</Text>
-            <Text>Accepting:  {item.finance.accepting}</Text>
+            <Text style={{lineHeight: 20}}>Price: {item.finance.price}</Text>
+            <Text style={{lineHeight: 20}}>Hardcap:  {item.finance.hardcap}</Text>
+            <Text style={{lineHeight: 20}}>Raised:  {item.finance.raised}</Text>
+            <Text style={{lineHeight: 20}}>Distributed:  {item.finance.distributed}</Text>
+            <Text style={{lineHeight: 20}}>Tokens:  {item.finance.tokens}</Text>
+            <Text style={{lineHeight: 20}}>Minimum:  {item.finance.minimum}</Text>
+            <Text style={{lineHeight: 20}}>Platform:  {item.finance.platform}</Text>
+            <Text style={{lineHeight: 20}}>Accepting:  {item.finance.accepting}</Text>
           </View>
 
           <View style={infoStyle}>
