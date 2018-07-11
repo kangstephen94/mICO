@@ -28,9 +28,11 @@ export default class IcoDetail extends Component {
     axios.get(`https://mico-ios.herokuapp.com/ico/${item.id}`)
       .then(response => {
         const dateData = item.type === 'active' ? response.data.dates.icoEnd : (response.data.dates.icoStart === '0000-00-00 00:00:00' ? (response.data.dates.preIcoStart) : (response.data.dates.icoStart) );
+        console.log(dateData);
         const date = dateData.replace(' ', 'T');
         // const timer = setInterval(this.tick, 1000);
         const timer = new Date() < Date.parse(date) ?  setInterval(this.tick, 1000) : null; 
+        console.log(timer);
         this.setState({
           dataSource: response.data,
           isLoading: false,
@@ -231,17 +233,18 @@ export default class IcoDetail extends Component {
     if (this.state.isLoading) {
       return <Spinner size="small" />;
     }
-    console.log(item);
     const item = this.state.dataSource;
     const favoriteClass = this.state.favorite ? styles.favClass : styles.nonFavClass;
     const star = this.state.favorite ? 
       <FontAwesome style={favoriteClass}>{Icons.star}</FontAwesome>
     : 
       <FontAwesome style={favoriteClass}>{Icons.starO}</FontAwesome>;
-    const time = new Date(null);
-    time.setSeconds(this.state.counter);
-    const timeLeft = time.toISOString().substr(11,8);
-    const daysLeft = Math.floor(time / 86400000);
+    if (this.state.counter) {
+      const time = new Date(null);
+      time.setSeconds(this.state.counter);
+      const timeLeft = time.toISOString().substr(11,8);
+      const daysLeft = Math.floor(time / 86400000);
+    }
   
     const timeCounter = this.state.timer ? `${daysLeft}d, ${timeLeft}`: "ENDED";
 

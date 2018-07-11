@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableWithoutFeedback, Linking, TouchableHighlight} from 'react-native';
 import Section from '../common/Section';
+import axios from 'axios';
+
 
 export default class EventIndexItem extends Component {
   constructor(props) {
@@ -8,24 +10,26 @@ export default class EventIndexItem extends Component {
   }
 
   render() {
-    const { name, host, description, address, start_time, end_time, date, cost, image } = this.props.item;
+    const { name, description, address, organizer, start, end, url, is_free, logo, venue } = this.props.item;
     return (
       <TouchableWithoutFeedback>
         <View style={style.containerStyle}>
           <View style={{flex: 2}}>
-            <Text style={{fontSize: 16, fontWeight: 'bold'}}>{ `${this.props.indexHead}${name}`}</Text>
-            <Image source={{ uri: image }} style={{height: 180, width: '100%'}}></Image>
+            <Text style={{fontSize: 16, fontWeight: 'bold'}}>{ `${this.props.indexHead}${name.text}`}</Text>
+            <Image source={{ uri: logo.url }} style={{height: 180, width: '100%'}}></Image>
           </View>
           <View style={{flex: 1}}>
-            <Text><Text style={{fontWeight: 'bold'}}>Event Host: </Text>{ host }</Text>
-            <Text><Text style={{fontWeight: 'bold'}}>Event Date: </Text>{ date }</Text>
-            <Text><Text style={{fontWeight: 'bold'}}>Event Start Time: </Text>{ start_time }</Text>
-            <Text><Text style={{fontWeight: 'bold'}}>Event End Time: </Text>{ end_time }</Text>
-            <Text><Text style={{fontWeight: 'bold'}}>Event Location: </Text>{ address }</Text>
-            <Text><Text style={{fontWeight: 'bold'}}>Event Cost: </Text>{ cost }</Text>
+            <Text><Text style={{fontWeight: 'bold'}}>Event Host: </Text>{ organizer.name }</Text>
+            <Text><Text style={{fontWeight: 'bold'}}>Event Start: </Text>{ start.local }</Text>
+            <Text><Text style={{fontWeight: 'bold'}}>Event End: </Text>{ end.local }</Text>
+            <Text><Text style={{fontWeight: 'bold'}}>Event Location: </Text>{ venue.address.localized_address_display }</Text>
+            <Text><Text style={{fontWeight: 'bold'}}>Free: </Text>{ is_free ? "Yes" : "No" }</Text>
+            <TouchableHighlight style={style.buttonStyle} onPress={() => Linking.openURL(url)}>
+              <Text style={{color: 'white', fontWeight: 'bold'}}>Tickets</Text>
+            </TouchableHighlight>
           </View>
           <View style={{flex: 1}}>
-            <Text><Text style={{fontWeight: 'bold', paddingBottom: 10 }}>Event Description: </Text>{ description } </Text>
+            <Text><Text style={{fontWeight: 'bold', paddingBottom: 10 }}>Event Description: </Text>{ description.text } </Text>
           </View>
         </View>
       </TouchableWithoutFeedback>);
@@ -57,5 +61,16 @@ const style = StyleSheet.create({
   h2: {
     fontSize: 18,
     fontWeight: 'bold'
+  },
+  buttonStyle: {
+    backgroundColor: '#39314B', //'#FF5FDB',
+    alignItems: 'center',
+    padding: 8,
+    width: 100,
+    // flex: 0.3,
+    // marginRight: 10,
+    // marginLeft: -20,
+    // marginLeft: -60,
+    borderRadius: 3
   }
 });

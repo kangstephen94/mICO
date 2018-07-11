@@ -4,7 +4,9 @@ import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import Footer from '../Footer';
 import EventsIndex from '../EventsPage/EventsIndex';
+import axios from 'axios';
 
+const eventbriteKey = '27WXVOSA56SDPTLM6HVB';
 
 export default class MyMap extends React.Component {
     state = {
@@ -221,9 +223,14 @@ export default class MyMap extends React.Component {
         }]
       }
     ]
-
+    
     componentDidMount() {
-      this.props.retrieveEvents().then( ()=> (this.setState({loading: false})));
+      const url = `https://www.eventbriteapi.com/v3/events/search/?q=cryptocurrency&sort_by=-date&location.within=10mi&location.latitude=${this.state.latitude}&location.longitude=${this.state.longitude}&expand=venue,organizer&token=${eventbriteKey}`;
+      axios.get(url).then( response => {
+        this.props.receiveEvents(response.data.events);
+        this.setState({loading: false});
+      });
+      // this.props.retrieveEvents().then( ()=> (this.setState({loading: false})));
     }
 
     render() {
@@ -231,7 +238,7 @@ export default class MyMap extends React.Component {
       if (this.state.loading) {
         return null;
       }
-      // const markerStyle = in
+
         return (
                 <MapView
                   provider={PROVIDER_GOOGLE}
@@ -241,25 +248,29 @@ export default class MyMap extends React.Component {
                   customMapStyle={this.mapStyle}
                   followsUserLocation={true}
                 >
-                  {events.map( (event, index) => (
-                    <Marker
-                      key={index}
-                      style={{position: 'relative'}}
-                      image={require('../../../assets/images/map-marker-2.png')}
-                      coordinate={{latitude: event.latitude, longitude: event.longitude}}>
-                      <Text style={(index + 1) > 9 ? styles.markerGreatText : 
-                        styles.markerText}>{index + 1}</Text>
-                      <Callout onPress={() => this.props.openDetail(index)}>
-                        <View style={{width: 200, height: 200, paddingTop: 5}}>
-                          {/* <TouchableOpacity > */}
-                            <Image source={{ uri:event.image }} style={{height: 100, width: 200}}></Image>
-                            <Text style={{fontWeight: 'bold', fontSize: 14, marginTop: 6}}>{`${index+1}. ${event.name}`}</Text>
-                            <Text style={{fontSize: 13, marginTop: 5}}><Text style={{fontWeight: 'bold'}}>Location: </Text>{event.address}</Text>
-                          {/* </TouchableOpacity> */}
-                        </View>
-                      </Callout>
-                    </Marker>
-                  ))}
+                  {events.map( (event, index) => {
+                    const img = event.logo ? <Image source={{ uri: event.logo.url }} style={{height: 100, width: 200, resizeMode: 'contain'}}></Image> : null ;
+                    return (
+                      <Marker
+                        key={index}
+                        style={{position: 'relative'}}
+                        image={require('../../../assets/images/map-marker-2.png')}
+                        coordinate={{latitude: event.venue.latitude, longitude: event.venue.longitude}}>
+                        <Text style={(index + 1) > 9 ? styles.markerGreatText : 
+                          styles.markerText}>{index + 1}</Text>
+                        <Callout onPress={() => this.props.openDetail(index)}>
+                          <View style={{width: 200, height: 200, paddingTop: 5}}>
+                            {/* <TouchableOpacity > */}
+                              {img}
+                              <Text style={{fontWeight: 'bold', fontSize: 13, marginTop: 6}}>{`${index+1}. ${event.name.text}`}</Text>
+                              <Text style={{fontSize: 12, marginTop: 5}}><Text style={{fontWeight: 'bold'}}>Location: </Text>{event.venue.address.localized_address_display}</Text>
+                            {/* </TouchableOpacity> */}
+                          </View>
+                        </Callout>
+                      </Marker>
+                    );
+                  })
+                  }
                 </MapView>
         );
     }

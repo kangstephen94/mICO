@@ -8,5 +8,6 @@ module.exports = {
     linkedinClientID: process.env.LINKEDIN_CLIENT_ID,
     linkedinClientSecret: process.env.LINKEDIN_CLIENT_SECRET,
     icoBenchPrivate: process.env.ICO_BENCH_PRIVATE,
-    icoBenchPublic: process.env.ICO_BENCH_PUBLIC
+    icoBenchPublic: process.env.ICO_BENCH_PUBLIC,
+    eventbriteKey: process.env.EVENTBRITE_KEY
 };
