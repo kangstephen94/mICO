@@ -6,7 +6,8 @@ import Footer from '../Footer';
 import EventsIndex from '../EventsPage/EventsIndex';
 import axios from 'axios';
 
-const eventbriteKey = '27WXVOSA56SDPTLM6HVB';
+const keys = require('../../../../config/keys');
+const eventbriteKey = keys.eventbriteKey;
 
 export default class MyMap extends React.Component {
     state = {
