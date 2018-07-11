@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {ScrollView, View, Text, Image , Linking, Share, TouchableHighlight, Dimensions, TouchableOpacity, WebView} from 'react-native';
+import {ActionSheetIOS, ScrollView, View, Text, Image , Linking, TouchableHighlight, Dimensions, TouchableOpacity, WebView} from 'react-native';
+import Share from 'react-native-share';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import Spinner from '../common/Spinner';
 import { Actions } from 'react-native-router-flux';
@@ -14,14 +15,12 @@ export default class IcoDetail extends Component {
     this.state = {
       timer: null,
       isLoading: true,
-      // counter: null,
-      result: '',
+      // counter: null
       team: true,
       favorite: false
     };
-
+    this.handleShare = this.handleShare.bind(this);
     this.tick = this.tick.bind(this);
-    this.showResults = this.showResults.bind(this);
   }
 //   start date is greater than current date = upcoming, everything else is active
   componentDidMount() {
@@ -186,7 +185,7 @@ export default class IcoDetail extends Component {
     let { height, width } = Dimensions.get('window');
     console.log("team", team);
     return (team.map(member => (
-        <View style={{width: width-20, flexDirection: 'row', marginBottom: 25, paddingBottom: 15, borderBottomColor: 'grey', borderBottomWidth: 1}}>
+        <View key={member.name} style={{width: width-20, flexDirection: 'row', marginBottom: 25, paddingBottom: 15, borderBottomColor: 'grey', borderBottomWidth: 1}}>
           <Image source={{ uri: member.photo }} style={{borderRadius: 30, height: 60, width: 60, marginLeft: 15}} />
           <View style={{ width: 170, marginLeft: 10, flexDirection: 'column'}}>
             <View style={{height: 60}}>
@@ -205,21 +204,27 @@ export default class IcoDetail extends Component {
     ));
   }
 
-  showResults(result) {
-    this.setState({ result });
-  }
-
-  handleShare() {
-    Share.share({
-      message: 'Simple message that you want to share',
-      url: 'https://therealmeyer.com',
-      title: 'Check out this ICO',
-      
-    }, 
-      {
-        // social: Share.social.EMAIL,
-        tintColor: 'green'
-      }).then(this.showResults);
+  handleShare(item) {
+    const shareOptions = {
+      message: `Check out this ICO: ${item.name}`,
+        url: item.url,
+        title: `Check out this ICO: ${item.name}`,
+        social: ["email", "facebook", "message"]
+    };
+    Share.open(shareOptions).catch((err) => console.log(err));
+    // ActionSheetIOS.showActionSheetWithOptions(shareOptions, error => {
+    //   console.error(error);
+    // }, 
+    // (success, method) => {
+    //   var text;
+    //   if (success) {
+    //     console.log(`Shared via ${method}`);
+    //   } else {
+    //     console.log('You didn\'t share');
+    //   }
+    // }
+    // );
+    
   }
 
   render() {
@@ -265,7 +270,6 @@ export default class IcoDetail extends Component {
     console.log("item", item);
     return (
       <ScrollView style={{backgroundColor: '#ddd'}}>
-        <Text>{JSON.stringify(this.state.result)}</Text>
         <Image style={{flex:1, resizeMode: 'cover', width: null, height: null}} source={require('../../../assets/images/origin-background.svg')} />
         <View style={sectionStyle}>
 
@@ -292,7 +296,7 @@ export default class IcoDetail extends Component {
                 {star}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.handleShare.bind(this)} style={{flex: 1}}>
+            <TouchableOpacity onPress={() => this.handleShare(item)} style={{flex: 1}}>
               <Text style={{margin: 10, fontSize: 25, marginRight: 0}}>
                 <FontAwesome>{Icons.share}</FontAwesome>
               </Text>
