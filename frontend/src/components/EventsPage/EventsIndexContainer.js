@@ -3,7 +3,7 @@ import EventsIndex from './EventsIndex';
 import { retrieveEvents } from '../../../actions/all_actions';
 
 const msp = state => ({
-  events: state.events
+  events: Object.keys(state.events).map( id => state.events[id] )
 });
 
 const mdp = dispatch => ({

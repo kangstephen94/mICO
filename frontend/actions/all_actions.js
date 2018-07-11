@@ -12,6 +12,7 @@ export const retrieveEvents = () => dispatch => (
     getEvents().then(events => dispatch(receiveEvents(events)))
 );
 
+
 export const receiveEvents = events => ({
     type: RECEIVE_EVENTS,
     events
