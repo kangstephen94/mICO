@@ -239,11 +239,13 @@ export default class IcoDetail extends Component {
       <FontAwesome style={favoriteClass}>{Icons.star}</FontAwesome>
     : 
       <FontAwesome style={favoriteClass}>{Icons.starO}</FontAwesome>;
+
+    let daysLeft, timeLeft;
     if (this.state.counter) {
       const time = new Date(null);
       time.setSeconds(this.state.counter);
-      const timeLeft = time.toISOString().substr(11,8);
-      const daysLeft = Math.floor(time / 86400000);
+      timeLeft = time.toISOString().substr(11,8);
+      daysLeft = Math.floor(time / 86400000);
     }
   
     const timeCounter = this.state.timer ? `${daysLeft}d, ${timeLeft}`: "ENDED";
