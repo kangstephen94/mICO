@@ -238,6 +238,7 @@ export default class MyMap extends React.Component {
       if (this.state.loading) {
         return null;
       }
+      let visited_coordinates = [] 
 
         return (
                 <MapView
@@ -249,6 +250,8 @@ export default class MyMap extends React.Component {
                   followsUserLocation={true}
                 >
                   {events.map( (event, index) => {
+                    event.venue.longitude = visited_coordinates.includes(event.venue.longitude) ? event.venue.longitude + 1 : event.venue.longitude
+                    visited_coordinates.push(event.venue.longitude); 
                     const img = event.logo ? <Image source={{ uri: event.logo.url }} style={{height: 100, width: 200, resizeMode: 'contain'}}></Image> : null ;
                     return (
                       <Marker

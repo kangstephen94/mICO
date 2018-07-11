@@ -59,7 +59,7 @@ export default class EventsIndex extends Component {
 
   render() {
     // if (this.state.isLoading) return null;
-
+    console.log(this.props.events);
     var BContent = <Button onPress={() => this.setState({isOpen: false})} style={[styles.btn, styles.btnModal]} title={"X"}></Button>;
     const eventsList = (
       <FlatList 
@@ -156,8 +156,8 @@ const styles = StyleSheet.create({
   btn: {
     // backgroundColor: "#ff92e0",
     backgroundColor: "#2D998A",
-    height: 5,
-    width: 100,
+    height: 8,
+    width: 150,
     borderRadius: 10,
     padding: 4.5,
     margin: 5,
