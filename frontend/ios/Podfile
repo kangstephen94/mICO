@@ -39,6 +39,8 @@ target 'mICO' do
   pod 'Google-Maps-iOS-Utils' # Remove this line if you don't want to support GoogleMaps on iOS
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNShare', :path => '../node_modules/react-native-share'
+
 end
 
 post_install do |installer|
