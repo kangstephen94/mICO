@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet, TouchableWithoutFeedback, Linking, TouchableHighlight} from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableWithoutFeedback, Linking, TouchableHighlight, ScrollView} from 'react-native';
 import Section from '../common/Section';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ export default class EventIndexItem extends Component {
         <View style={style.containerStyle}>
           <View style={{flex: 2}}>
             <Text style={{fontSize: 16, fontWeight: 'bold'}}>{ `${this.props.indexHead}${name.text}`}</Text>
-            <Image source={{ uri: logo.url }} style={{height: 180, width: '100%'}}></Image>
+            <Image source={{ uri: logo.url }} style={{height: 80, width: '100%'}}></Image>
           </View>
           <View style={{flex: 1}}>
             <Text><Text style={{fontWeight: 'bold'}}>Event Host: </Text>{ organizer.name }</Text>
@@ -25,11 +25,11 @@ export default class EventIndexItem extends Component {
             <Text><Text style={{fontWeight: 'bold'}}>Event Location: </Text>{ venue.address.localized_address_display }</Text>
             <Text><Text style={{fontWeight: 'bold'}}>Free: </Text>{ is_free ? "Yes" : "No" }</Text>
             <TouchableHighlight style={style.buttonStyle} onPress={() => Linking.openURL(url)}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>Tickets</Text>
+              <Text style={{color: 'white', fontWeight: 'bold'}}>Tickets and Info</Text>
             </TouchableHighlight>
           </View>
           <View style={{flex: 1}}>
-            <Text><Text style={{fontWeight: 'bold', paddingBottom: 10 }}>Event Description: </Text>{ description.text } </Text>
+            <Text><Text style={{fontWeight: 'bold', paddingBottom: 10 }}>Brief Description: </Text>{ description.text } </Text>
           </View>
         </View>
       </TouchableWithoutFeedback>);
