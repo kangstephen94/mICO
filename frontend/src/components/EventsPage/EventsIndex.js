@@ -37,6 +37,8 @@ export default class EventsIndex extends Component {
       detailInfo: null,
       isLoading: true
     };
+
+    this._filterEvents = this._filterEvents.bind(this);
   }
 
   onClose() {
@@ -49,8 +51,16 @@ export default class EventsIndex extends Component {
   onClosingState(state) {
   }
 
-  openDetail(index) {
-    this.setState({ detailInfo: [this.props.events[index]]}, this.refs.modal1.open);
+  openDetail(coords) {
+    // this.setState({ detailInfo: [this.props.events[index]]}, this.refs.modal1.open);
+    this.setState({ detailInfo: this._filterEvents(coords) }, this.refs.modal1.open);
+  }
+
+  _filterEvents(coords) {
+    const {events} = this.props;
+    let filtered = events.filter( event => event.venue.latitude == coords[0] && event.venue.longitude == coords[1]);
+    console.log(filtered);
+    return filtered;
   }
 
   componentDidMount() {
@@ -130,7 +140,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 0.9,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
     // position: 'relative'
   },
 

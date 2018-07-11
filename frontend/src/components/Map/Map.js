@@ -6,6 +6,8 @@ import Footer from '../Footer';
 import EventsIndex from '../EventsPage/EventsIndex';
 import axios from 'axios';
 
+// const keys = require('../../../../config/keys');
+// const eventbriteKey = keys.eventbriteKey;
 const eventbriteKey = '27WXVOSA56SDPTLM6HVB';
 
 export default class MyMap extends React.Component {
@@ -258,18 +260,21 @@ export default class MyMap extends React.Component {
                         key={index}
                         style={{position: 'relative'}}
                         image={require('../../../assets/images/map-marker-2.png')}
-                        coordinate={{latitude: event.venue.latitude, longitude: event.venue.longitude}}>
-                        <Text style={(index + 1) > 9 ? styles.markerGreatText : 
-                          styles.markerText}>{index + 1}</Text>
-                        <Callout onPress={() => this.props.openDetail(index)}>
-                          <View style={{width: 200, height: 200, paddingTop: 5}}>
+                        coordinate={{latitude: event.venue.latitude, longitude: event.venue.longitude}}
+                        onPress={() => this.props.openDetail([event.venue.latitude, event.venue.longitude])}>
+                        {/* <Text style={(index + 1) > 9 ? styles.markerGreatText : 
+                          styles.markerText}>{index + 1}</Text> */}
+                        {/* <Callout onPress={() => this.props.openDetail(index)}> */}
+                        {/* <Callout onPress={() => this.props.openDetail([event.venue.latitude, event.venue.longitude])}> */}
+
+                          {/* <View style={{width: 200, height: 200, paddingTop: 5}}> */}
                             {/* <TouchableOpacity > */}
-                              {img}
-                              <Text style={{fontWeight: 'bold', fontSize: 13, marginTop: 6}}>{`${index+1}. ${event.name.text}`}</Text>
-                              <Text style={{fontSize: 12, marginTop: 5}}><Text style={{fontWeight: 'bold'}}>Location: </Text>{event.venue.address.localized_address_display}</Text>
+                              {/* {img} */}
+                              {/* <Text style={{fontWeight: 'bold', fontSize: 13, marginTop: 6}}>{`${index+1}. ${event.name.text}`}</Text> */}
+                              {/* <Text style={{fontSize: 12, marginTop: 5}}><Text style={{fontWeight: 'bold'}}>Location: </Text>{event.venue.address.localized_address_display}</Text> */}
                             {/* </TouchableOpacity> */}
-                          </View>
-                        </Callout>
+                          {/* </View> */}
+                        {/* </Callout> */}
                       </Marker>
                     );
                   })
