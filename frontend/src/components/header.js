@@ -8,7 +8,7 @@ const Header = (props) => {
     return (
       <View style={headerStyle}>
         <StatusBar barStyle="light-content"/>
-        <Text style={textStyle}>{props.title}</Text>;
+        <Text style={textStyle}>{props.title}</Text>
         <TouchableOpacity style={{position: 'absolute', top: 50, right: 30 }}onPress={() => Actions.search()}>
           <FontAwesome style={{fontSize: 20, color: 'white'}}>{Icons.search}</FontAwesome>
         </TouchableOpacity>

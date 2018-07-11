@@ -53,19 +53,14 @@ export default class EventsIndex extends Component {
     this.setState({ detailInfo: [this.props.events[index]]}, this.refs.modal1.open);
   }
 
-  fetchData() {
-
-  }
-
   componentDidMount() {
-    this.props.retrieveEvents().then( () => this.setState({isLoading: false}) );
+    // this.props.retrieveEvents().then( () => this.setState({isLoading: false}) );
   }
 
   render() {
-    if (this.state.isLoading) return null;
+    // if (this.state.isLoading) return null;
 
     var BContent = <Button onPress={() => this.setState({isOpen: false})} style={[styles.btn, styles.btnModal]} title={"X"}></Button>;
-
     const eventsList = (
       <FlatList 
         style={{flex: 1}} 
@@ -159,7 +154,8 @@ const styles = StyleSheet.create({
   },
 
   btn: {
-    backgroundColor: "#ff92e0",
+    // backgroundColor: "#ff92e0",
+    backgroundColor: "#2D998A",
     height: 5,
     width: 100,
     borderRadius: 10,
@@ -167,6 +163,10 @@ const styles = StyleSheet.create({
     margin: 5,
     position: 'absolute',
     bottom: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
   },
 
   btnModal: {
