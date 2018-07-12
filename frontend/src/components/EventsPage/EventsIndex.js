@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   btn: {
     // backgroundColor: "#ff92e0",
     backgroundColor: "#2D998A",
-    height: 8,
+    height: 13,
     width: 150,
     borderRadius: 10,
     padding: 4.5,
