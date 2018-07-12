@@ -273,6 +273,12 @@ export default class IcoDetail extends Component {
         <Text>{this._formatDate(item.dates.icoEnd)}</Text>
       </View>) : preOrNah ;
     console.log("item", item);
+    const { height, width } = Dimensions.get('window');
+    const preIcoStartDate = this._formatDate(item.dates.preIcoStart).padStart(width - 333, ".");
+    const preIcoEndDate = this._formatDate(item.dates.preIcoEnd).padStart(width - 331, ".");
+    const icoStartDate = this._formatDate(item.dates.icoStart).padStart(width - 319, ".");
+    const icoEndDate = this._formatDate(item.dates.icoEnd).padStart(width - 317, ".");
+
     return (
       <ScrollView style={{backgroundColor: '#ddd'}}>
         <Image style={{flex:1, resizeMode: 'cover', width: null, height: null}} source={require('../../../assets/images/origin-background.svg')} />
@@ -330,22 +336,34 @@ export default class IcoDetail extends Component {
           </View>
           <View style={infoStyle}>
             <Text style={h2} >Dates</Text>
-            <Text>Pre-ICO Start Date: {this._formatDate(item.dates.preIcoStart)}</Text>
-            <Text>Pre-ICO End Date:  {this._formatDate(item.dates.preIcoEnd)}</Text>
-            <Text>Start Date:  {this._formatDate(item.dates.icoStart)}</Text>
-            <Text>End Date:  {this._formatDate(item.dates.icoEnd)}</Text>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={{lineHeight: 20}}>Pre-ICO Start: </Text>
+              <Text>{preIcoStartDate}</Text>
+            </View>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={{lineHeight: 20}}>Pre-ICO End: </Text>
+              <Text>{preIcoEndDate}</Text>
+            </View>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={{lineHeight: 20}}>Start: </Text>
+              <Text>{icoStartDate}</Text>
+            </View>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={{lineHeight: 20}}>End: </Text>
+              <Text>{icoEndDate}</Text>
+            </View>
           </View>
 
           <View style={infoStyle}>
             <Text style={h2} >Finance</Text>
-            <Text>Price: {item.finance.price}</Text>
-            <Text>Hardcap:  {item.finance.hardcap}</Text>
-            <Text>Raised:  {item.finance.raised}</Text>
-            <Text>Distributed:  {item.finance.distributed}</Text>
-            <Text>Tokens:  {item.finance.tokens}</Text>
-            <Text>Minimum:  {item.finance.minimum}</Text>
-            <Text>Platform:  {item.finance.platform}</Text>
-            <Text>Accepting:  {item.finance.accepting}</Text>
+            <Text style={{lineHeight: 20}}>Price: {item.finance.price}</Text>
+            <Text style={{lineHeight: 20}}>Hardcap:  {item.finance.hardcap}</Text>
+            <Text style={{lineHeight: 20}}>Raised:  {item.finance.raised}</Text>
+            <Text style={{lineHeight: 20}}>Distributed:  {item.finance.distributed}</Text>
+            <Text style={{lineHeight: 20}}>Tokens:  {item.finance.tokens}</Text>
+            <Text style={{lineHeight: 20}}>Minimum:  {item.finance.minimum}</Text>
+            <Text style={{lineHeight: 20}}>Platform:  {item.finance.platform}</Text>
+            <Text style={{lineHeight: 20}}>Accepting:  {item.finance.accepting}</Text>
           </View>
 
           <View style={infoStyle}>

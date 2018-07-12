@@ -69,7 +69,7 @@ export default class EventsIndex extends Component {
 
   render() {
     // if (this.state.isLoading) return null;
-
+    console.log(this.props.events);
     var BContent = <Button onPress={() => this.setState({isOpen: false})} style={[styles.btn, styles.btnModal]} title={"X"}></Button>;
     const eventsList = (
       <FlatList 
@@ -87,7 +87,7 @@ export default class EventsIndex extends Component {
         <GestureRecognizer style={{alignItems: 'center'}} onSwipeUp={() => this.refs.modal1.open()} swipeThreshold={0}>
           <TouchableOpacity
             onPress={() => this.refs.modal1.open()}
-            style={styles.btn}>
+            style={styles.btn}><Text style={{textAlign: 'center', color: 'white'}}>All Events</Text>
           </TouchableOpacity>
         </GestureRecognizer>
 
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   btn: {
     // backgroundColor: "#ff92e0",
     backgroundColor: "#2D998A",
-    height: 5,
+    height: 25,
     width: 100,
     borderRadius: 10,
     padding: 4.5,

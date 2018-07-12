@@ -19,13 +19,13 @@ const RouterComponent = () => {
       <View style={{flex: 8}}>
         <Router>
           <Scene key="root">
-            <Scene navBar={() => <Header title="Favorites" />} key="login" component={LoginFormContainer} title="Favorites" />
-            <Scene navBar={() => <Header title="Upcoming ICOs" />} key="icoList" component={IcoList} title="Upcoming ICOs" />
-            <Scene navBar={() => <Header title="Ongoing ICOs" />} key="ongoingIcoList" component={IcoList} title="Ongoing ICOs"/>
+            <Scene navBar={() => <Header title="Favorites" />} key="login" component={LoginFormContainer} gestureEnabled={false} panHandlers={null} title="Favorites" />
+            <Scene navBar={() => <Header title="Upcoming ICOs" />} key="icoList" component={IcoList} gestureEnabled={false} panHandlers={null} title="Upcoming ICOs" initial={true} />
+            <Scene navBar={() => <Header title="Ongoing ICOs" />} key="ongoingIcoList" component={IcoList} panHandlers={null} gestureEnabled={false} title="Ongoing ICOs"/>
 
-            <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="icoDetail" component={IcoDetailContainer} title="ICO" />
-            <Scene navBar={() => <Header title="Events" />} key="events" component={EventsIndexContainer} title="Events" initial={true} />
-            <Scene navBar={() => <SearchBarContainer />} key="search" component={SearchListContainer} title="Search" showNavigationBar={false}/>
+            <Scene navigationBarStyle={styles.headerStyle} titleStyle={{color: 'white'}} key="icoDetail" panHandlers={null} gestureEnabled={false} component={IcoDetailContainer} title="ICO" />
+            <Scene navBar={() => <Header title="Events" />} key="events" component={EventsIndexContainer} panHandlers={null} gestureEnabled={false} title="Events"  />
+            <Scene navBar={() => <SearchBarContainer />} key="search" component={SearchListContainer} panHandlers={null} title="Search" gestureEnabled={false} showNavigationBar={false}/>
             {/* <Scene key="events" component={EventsIndex} title="Events" /> */}
           </Scene>
         </Router>
