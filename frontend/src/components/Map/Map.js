@@ -12,8 +12,8 @@ const eventbriteKey = '27WXVOSA56SDPTLM6HVB';
 
 export default class MyMap extends React.Component {
     state = {
-        latitude: 37.7857,
-        longitude: -122.4011,
+        latitude: 37.3382,
+        longitude: -121.8863,
         latitudeDelta: 0.03,
         longitudeDelta: 0.03,
         loading: true
@@ -227,11 +227,33 @@ export default class MyMap extends React.Component {
     ]
     
     componentDidMount() {
-      const url = `https://www.eventbriteapi.com/v3/events/search/?q=cryptocurrency&sort_by=-date&location.within=10mi&location.latitude=${this.state.latitude}&location.longitude=${this.state.longitude}&expand=venue,organizer&token=${eventbriteKey}`;
-      axios.get(url).then( response => {
-        this.props.receiveEvents(response.data.events);
-        this.setState({loading: false});
-      });
+      console.log("mounted");
+      
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log("wokeeey");
+          console.log(position);
+          const url = `https://www.eventbriteapi.com/v3/events/search/?q=cryptocurrency&sort_by=-date&location.within=10mi&location.latitude=${position.coords.latitude}&location.longitude=${position.coords.longitude}&expand=venue,organizer&token=${eventbriteKey}`;
+          axios.get(url).then(response => {
+            this.props.receiveEvents(response.data.events);
+            this.setState({
+              loading: false
+            });
+          });
+          this.setState({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => this.setState({
+          error: error.message
+        }), {
+          enableHighAccuracy: false,
+          timeout: 200000,
+          maximumAge: 1000
+        },
+      );
+
       // this.props.retrieveEvents().then( ()=> (this.setState({loading: false})));
     }
 

@@ -107,7 +107,7 @@ const styles = {
     },
     backIcon: {
       color: '#eee',
-      fontSize: 20,
+      fontSize: 25,
     }
 };
 

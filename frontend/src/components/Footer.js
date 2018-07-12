@@ -38,6 +38,9 @@ class Footer extends Component {
 
   handleOngoing() {
     const length = Actions.state.routes.length;
+    if (Actions.state.routes[length - 1].routeName === 'ongoingIcoList') {
+      return;
+    }
     this.setState({
       currentScene: this.state.currentScene.concat(['ongoingIcoList'])
     });
@@ -53,7 +56,7 @@ class Footer extends Component {
       this.props.resetFavScene();
       return;
     }
-    if (Actions.state.routes[length - 2].routeName === 'icoList') {
+    if (Actions.state.routes[length - 2].routeName === 'ongoingIcoList') {
       Actions.pop();
       const lengthOf = this.state.currentScene.length;
       // this.setState({ currentScene: this.state.currentScene.slice(0, lengthOf - 1) });
@@ -85,7 +88,11 @@ class Footer extends Component {
   }
 
   handleUpcoming() {
+
     const length = Actions.state.routes.length;
+     if (Actions.state.routes[length - 1].routeName === 'icoList') {
+       return;
+     }
     this.setState({ currentScene: this.state.currentScene.concat(['icoList']) });
     if (!Actions.state.routes[length - 2]) {
       if (Actions.state.routes[length - 1].routeName === 'icoDetail' ||

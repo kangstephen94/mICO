@@ -14,22 +14,22 @@ export default class EventIndexItem extends Component {
     return (
       <TouchableWithoutFeedback>
         <View style={style.containerStyle}>
-          <View style={{flex: 2}}>
-            <Text style={{fontSize: 16, fontWeight: 'bold'}}>{ `${this.props.indexHead}${name.text}`}</Text>
+          <View style={{flex: 2, marginBottom: 7}}>
+            <Text style={{fontSize: 17, fontWeight: 'bold'}}>{ `${this.props.indexHead}${name.text}`}</Text>
             <Image source={{ uri: logo.url }} style={{alignSelf: 'center', height: 170, width: '100%'}}></Image>
           </View>
           <View style={{flex: 1}}>
-            <Text><Text style={{fontWeight: 'bold'}}>Event Host: </Text>{ organizer.name }</Text>
-            <Text><Text style={{fontWeight: 'bold'}}>Event Start: </Text>{ start.local }</Text>
-            <Text><Text style={{fontWeight: 'bold'}}>Event End: </Text>{ end.local }</Text>
-            <Text><Text style={{fontWeight: 'bold'}}>Event Location: </Text>{ venue.address.localized_address_display }</Text>
-            <Text><Text style={{fontWeight: 'bold'}}>Free: </Text>{ is_free ? "Yes" : "No" }</Text>
+            <Text><Text style={{fontWeight: 'bold', fontSize: 15}}>Event Host: </Text>{ organizer.name }</Text>
+            <Text><Text style={{fontWeight: 'bold', fontSize: 15}}>Event Start: </Text>{ start.local }</Text>
+            <Text><Text style={{fontWeight: 'bold', fontSize: 15}}>Event End: </Text>{ end.local }</Text>
+            <Text><Text style={{fontWeight: 'bold', fontSize: 15}}>Event Location: </Text>{ venue.address.localized_address_display }</Text>
+            <Text><Text style={{fontWeight: 'bold', fontSize: 15}}>Free: </Text>{ is_free ? "Yes" : "No" }</Text>
             <TouchableHighlight style={style.buttonStyle} onPress={() => Linking.openURL(url)}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>Tickets and More Info</Text>
+              <Text style={{color: 'white', fontWeight: 'bold', fontSize: 15}}>Tickets and More Info</Text>
             </TouchableHighlight>
           </View>
           <View style={{flex: 1}}>
-            <Text><Text style={{fontWeight: 'bold', paddingBottom: 10 }}>Brief Description: </Text>{ description.text.slice(0,600) + '...' } </Text>
+            <Text><Text style={{fontWeight: 'bold', paddingBottom: 10, fontSize: 15 }}>Brief Description: </Text>{ description.text.slice(0,600) + '...' } </Text>
           </View>
         </View>
       </TouchableWithoutFeedback>);
