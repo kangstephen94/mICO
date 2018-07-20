@@ -15,7 +15,7 @@ export default class EventIndexItem extends Component {
       <TouchableWithoutFeedback>
         <View style={style.containerStyle}>
           <View style={{flex: 2, marginBottom: 7}}>
-            <Text style={{fontSize: 17, fontWeight: 'bold'}}>{ `${this.props.indexHead}${name.text}`}</Text>
+            <Text style={{fontSize: 17, fontWeight: 'bold', marginBottom: 10}}>{ `${this.props.indexHead}${name.text}`}</Text>
             <Image source={{ uri: logo.url }} style={{alignSelf: 'center', height: 170, width: '100%'}}></Image>
           </View>
           <View style={{flex: 1}}>
@@ -55,7 +55,7 @@ const style = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     marginTop: 10,
-    padding: 10,
+    padding: 15,
     backgroundColor: '#eee',
   },
   h2: {

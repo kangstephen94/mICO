@@ -40,11 +40,11 @@ const IcoListItem = (props) => {
           <View >
             <View style={ratingClass}>
               <FontAwesome style={starClass}>{Icons.star}</FontAwesome>
-              <Text style={{fontWeight: 'bold', fontFamily: 'Encode Sans Semi Expanded'}}>
-                {item.rating}
+              <Text style={{fontWeight: 'bold', fontFamily: 'Encode Sans Semi Expanded', fontSize: 16}}>
+                {item.rating % 1 === 0 ? item.rating.toFixed(1) : item.rating}
               </Text>
             </View>
-            <View style={{flexDirection: 'column', marginTop: 40, marginLeft: -175 }}>
+            <View style={{flexDirection: 'column', marginTop: 4, marginLeft: -175 }}>
               {date}
             </View>
           </View>
@@ -58,10 +58,11 @@ const IcoListItem = (props) => {
 
 const styles = StyleSheet.create({
   imageStyle: {
-    height: 90,
-    width: 90,
+    height: 72,
+    width: 72,
     resizeMode: 'contain',
-    marginRight: 20
+    marginRight: 20,
+    borderRadius: 6
     // flex: 1
   }, 
   poorRating: {
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#FF4136',
     padding: 5,
     borderRadius: 3,
-    marginTop: 5,
+    marginTop: 23,
     width: 50
     // flex: 0.25
   },
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 3,
     width: 50,
-    marginTop: 5
+    marginTop: 23
   },
   goodRating: {
     flexDirection: 'row',
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 3,
     width: 50,
-    marginTop: 5
+    marginTop: 23
     // flex: 0.25
   },
   poorStar: {
@@ -112,9 +113,9 @@ const styles = StyleSheet.create({
 
   titleStyle: {
       marginRight: 20,
-      fontSize: 24,
-      marginTop: 15,
-      lineHeight: 27,
+      fontSize: 23,
+      marginTop: 5,
+      lineHeight: 25,
       // fontWeight: '',
       width: '45%',
       fontFamily: 'Encode Sans Semi Expanded',
