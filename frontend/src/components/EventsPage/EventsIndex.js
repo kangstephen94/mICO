@@ -113,7 +113,7 @@ export default class EventsIndex extends Component {
               renderItem={({ item, index }) => this.state.detailInfo ? 
               <EventIndexItem item={item} key={index} indexHead={""}/>
               :
-              <EventIndexItem item={item} key={index} indexHead={`${index+1} . `}/>}>
+              <EventIndexItem item={item} key={index} indexHead={`${index+1}. `}/>}>
           </FlatList>
         </Modal>
 

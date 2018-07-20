@@ -274,15 +274,17 @@ export default class IcoDetail extends Component {
       </View>) : preOrNah ;
     console.log("item", item);
     const { height, width } = Dimensions.get('window');
-    const preIcoStartDate = this._formatDate(item.dates.preIcoStart).padStart(width - 333, ".");
-    const preIcoEndDate = this._formatDate(item.dates.preIcoEnd).padStart(width - 331, ".");
-    const icoStartDate = this._formatDate(item.dates.icoStart).padStart(width - 319, ".");
-    const icoEndDate = this._formatDate(item.dates.icoEnd).padStart(width - 317, ".");
+    console.log("width", width);
+    const preIcoStartDate = this._formatDate(item.dates.preIcoStart).padStart(width - 323, ".");
+    const preIcoEndDate = this._formatDate(item.dates.preIcoEnd).padStart(width - 321, ".");
+    const icoStartDate = this._formatDate(item.dates.icoStart).padStart(width - 309, ".");
+    const icoEndDate = this._formatDate(item.dates.icoEnd).padStart(width - 307, ".");
 
     return (
       <ScrollView style={{backgroundColor: '#ddd'}}>
-        <Image style={{flex:1, resizeMode: 'cover', width: null, height: null}} source={require('../../../assets/images/origin-background.svg')} />
         <View style={sectionStyle}>
+          {/* <View style={{backgroundColor: '#1D2437'}}> */}
+          <Image style={{flex:1, resizeMode: 'cover', width: null, height: null}} source={require('../../../assets/images/origin-background.svg')} />
 
           <View style={icoHeader}>
             <Image source={{ uri: item.logo }} style={imageStyle} />
@@ -300,7 +302,7 @@ export default class IcoDetail extends Component {
               </View>
             </View>
           </View>
-
+      
           <View style={inlineView}>
             <TouchableOpacity onPress={this.handleFavorite.bind(this)} style={{flexDirection: 'column', alignItems: 'center', flex: 1}}>
               <Text style={{margin: 10, fontSize: 25}}>
@@ -325,6 +327,7 @@ export default class IcoDetail extends Component {
             }
             
           </View>
+          {/* </View> */}
           {this.state.team ? (
           <View>
           <View style={{margin: 10, flexDirection: 'row', justifyContent: 'center', marginLeft: 0}}>
@@ -338,6 +341,8 @@ export default class IcoDetail extends Component {
             <Text style={h2} >Dates</Text>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <Text style={{lineHeight: 20}}>Pre-ICO Start: </Text>
+              {/* <Text style={{backgroundColor: "#ddd"}}> */}
+              {/* {"..................................."}</Text> */}
               <Text>{preIcoStartDate}</Text>
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -474,7 +479,8 @@ const styles = {
     flexWrap: 'wrap',
     flex: 1,
     marginTop: 30,
-    marginLeft: 0
+    marginLeft: 0,
+    // backgroundColor: '#333'
   },
   white: {
     color: 'white'
